@@ -323,7 +323,7 @@ public class GuiMaterialList extends GuiListBase<MaterialListEntry, WidgetMateri
                     MinecraftClient mc = MinecraftClient.getInstance();
                     Path jsonDir = FileUtils.getConfigDirectoryAsPath().resolve(Reference.MOD_ID);
                     boolean missingOnly = GuiBase.isShiftDown();
-                    String fileName = "raw_materials_detailed" + (missingOnly ? "_missing_only" : "");
+                    String fileName = "raw_material_list_recipe_details" + (missingOnly ? "_missing_only" : "");
                     MaterialListJson jsonWriter = new MaterialListJson();
                     Path jsonFile = jsonDir.resolve(fileName+".json");
                     MaterialListJsonCache cache = new MaterialListJsonCache();
@@ -332,6 +332,8 @@ public class GuiMaterialList extends GuiListBase<MaterialListEntry, WidgetMateri
                     {
                         String key = "litematica.message.error.json_material_list_copy_failure";
                         this.parent.addMessage(MessageType.ERROR, key, jsonFile.getFileName().toString());
+                        cache.clearAll();
+                        jsonWriter.clear();
                         break;
                     }
 
@@ -344,13 +346,33 @@ public class GuiMaterialList extends GuiListBase<MaterialListEntry, WidgetMateri
 //                    {
                         String key = "litematica.message.error.json_material_list_failure";
                         this.parent.addMessage(MessageType.ERROR, key, jsonFile.getFileName().toString());
+                        cache.clearAll();
+                        jsonWriter.clear();
                         break;
                     }
 
-                    fileName = "raw_materials_list" + (missingOnly ? "_missing_only" : "");
+                    fileName = "raw_material_list_recipe_steps" + (missingOnly ? "_missing_only" : "");
                     jsonFile = jsonDir.resolve(fileName+".json");
 
-                    if (jsonWriter.writeCacheJson(cache, jsonFile, mc))
+                    if (!jsonWriter.writeCacheFlatJson(cache, jsonFile, mc))
+                    {
+//                        String key = "litematica.message.material_list_written_to_json_file";
+//                        this.parent.addMessage(MessageType.SUCCESS, key, jsonFile.getFileName().toString());
+//                        StringUtils.sendOpenFileChatMessage(this.parent.mc.player, key, jsonFile.toFile());
+//                    }
+//                    else
+//                    {
+                        String key = "litematica.message.error.json_material_list_failure";
+                        this.parent.addMessage(MessageType.ERROR, key, jsonFile.getFileName().toString());
+                        cache.clearAll();
+                        jsonWriter.clear();
+                        break;
+                    }
+
+                    fileName = "raw_material_list_simplified" + (missingOnly ? "_missing_only" : "");
+                    jsonFile = jsonDir.resolve(fileName+".json");
+
+                    if (jsonWriter.writeCacheCombinedJson(cache, jsonFile, mc))
                     {
                         String key = "litematica.message.material_list_written_to_json_file";
                         this.parent.addMessage(MessageType.SUCCESS, key, jsonFile.getFileName().toString());
@@ -361,7 +383,8 @@ public class GuiMaterialList extends GuiListBase<MaterialListEntry, WidgetMateri
                         String key = "litematica.message.error.json_material_list_failure";
                         this.parent.addMessage(MessageType.ERROR, key, jsonFile.getFileName().toString());
                     }
-                    cache.clear();
+
+                    cache.clearAll();
                     jsonWriter.clear();
                     break;
             }

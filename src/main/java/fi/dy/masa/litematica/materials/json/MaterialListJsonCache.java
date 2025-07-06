@@ -31,44 +31,85 @@ import fi.dy.masa.malilib.util.log.AnsiLogger;
 public class MaterialListJsonCache
 {
     private static final AnsiLogger LOGGER = new AnsiLogger(MaterialListJsonCache.class, true, true);
-    private final List<Entry> entries;
+    private final List<Entry> entriesFlat;
+    private final List<Entry> entriesCombined;
     private final String GATHER_KEY = "GATHER";
 
     public MaterialListJsonCache()
     {
-        this.entries = new ArrayList<>();
+        this.entriesFlat = new ArrayList<>();
+        this.entriesCombined = new ArrayList<>();
+    }
+
+    /**
+     * Adds a new entry, Flat without combining.
+     * Preserve all data.
+     * @param input ()
+     */
+    public void putFlatEntry(Entry input)
+    {
+        List<Result> results = input.results();
+        List<Step> steps = input.steps();
+
+        if (!this.entriesFlat.isEmpty() && !results.isEmpty())
+        {
+            // Only compare the first Result.  Should only be one under the Flat list anyway.
+            Result result = results.getFirst();
+
+            for (int i = 0; i < this.entriesFlat.size(); i++)
+            {
+                Entry entry = this.entriesFlat.get(i);
+                List<Result> entryResults = entry.results();
+
+                if (!entryResults.isEmpty())
+                {
+                    Result resultEntry = entryResults.getFirst();
+                    List<Step> entrySteps = entry.steps();
+
+                    if (resultEntry.equals(result) &&
+                        this.compareSteps(steps, entrySteps))
+                    {
+                        // Don't duplicate steps if they already exist.
+                        this.entriesFlat.add(new Entry(input.rawItem(), input.total(), List.of(), results));
+                        return;
+                    }
+                }
+            }
+        }
+
+        // Simply add it otherwise.
+        this.entriesFlat.add(input);
     }
 
     /**
      * Adds a new entry, but combine them if the Items match, and add to the total required.
+     * Remove the Steps data from this output.
      * @param input ()
      */
-    public void putEntry(Entry input)
+    public void putCombinedEntry(Entry input)
     {
-        if (!this.entries.isEmpty())
+        if (!this.entriesCombined.isEmpty())
         {
             RegistryEntry<Item> item = input.rawItem();
             final int total = input.total();
-            List<Step> steps = input.steps();
+            List<Result> results = input.results();
 
             // Check for existing item matches
-            for (int i = 0; i < this.entries.size(); i++)
+            for (int i = 0; i < this.entriesCombined.size(); i++)
             {
-                Entry entry = this.entries.get(i);
+                Entry entry = this.entriesCombined.get(i);
 
                 if (entry.rawItem().equals(item))
                 {
                     // Combine steps
-                    List<Step> entrySteps = entry.steps();
-                    Entry newEntry = new Entry(item, (entry.total() + total), this.combineSteps(steps, entrySteps));
-
-                    this.entries.set(i, newEntry);
+                    this.entriesCombined.set(i, new Entry(item, (entry.total() + total), List.of(), this.combineResults(results, entry.results())));
                     return;
                 }
             }
         }
 
-        this.entries.add(input);
+        // Remove the Steps Display
+        this.entriesCombined.add(new Entry(input.rawItem(), input.total(), List.of(), input.results()));
     }
 
     /**
@@ -133,25 +174,113 @@ public class MaterialListJsonCache
         return list;
     }
 
-    public boolean isEmpty() { return this.entries.isEmpty(); }
-
-    public int size() { return this.entries.size(); }
-
-    public List<Entry> getEntries() { return this.entries; }
-
-    public Iterable<Entry> iterator() { return Iterables.concat(this.entries); }
-
-    public Stream<Entry> stream() { return this.entries.stream(); }
-
-    public void clear()
+    /**
+     * Combines two-Step lists when the Item matches; while deduplicating by simply adding the total required.
+     * @param left ()
+     * @param right ()
+     * @return ()
+     */
+    public List<Result> combineResults(List<Result> left, List<Result> right)
     {
-        this.entries.clear();
+        List<Result> list = new ArrayList<>();
+        List<Integer> ignores = new ArrayList<>();
+
+        LOGGER.info("combineResults: left [{}], right [{}]", left.size(), right.size());
+
+        if (left.isEmpty() && !right.isEmpty())
+        {
+            return right;
+        }
+
+        for (int i = 0; i < left.size(); i++)
+        {
+            Result entry = left.get(i);
+            RegistryEntry<Item> item = entry.resultItem();
+            final int count = entry.total();
+            boolean matched = false;
+
+//            LOGGER.info("combineResults: left[{}]: [{}]", i, item.getIdAsString());
+            for (int j = 0; j < right.size(); j++)
+            {
+                Result otherEntry = right.get(j);
+
+//                LOGGER.info("left[{}]: [{}] // right[{}]: [{}]", i, item.getIdAsString(), j, otherEntry.stepItem().getIdAsString());
+                if (item.equals(otherEntry.resultItem()))
+                {
+                    Result newEntry = new Result(item, (count + otherEntry.total()));
+                    newEntry.debug();
+                    ignores.add(j);
+                    list.add(newEntry);
+                    matched = true;
+                }
+            }
+
+            if (!matched)
+            {
+                list.add(entry);
+            }
+        }
+
+        for (int i = 0; i < right.size(); i++)
+        {
+            Result entry = right.get(i);
+            LOGGER.info("ignores: // right[{}]: [{}] (Contains: {})", i, entry.resultItem().getIdAsString(), ignores.contains(i));
+
+            if (!ignores.contains(i))
+            {
+                list.add(entry);
+            }
+        }
+
+        LOGGER.info("combineResults: combined [{}]", list.size());
+        return list;
     }
 
-    public Pair<Step, List<Step>> buildStepsBase(MaterialListJsonBase base, List<Step> lastSteps)
+    public boolean isEmptyFlat() { return this.entriesFlat.isEmpty(); }
+
+    public boolean isEmptyCombined() { return this.entriesCombined.isEmpty(); }
+
+    public int sizeFlat() { return this.entriesFlat.size(); }
+
+    public int sizeCombined() { return this.entriesCombined.size(); }
+
+    public List<Entry> getEntriesFlat() { return this.entriesFlat; }
+
+    public List<Entry> getEntriesCombined() { return this.entriesCombined; }
+
+    public Iterable<Entry> iteratorFlat() { return Iterables.concat(this.entriesFlat); }
+
+    public Iterable<Entry> iteratorCombined() { return Iterables.concat(this.entriesCombined); }
+
+    public Stream<Entry> streamFlat() { return this.entriesFlat.stream(); }
+
+    public Stream<Entry> streamCombined() { return this.entriesCombined.stream(); }
+
+    public void clearFlat()
+    {
+        this.entriesFlat.clear();
+    }
+
+    public void clearCombined()
+    {
+        this.entriesCombined.clear();
+    }
+
+    public void clearAll()
+    {
+        this.clearFlat();
+        this.clearCombined();
+    }
+
+    public Pair<Step, List<Step>> buildStepsBase(MaterialListJsonBase base, List<Step> lastSteps, Result result)
     {
         RegistryEntry<Item> resultItem = base.getInput();
         final int total = base.getCount();
+
+        if (result != null)
+        {
+            result.debug();
+        }
 
         List<MaterialListJsonBase> requirements = new ArrayList<>();
         Step furnaceStep;
@@ -223,34 +352,36 @@ public class MaterialListJsonCache
             for (MaterialListJsonBase baseEach : requirements)
             {
                 LOGGER.debug("buildStepsBase: buildStepsBaseEach (Requirements) PRE steps size [{}]", lastSteps.size());
-                Pair<Step, List<Step>> pair = this.buildStepsBaseEach(baseEach, lastSteps);
+                Pair<Step, List<Step>> pair = this.buildStepsBaseEach(baseEach, lastSteps, result);
 
                 if (pair.getRight() != null && !pair.getRight().isEmpty())
                 {
                     list = this.combineSteps(list, pair.getRight());
                 }
 
-                LOGGER.debug("buildStepsBase: buildStepsBaseEach (Requirements) POST steps size [{}], list size [{}]", lastSteps.size(), list.size());
+                LOGGER.debug("buildStepsBase: buildStepsBaseEach (Requirements) POST steps size [{}], list size [{}], results size [{}]", lastSteps.size(), list.size());
 
                 if (pair.getLeft() != null)
                 {
                     // Final Step
                     list.add(pair.getLeft());
                     lastSteps = this.combineSteps(list, lastSteps);
-                    Entry entryOut = new Entry(resultItem, total, lastSteps);
+                    Entry entryOut = new Entry(resultItem, total, lastSteps, result != null ? List.of(result) : List.of());
                     LOGGER.debug("buildStepsBase: Entry (Requirements) -->");
                     entryOut.debug();
-                    this.putEntry(entryOut);
+                    this.putFlatEntry(entryOut);
+                    this.putCombinedEntry(entryOut);
                     return Pair.of(null, List.of());
                 }
             }
         }
         else if (finalStep != null)
         {
-            Entry entryOut = new Entry(resultItem, total, lastSteps);
+            Entry entryOut = new Entry(resultItem, total, lastSteps, result != null ? List.of(result) : List.of());
             LOGGER.debug("buildStepsBase: Entry (No-Requirements) -->");
             entryOut.debug();
-            this.putEntry(entryOut);
+            this.putFlatEntry(entryOut);
+            this.putCombinedEntry(entryOut);
             return Pair.of(null, List.of());
         }
 
@@ -258,9 +389,9 @@ public class MaterialListJsonCache
         return Pair.of(null, List.of());
     }
 
-    public Pair<Step, List<Step>> buildStepsBaseEach(MaterialListJsonBase base, List<Step> lastSteps)
+    public Pair<Step, List<Step>> buildStepsBaseEach(MaterialListJsonBase base, List<Step> lastSteps, Result result)
     {
-        return this.buildStepsBase(base, lastSteps);
+        return this.buildStepsBase(base, lastSteps, result);
     }
 
     public Pair<Step, List<MaterialListJsonBase>> buildStepsEntryEach(RegistryEntry<Item> resultItem, MaterialListJsonEntry materials, RecipeBookUtils.Type typeIn)
@@ -286,36 +417,30 @@ public class MaterialListJsonCache
             LOGGER.debug("buildStepsEntryEach: (Output) from resultItem [{}]", resultItem.getIdAsString());
             stepOut.debug();
 
-            return Pair.of(
-                    stepOut,
-                    materials.getRequirements()
-            );
+            return Pair.of(stepOut, materials.getRequirements());
         }
 
         Step stepOut = new Step(stepItem, stepCount, typeIn, GATHER_KEY, -1);
         LOGGER.debug("buildStepsEntryEach: (Basic) from resultItem [{}]", resultItem.getIdAsString());
         stepOut.debug();
 
-        return Pair.of(
-                stepOut,
-                List.of()
-        );
+        return Pair.of(stepOut, List.of());
     }
 
-    public void simplifyEntrySteps()
+    public void simplifyFlatEntrySteps()
     {
         List<Step> otherSteps = new ArrayList<>();
 
-        for (int i = 0; i < this.entries.size(); i++)
+        for (int i = 0; i < this.entriesFlat.size(); i++)
         {
-            Entry entry = this.entries.get(i);
+            Entry entry = this.entriesFlat.get(i);
             List<Step> entrySteps = entry.steps();
             int entryCount = entry.total();
-            LOGGER.debug("simplifyEntrySteps(): Entry[{}/{}]: steps [{}], otherSteps [{}]", i, entry.rawItem.getIdAsString(), entry.steps().size(), otherSteps.size());
+            LOGGER.debug("simplifyFlatEntrySteps(): Entry[{}/{}]: steps [{}], otherSteps [{}]", i, entry.rawItem.getIdAsString(), entry.steps().size(), otherSteps.size());
 
             if (i == 0)
             {
-                LOGGER.debug("simplifyEntrySteps(): Entry[{}/{}]: --> UPDATE OTHER STEPS", i, entry.rawItem.getIdAsString());
+                LOGGER.debug("simplifyFlatEntrySteps(): Entry[{}/{}]: --> UPDATE OTHER STEPS", i, entry.rawItem.getIdAsString());
                 otherSteps.addAll(entrySteps);
             }
 
@@ -345,14 +470,14 @@ public class MaterialListJsonCache
                         else
                         {
                             // Ignore it
-                            LOGGER.debug("simplifyEntrySteps(): Entry[{}/{}]: --> IGNORE STEP [Already matched/found]", i, entry.rawItem.getIdAsString());
+                            LOGGER.debug("simplifyFlatEntrySteps(): Entry[{}/{}]: --> IGNORE STEP [Already matched/found]", i, entry.rawItem.getIdAsString());
                             updated = true;
                         }
                     }
                     else
                     {
                         // Ignore it
-                        LOGGER.debug("simplifyEntrySteps(): Entry[{}/{}]: --> IGNORE STEP [{} < {}]", i, entry.rawItem.getIdAsString(), step.count(), entryCount);
+                        LOGGER.debug("simplifyFlatEntrySteps(): Entry[{}/{}]: --> IGNORE STEP [{} < {}]", i, entry.rawItem.getIdAsString(), step.count(), entryCount);
                         updated = true;
                     }
                 }
@@ -360,7 +485,7 @@ public class MaterialListJsonCache
                 {
                     if (prevStep != null && prevStep.equals(step.stepItem()))
                     {
-                        LOGGER.debug("simplifyEntrySteps(): Entry[{}/{}]: --> IGNORE STEP [Equals Previous Item]", i, entry.rawItem.getIdAsString());
+                        LOGGER.debug("simplifyFlatEntrySteps(): Entry[{}/{}]: --> IGNORE STEP [Equals Previous Item]", i, entry.rawItem.getIdAsString());
                         updated = true;
                     }
                     else
@@ -374,9 +499,9 @@ public class MaterialListJsonCache
 
             if (updated)
             {
-                LOGGER.debug("simplifyEntrySteps(): Entry[{}/{}]: --> SIMPLIFY STEPS [{} -> {}]", i, entry.rawItem.getIdAsString(), entrySteps.size(), updatedSteps.size());
-                Entry newEntry = new Entry(entry.rawItem(), updatedCount, updatedSteps);
-                this.entries.set(i, newEntry);
+                LOGGER.debug("simplifyFlatEntrySteps(): Entry[{}/{}]: --> SIMPLIFY STEPS [{} -> {}]", i, entry.rawItem.getIdAsString(), entrySteps.size(), updatedSteps.size());
+                Entry newEntry = new Entry(entry.rawItem(), updatedCount, updatedSteps, entry.results());
+                this.entriesFlat.set(i, newEntry);
                 entrySteps.clear();
                 entrySteps.addAll(updatedSteps);
 
@@ -394,14 +519,55 @@ public class MaterialListJsonCache
 
             if (!otherSteps.isEmpty() && this.compareSteps(entrySteps, otherSteps))
             {
-                LOGGER.debug("simplifyEntrySteps(): Entry[{}/{}]: --> REPLACE STEPS", i, entry.rawItem.getIdAsString());
-                this.entries.set(i, new Entry(entry.rawItem(), entry.total(), List.of()));
+                LOGGER.debug("simplifyFlatEntrySteps(): Entry[{}/{}]: --> REPLACE STEPS", i, entry.rawItem.getIdAsString());
+                this.entriesFlat.set(i, new Entry(entry.rawItem(), entry.total(), List.of(), entry.results()));
             }
             else
             {
-                LOGGER.debug("simplifyEntrySteps(): Entry[{}/{}]: --> NEXT", i, entry.rawItem.getIdAsString());
+                LOGGER.debug("simplifyFlatEntrySteps(): Entry[{}/{}]: --> NEXT", i, entry.rawItem.getIdAsString());
                 otherSteps.clear();
                 otherSteps.addAll(entrySteps);
+            }
+        }
+
+        // Pass Number 2
+        this.simplyFlatEntryResults();
+    }
+
+    private void simplyFlatEntryResults()
+    {
+        // Compare Steps by results
+        for (int i = 0; i < this.entriesFlat.size(); i++)
+        {
+            Entry entry = this.getEntriesFlat().get(i);
+            List<Result> entryResults = entry.results();
+            List<Step> entrySteps = entry.steps();
+
+            if (!entryResults.isEmpty() && !entrySteps.isEmpty())
+            {
+                Result entryResult = entryResults.getFirst();
+
+                for (int j = 0; j < this.entriesFlat.size(); j++)
+                {
+                    if (i == j) continue;
+
+                    Entry otherEntry = this.entriesFlat.get(j);
+                    List<Result> otherResults = otherEntry.results();
+                    List<Step> otherSteps = otherEntry.steps();
+
+                    if (!otherResults.isEmpty() && !otherSteps.isEmpty())
+                    {
+                        Result otherResult = otherResults.getFirst();
+
+                        if (otherResult.equals(entryResult) &&
+                            this.compareSteps(otherSteps, entrySteps))
+                        {
+                            // Clear Steps if equal
+                            LOGGER.debug("simplyFlatEntryResults(): Entry[{}/{}]: --> Clear Matching Steps [{} -> 0]", j, otherEntry.rawItem.getIdAsString(), otherSteps.size());
+                            this.entriesFlat.set(j, new Entry(otherEntry.rawItem(), otherEntry.total(), List.of(), otherResults));
+                        }
+                    }
+                }
             }
         }
     }
@@ -417,7 +583,7 @@ public class MaterialListJsonCache
 
         for (Step entry : left)
         {
-            if (right.contains(entry))
+            if (this.containsStep(entry, right))
             {
                 lCount++;
             }
@@ -427,7 +593,7 @@ public class MaterialListJsonCache
 
         for (Step entry : right)
         {
-            if (left.contains(entry))
+            if (this.containsStep(entry, left))
             {
                 rCount++;
             }
@@ -436,17 +602,40 @@ public class MaterialListJsonCache
         return lCount == rCount;
     }
 
+    // Binary compare each element.
+    private boolean containsStep(Step left, List<Step> right)
+    {
+        for (Step step : right)
+        {
+            if (left.equals(step))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public record Step(RegistryEntry<Item> stepItem, Integer count, RecipeBookUtils.Type type, String category, Integer networkId)
     {
         public static final Codec<Step> CODEC = RecordCodecBuilder.create(
                 inst -> inst.group(
                         Item.ENTRY_CODEC.fieldOf("StepItem").forGetter(get -> get.stepItem),
-                        PrimitiveCodec.INT.fieldOf("Count").forGetter(get -> get.count),
+                        PrimitiveCodec.INT.fieldOf("StepCount").forGetter(get -> get.count),
                         RecipeBookUtils.Type.CODEC.fieldOf("RecipeType").forGetter(get -> get.type),
                         PrimitiveCodec.STRING.fieldOf("RecipeCategory").forGetter(get -> get.category),
                         PrimitiveCodec.INT.fieldOf("RecipeId").forGetter(get -> get.networkId)
                 ).apply(inst, Step::new)
         );
+
+        public boolean equals(Step otherStep)
+        {
+            return Objects.equals(this.stepItem(), otherStep.stepItem()) &&
+                   Objects.equals(this.count(), otherStep.count()) &&
+                   Objects.equals(this.type, otherStep.type()) &&
+                   Objects.equals(this.category(), otherStep.category()) &&
+                   Objects.equals(this.networkId(), otherStep.networkId());
+        }
 
         public void debug()
         {
@@ -456,35 +645,77 @@ public class MaterialListJsonCache
         }
     }
 
-    public record Entry(RegistryEntry<Item> rawItem, Integer total, List<Step> steps)
+    public record Result(RegistryEntry<Item> resultItem, Integer total)
+    {
+        public static final Codec<Result> CODEC = RecordCodecBuilder.create(
+                inst -> inst.group(
+                        Item.ENTRY_CODEC.fieldOf("ResultItem").forGetter(get -> get.resultItem),
+                        PrimitiveCodec.INT.fieldOf("ResultTotal").forGetter(get -> get.total)
+                ).apply(inst, Result::new)
+        );
+
+        public boolean equals(Result otherResult)
+        {
+            return Objects.equals(this.resultItem(), otherResult.resultItem()) &&
+                   Objects.equals(this.total(), otherResult.total());
+        }
+
+        public void debug()
+        {
+            LOGGER.debug("Result(): item: [{}], total: [{}]",
+                         this.resultItem().getIdAsString(), this.total());
+        }
+    }
+
+    public record Entry(RegistryEntry<Item> rawItem, Integer total, List<Step> steps, List<Result> results)
     {
         public static final Codec<Entry> CODEC = RecordCodecBuilder.create(
                 inst -> inst.group(
                         Item.ENTRY_CODEC.fieldOf("RawItem").forGetter(get -> get.rawItem),
-                        PrimitiveCodec.INT.fieldOf("Total").forGetter(get -> get.total),
-                        Codec.list(Step.CODEC).fieldOf("Steps").forGetter(get -> get.steps)
+                        PrimitiveCodec.INT.fieldOf("TotalEstimate").forGetter(get -> get.total),
+                        Codec.list(Step.CODEC).fieldOf("Steps").forGetter(get -> get.steps),
+                        Codec.list(Result.CODEC).fieldOf("Results").forGetter(get -> get.results)
                 ).apply(inst, Entry::new)
         );
 
         public void debug()
         {
-            LOGGER.debug("Entry(): item: [{}], total: [{}], STEPS -->",
+            LOGGER.debug("Entry(): item: [{}], total: [{}], STEPS/RESULTS -->",
                          this.rawItem().getIdAsString(), this.total());
 
             for (Step step : this.steps())
             {
                 step.debug();
             }
+            for (Result result : this.results())
+            {
+                result.debug();
+            }
         }
     }
 
-    public JsonElement toJson(RegistryOps<?> ops)
+    public JsonElement toFlatJson(RegistryOps<?> ops)
     {
         JsonArray arr = new JsonArray();
 
-        if (!this.isEmpty())
+        if (!this.isEmptyFlat())
         {
-            this.entries.forEach(
+            this.entriesFlat.forEach(
+                    (entry) ->
+                            arr.add((JsonElement) Entry.CODEC.encodeStart(ops, entry).getPartialOrThrow())
+            );
+        }
+
+        return arr;
+    }
+
+    public JsonElement toCombinedJson(RegistryOps<?> ops)
+    {
+        JsonArray arr = new JsonArray();
+
+        if (!this.isEmptyCombined())
+        {
+            this.entriesCombined.forEach(
                     (entry) ->
                             arr.add((JsonElement) Entry.CODEC.encodeStart(ops, entry).getPartialOrThrow())
             );

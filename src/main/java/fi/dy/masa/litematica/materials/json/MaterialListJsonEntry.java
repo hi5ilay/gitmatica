@@ -68,6 +68,7 @@ public class MaterialListJsonEntry
 
         ItemStack shadow = new ItemStack(input);
         List<Pair<NetworkRecipeId, RecipeDisplayEntry>> lookup = RecipeBookUtils.getDisplayEntryFromRecipeBook(shadow, types);
+        ContextParameterMap map = RecipeBookUtils.getMap(mc);
 
         if (lookup.isEmpty())
         {
@@ -90,17 +91,41 @@ public class MaterialListJsonEntry
         Pair<NetworkRecipeId, RecipeDisplayEntry> pair = lookup.getFirst();
         NetworkRecipeId id = pair.getLeft();
         RecipeDisplayEntry entry = pair.getRight();
-        RecipeBookCategory category = entry.category();
-        RecipeBookUtils.Type type = RecipeBookUtils.Type.fromRecipeDisplay(entry.display());
-        ContextParameterMap map = RecipeBookUtils.getMap(mc);
         List<ItemStack> resultStacks = entry.getStacks(map);
         ItemStack resultStack = resultStacks.getFirst();
         int resultCount = resultStack.getCount();
+        RecipeBookCategory category = entry.category();
+        RecipeBookUtils.Type type = RecipeBookUtils.Type.fromRecipeDisplay(entry.display());
 
         // Stacks was already verified
         if (entry.craftingRequirements().isPresent())
         {
             List<Ingredient> ingredients = entry.craftingRequirements().get();
+
+            // Override for repetitive recipe types; such as Re-Coloring of beds.
+            if (lookupCount > 1 && overrideShouldSkipRecipe(input, ingredients))
+            {
+                pair = lookup.get(1);
+                id = pair.getLeft();
+                entry = pair.getRight();
+
+                if (entry.craftingRequirements().isPresent())
+                {
+                    Litematica.LOGGER.warn("MaterialListJsonEntry#build(): skipping recipe for [{}]", resultStack.toString());
+                    resultStacks = entry.getStacks(map);
+                    resultStack = resultStacks.getFirst();
+                    resultCount = resultStack.getCount();
+                    category = entry.category();
+                    type = RecipeBookUtils.Type.fromRecipeDisplay(entry.display());
+                    ingredients = entry.craftingRequirements().get();
+                }
+                else
+                {
+                    pair = lookup.getFirst();
+                    id = pair.getLeft();
+                    entry = pair.getRight();
+                }
+            }
 
             result.recipeRequirements.put(id, ingredients);
             result.recipeCategory.put(id, category);
@@ -166,6 +191,112 @@ public class MaterialListJsonEntry
         return result;
     }
 
+    // Overrides for particular cases, such as redying of beds instead of choosing the Wool recipe.
+    private static boolean overrideShouldSkipRecipe(RegistryEntry<Item> input, List<Ingredient> ingredients)
+    {
+        for (Ingredient ing : ingredients)
+        {
+            if (input.isIn(ItemTags.BEDS))
+            {
+                if (ing.test(Items.WHITE_BED.getDefaultStack()) ||
+                    ing.test(Items.BLACK_BED.getDefaultStack()))
+                {
+                    return true;
+                }
+            }
+            else if (input.isIn(ItemTags.WOOL))
+            {
+                if (ing.test(Items.WHITE_WOOL.getDefaultStack()) ||
+                    ing.test(Items.BLACK_WOOL.getDefaultStack()))
+                {
+                    return true;
+                }
+            }
+            else if (input.isIn(ItemTags.WOOL_CARPETS))
+            {
+                if (ing.test(Items.WHITE_CARPET.getDefaultStack()) ||
+                    ing.test(Items.BLACK_CARPET.getDefaultStack()))
+                {
+                    return true;
+                }
+            }
+            else if (input.isIn(ItemTags.CANDLES))
+            {
+                if (ing.test(Items.WHITE_CANDLE.getDefaultStack()) ||
+                    ing.test(Items.BLACK_CANDLE.getDefaultStack()))
+                {
+                    return true;
+                }
+            }
+            else if (input.isIn(ItemTags.SHULKER_BOXES))
+            {
+                if (ing.test(Items.WHITE_SHULKER_BOX.getDefaultStack()) ||
+                    ing.test(Items.BLACK_SHULKER_BOX.getDefaultStack()))
+                {
+                    return true;
+                }
+            }
+            else if (input.isIn(ItemTags.BANNERS))
+            {
+                if (ing.test(Items.WHITE_BANNER.getDefaultStack()) ||
+                    ing.test(Items.BLACK_BANNER.getDefaultStack()))
+                {
+                    return true;
+                }
+            }
+            else if (input.isIn(ItemTags.TERRACOTTA))
+            {
+                if (ing.test(Items.WHITE_TERRACOTTA.getDefaultStack()) ||
+                    ing.test(Items.BLACK_TERRACOTTA.getDefaultStack()))
+                {
+                    return true;
+                }
+            }
+            else if (CachedTagManager.matchItemTag(CachedTagManager.GLASS_ITEMS_KEY, input))
+            {
+                if (ing.test(Items.WHITE_STAINED_GLASS.getDefaultStack()) ||
+                    ing.test(Items.BLACK_STAINED_GLASS.getDefaultStack()))
+                {
+                    return true;
+                }
+            }
+            else if (CachedTagManager.matchItemTag(CachedTagManager.GLASS_PANE_ITEMS_KEY, input))
+            {
+                if (ing.test(Items.WHITE_STAINED_GLASS_PANE.getDefaultStack()) ||
+                    ing.test(Items.BLACK_STAINED_GLASS_PANE.getDefaultStack()))
+                {
+                    return true;
+                }
+            }
+            else if (CachedTagManager.matchItemTag(CachedTagManager.CONCRETE_ITEMS_KEY, input))
+            {
+                if (ing.test(Items.WHITE_CONCRETE.getDefaultStack()) ||
+                    ing.test(Items.BLACK_CONCRETE.getDefaultStack()))
+                {
+                    return true;
+                }
+            }
+            else if (CachedTagManager.matchItemTag(CachedTagManager.CONCRETE_POWDER_ITEMS_KEY, input))
+            {
+                if (ing.test(Items.WHITE_CONCRETE_POWDER.getDefaultStack()) ||
+                    ing.test(Items.BLACK_CONCRETE_POWDER.getDefaultStack()))
+                {
+                    return true;
+                }
+            }
+            else if (CachedTagManager.matchItemTag(CachedTagManager.GLAZED_TERRACOTTA_ITEMS_KEY, input))
+            {
+                if (ing.test(Items.WHITE_GLAZED_TERRACOTTA.getDefaultStack()) ||
+                    ing.test(Items.BLACK_GLAZED_TERRACOTTA.getDefaultStack()))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     // Overrides for re-dying recipe's
     private static RegistryEntry<Item> overridePrimaryMaterial(RegistryEntry<Item> firstItem)
     {
@@ -176,6 +307,10 @@ public class MaterialListJsonEntry
         else if (firstItem.isIn(ItemTags.WOOL_CARPETS))
         {
             return Registries.ITEM.getEntry(Items.WHITE_CARPET);
+        }
+        else if (firstItem.isIn(ItemTags.BEDS))
+        {
+            return Registries.ITEM.getEntry(Items.WHITE_BED);
         }
         else if (firstItem.isIn(ItemTags.CANDLES))
         {
