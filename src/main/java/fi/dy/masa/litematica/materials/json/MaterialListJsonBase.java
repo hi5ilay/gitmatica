@@ -28,18 +28,18 @@ public class MaterialListJsonBase
     private @Nullable MaterialListJsonEntry materialsFurnace;
     private @Nullable MaterialListJsonEntry materialsRemaining;
 
-    public MaterialListJsonBase(final RegistryEntry<Item> input, final int count, @Nullable RegistryEntry<Item> prevItem)
+    public MaterialListJsonBase(final RegistryEntry<Item> input, final int count, @Nullable RegistryEntry<Item> prevItem, boolean craftingOnly)
     {
         this.input = input;
         this.count = count;
         boolean matched = false;
 
-        MaterialListJsonEntry entryStonecutter = MaterialListJsonEntry.build(input, count, List.of(RecipeBookUtils.Type.STONECUTTER), prevItem);
+        MaterialListJsonEntry entryStonecutter = MaterialListJsonEntry.build(input, count, List.of(RecipeBookUtils.Type.STONECUTTER), prevItem, craftingOnly);
         if (entryStonecutter != null && entryStonecutter.hasOutput())
         {
             if (this.checkIfLoop(entryStonecutter, input, prevItem))
             {
-                this.materialsRemaining = MaterialListJsonEntry.build(input, count, List.of(), prevItem);
+                this.materialsRemaining = MaterialListJsonEntry.build(input, count, List.of(), prevItem, craftingOnly);
                 return;
             }
 
@@ -47,12 +47,12 @@ public class MaterialListJsonBase
             matched = true;
         }
 
-        MaterialListJsonEntry entryCrafting = MaterialListJsonEntry.build(input, count, List.of(RecipeBookUtils.Type.SHAPED, RecipeBookUtils.Type.SHAPELESS), prevItem);
+        MaterialListJsonEntry entryCrafting = MaterialListJsonEntry.build(input, count, List.of(RecipeBookUtils.Type.SHAPED, RecipeBookUtils.Type.SHAPELESS), prevItem, craftingOnly);
         if (entryCrafting != null && entryCrafting.hasOutput())
         {
             if (this.checkIfLoop(entryCrafting, input, prevItem))
             {
-                this.materialsRemaining = MaterialListJsonEntry.build(input, count, List.of(), prevItem);
+                this.materialsRemaining = MaterialListJsonEntry.build(input, count, List.of(), prevItem, craftingOnly);
                 return;
             }
 
@@ -60,14 +60,26 @@ public class MaterialListJsonBase
             matched = true;
         }
 
+        if (matched && this.materialsCrafting != null && this.materialsStonecutter != null)
+        {
+            if (craftingOnly)
+            {
+                this.materialsStonecutter = null;
+            }
+            else
+            {
+                this.materialsCrafting = null;
+            }
+        }
+
         if (!matched)
         {
-            MaterialListJsonEntry entryFurnace = MaterialListJsonEntry.build(input, count, List.of(RecipeBookUtils.Type.FURNACE), prevItem);
+            MaterialListJsonEntry entryFurnace = MaterialListJsonEntry.build(input, count, List.of(RecipeBookUtils.Type.FURNACE), prevItem, craftingOnly);
             if (entryFurnace != null && entryFurnace.hasOutput())
             {
                 if (this.checkIfLoop(entryFurnace, input, prevItem))
                 {
-                    this.materialsRemaining = MaterialListJsonEntry.build(input, count, List.of(), prevItem);
+                    this.materialsRemaining = MaterialListJsonEntry.build(input, count, List.of(), prevItem, craftingOnly);
                     return;
                 }
 
@@ -79,7 +91,7 @@ public class MaterialListJsonBase
         // No matches, so add it to the remaining.
         if (!matched)
         {
-            MaterialListJsonEntry entryRemaining = MaterialListJsonEntry.build(input, count, List.of(), prevItem);
+            MaterialListJsonEntry entryRemaining = MaterialListJsonEntry.build(input, count, List.of(), prevItem, craftingOnly);
 
             if (entryRemaining != null)
             {

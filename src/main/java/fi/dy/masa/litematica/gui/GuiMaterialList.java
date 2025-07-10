@@ -2,7 +2,6 @@ package fi.dy.masa.litematica.gui;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Collections;
 
 import net.minecraft.client.MinecraftClient;
 
@@ -165,7 +164,7 @@ public class GuiMaterialList extends GuiListBase<MaterialListEntry, WidgetMateri
     private int createButton(int x, int y, int width, ButtonListener.Type type)
     {
         ButtonListener listener = new ButtonListener(type, this);
-        String label = "";
+        String label;
 
         if (type == ButtonListener.Type.LIST_TYPE)
         {
@@ -314,7 +313,10 @@ public class GuiMaterialList extends GuiListBase<MaterialListEntry, WidgetMateri
                     {
                         String key = "litematica.message.material_list_written_to_file";
                         this.parent.addMessage(MessageType.SUCCESS, key, file.getFileName().toString());
-                        StringUtils.sendOpenFileChatMessage(this.parent.mc.player, key, file.toFile());
+                        if (this.parent.mc.player != null)
+                        {
+                            StringUtils.sendOpenFileChatMessage(this.parent.mc.player, key, file.toFile());
+                        }
                     }
                     break;
 
@@ -323,12 +325,13 @@ public class GuiMaterialList extends GuiListBase<MaterialListEntry, WidgetMateri
                     MinecraftClient mc = MinecraftClient.getInstance();
                     Path jsonDir = FileUtils.getConfigDirectoryAsPath().resolve(Reference.MOD_ID);
                     boolean missingOnly = GuiBase.isShiftDown();
+                    boolean craftingOnly = GuiBase.isAltDown();
                     String fileName = "raw_material_list_recipe_details" + (missingOnly ? "_missing_only" : "");
                     MaterialListJson jsonWriter = new MaterialListJson();
                     Path jsonFile = jsonDir.resolve(fileName+".json");
                     MaterialListJsonCache cache = new MaterialListJsonCache();
 
-                    if (!this.getMaterialListForJson(materialList, jsonWriter, cache, missingOnly))
+                    if (!this.getMaterialListForJson(materialList, jsonWriter, cache, missingOnly, craftingOnly))
                     {
                         String key = "litematica.message.error.json_material_list_copy_failure";
                         this.parent.addMessage(MessageType.ERROR, key, jsonFile.getFileName().toString());
@@ -376,7 +379,10 @@ public class GuiMaterialList extends GuiListBase<MaterialListEntry, WidgetMateri
                     {
                         String key = "litematica.message.material_list_written_to_json_file";
                         this.parent.addMessage(MessageType.SUCCESS, key, jsonFile.getFileName().toString());
-                        StringUtils.sendOpenFileChatMessage(this.parent.mc.player, key, jsonFile.toFile());
+                        if (this.parent.mc.player != null)
+                        {
+                            StringUtils.sendOpenFileChatMessage(this.parent.mc.player, key, jsonFile.toFile());
+                        }
                     }
                     else
                     {
@@ -397,9 +403,8 @@ public class GuiMaterialList extends GuiListBase<MaterialListEntry, WidgetMateri
             DataDump dump = new DataDump(4, csv ? DataDump.Format.CSV : DataDump.Format.ASCII);
             int multiplier = materialList.getMultiplier();
 
-            ArrayList<MaterialListEntry> list = new ArrayList<>();
-            list.addAll(materialList.getMaterialsFiltered(false));
-            Collections.sort(list, new MaterialListSorter(materialList));
+            ArrayList<MaterialListEntry> list = new ArrayList<>(materialList.getMaterialsFiltered(false));
+            list.sort(new MaterialListSorter(materialList));
 
             for (MaterialListEntry entry : list)
             {
@@ -421,16 +426,16 @@ public class GuiMaterialList extends GuiListBase<MaterialListEntry, WidgetMateri
             return dump;
         }
 
-        private boolean getMaterialListForJson(MaterialListBase materialList, MaterialListJson jsonWriter, MaterialListJsonCache cache, boolean missingOnly)
+        private boolean getMaterialListForJson(MaterialListBase materialList, MaterialListJson jsonWriter, MaterialListJsonCache cache, boolean missingOnly, boolean craftingOnly)
         {
             if (!Reference.EXPERIMENTAL) return false;
             if (missingOnly)
             {
-                return jsonWriter.readMaterialListMissingOnly(materialList, cache);
+                return jsonWriter.readMaterialListMissingOnly(materialList, cache, craftingOnly);
             }
             else
             {
-                return jsonWriter.readMaterialListAll(materialList, cache);
+                return jsonWriter.readMaterialListAll(materialList, cache, craftingOnly);
             }
         }
 

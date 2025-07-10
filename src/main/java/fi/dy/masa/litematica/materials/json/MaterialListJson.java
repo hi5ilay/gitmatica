@@ -39,7 +39,7 @@ public class MaterialListJson
         return this.data;
     }
 
-    public boolean readMaterialListAll(MaterialListBase materialList, MaterialListJsonCache cache)
+    public boolean readMaterialListAll(MaterialListBase materialList, MaterialListJsonCache cache, boolean craftingOnly)
     {
         ImmutableList<MaterialListEntry> materials = materialList.getMaterialsAll();
 
@@ -55,7 +55,7 @@ public class MaterialListJson
                 {
                     RegistryEntry<Item> resultItem = entry.getStack().getRegistryEntry();
                     final int total = (entry.getStack().getCount() * entry.getCountTotal());
-                    MaterialListJsonBase base = new MaterialListJsonBase(resultItem, total, null);
+                    MaterialListJsonBase base = new MaterialListJsonBase(resultItem, total, null, craftingOnly);
 
                     this.data.add(base);
                     cache.buildStepsBase(base, new ArrayList<>(), new MaterialListJsonCache.Result(resultItem, total));
@@ -67,7 +67,7 @@ public class MaterialListJson
         return true;
     }
 
-    public boolean readMaterialListMissingOnly(MaterialListBase materialList, MaterialListJsonCache cache)
+    public boolean readMaterialListMissingOnly(MaterialListBase materialList, MaterialListJsonCache cache, boolean craftingOnly)
     {
         List<MaterialListEntry> materials = materialList.getMaterialsMissingOnly(false);
 
@@ -83,7 +83,7 @@ public class MaterialListJson
                 {
                     RegistryEntry<Item> resultItem = entry.getStack().getRegistryEntry();
                     final int total = (entry.getStack().getCount() * entry.getCountTotal());
-                    MaterialListJsonBase base = new MaterialListJsonBase(resultItem, total, null);
+                    MaterialListJsonBase base = new MaterialListJsonBase(resultItem, total, null, craftingOnly);
 
                     this.data.add(base);
                     cache.buildStepsBase(base, new ArrayList<>(), new MaterialListJsonCache.Result(resultItem, total));

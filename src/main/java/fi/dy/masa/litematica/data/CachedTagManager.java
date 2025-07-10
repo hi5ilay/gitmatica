@@ -20,6 +20,8 @@ public class CachedTagManager
     public static final String CONCRETE_POWDER_ITEMS_KEY = "concrete_powder_items";
     public static final String CONCRETE_ITEMS_KEY = "concrete_items";
     public static final String GLAZED_TERRACOTTA_ITEMS_KEY = "glazed_terracotta_items";
+    public static final String PACKED_BLOCK_ITEMS_KEY = "packed_block_items";
+    public static final String UNPACKED_BLOCK_ITEMS_KEY = "unpacked_block_items";
 
     public static void startCache()
     {
@@ -30,6 +32,8 @@ public class CachedTagManager
         CachedItemTags.getInstance().build(CONCRETE_POWDER_ITEMS_KEY, buildConcretePowderItemCache());
         CachedItemTags.getInstance().build(CONCRETE_ITEMS_KEY, buildConcreteItemCache());
         CachedItemTags.getInstance().build(GLAZED_TERRACOTTA_ITEMS_KEY, buildGlazedTerracottaItemCache());
+        CachedItemTags.getInstance().build(PACKED_BLOCK_ITEMS_KEY, buildPackedBlockItemCache());
+        CachedItemTags.getInstance().build(UNPACKED_BLOCK_ITEMS_KEY, buildUnpackedBlockItemCache());
     }
 
     private static List<String> buildGlassItemCache()
@@ -151,6 +155,46 @@ public class CachedTagManager
         list.add(Registries.ITEM.getId(Items.RED_GLAZED_TERRACOTTA).toString());
         list.add(Registries.ITEM.getId(Items.YELLOW_GLAZED_TERRACOTTA).toString());
         list.add(Registries.ITEM.getId(Items.WHITE_GLAZED_TERRACOTTA).toString());
+
+        return list;
+    }
+
+    private static List<String> buildPackedBlockItemCache()
+    {
+        List<String> list = new ArrayList<>();
+
+        list.add(Registries.ITEM.getId(Items.BONE_BLOCK).toString());
+        list.add(Registries.ITEM.getId(Items.CLAY).toString());
+        list.add(Registries.ITEM.getId(Items.COAL_BLOCK).toString());
+        list.add(Registries.ITEM.getId(Items.COPPER_BLOCK).toString());
+        list.add(Registries.ITEM.getId(Items.DIAMOND_BLOCK).toString());
+        list.add(Registries.ITEM.getId(Items.EMERALD_BLOCK).toString());
+        list.add(Registries.ITEM.getId(Items.GOLD_BLOCK).toString());
+        list.add(Registries.ITEM.getId(Items.HAY_BLOCK).toString());
+        list.add(Registries.ITEM.getId(Items.HONEY_BLOCK).toString());
+        list.add(Registries.ITEM.getId(Items.IRON_BLOCK).toString());
+        list.add(Registries.ITEM.getId(Items.LAPIS_BLOCK).toString());
+        list.add(Registries.ITEM.getId(Items.MELON).toString());
+        list.add(Registries.ITEM.getId(Items.NETHERITE_BLOCK).toString());
+        list.add(Registries.ITEM.getId(Items.RAW_COPPER_BLOCK).toString());
+        list.add(Registries.ITEM.getId(Items.RAW_GOLD_BLOCK).toString());
+        list.add(Registries.ITEM.getId(Items.RAW_IRON_BLOCK).toString());
+        list.add(Registries.ITEM.getId(Items.REDSTONE_BLOCK).toString());
+        list.add(Registries.ITEM.getId(Items.RESIN_BLOCK).toString());
+        list.add(Registries.ITEM.getId(Items.SLIME_BLOCK).toString());
+
+        return list;
+    }
+
+    private static List<String> buildUnpackedBlockItemCache()
+    {
+        List<String> list = new ArrayList<>();
+
+        list.add(Registries.ITEM.getId(Items.GLOWSTONE_DUST).toString());
+        list.add(Registries.ITEM.getId(Items.HONEY_BOTTLE).toString());
+        list.add(Registries.ITEM.getId(Items.ICE).toString());
+        list.add(Registries.ITEM.getId(Items.NETHER_WART).toString());
+        list.add(Registries.ITEM.getId(Items.PACKED_ICE).toString());
 
         return list;
     }
