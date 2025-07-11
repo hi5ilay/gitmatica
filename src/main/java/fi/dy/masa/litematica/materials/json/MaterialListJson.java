@@ -10,7 +10,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import org.jetbrains.annotations.ApiStatus;
 
 import com.mojang.serialization.JsonOps;
 import net.minecraft.client.MinecraftClient;
@@ -23,7 +22,6 @@ import fi.dy.masa.litematica.Litematica;
 import fi.dy.masa.litematica.materials.MaterialListBase;
 import fi.dy.masa.litematica.materials.MaterialListEntry;
 
-@ApiStatus.Experimental
 public class MaterialListJson
 {
     private final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
@@ -63,6 +61,7 @@ public class MaterialListJson
         );
 
         cache.simplifyFlatEntrySteps();
+        cache.repackCombinedEntries();
 
         return true;
     }
@@ -91,11 +90,12 @@ public class MaterialListJson
         );
 
         cache.simplifyFlatEntrySteps();
+        cache.repackCombinedEntries();
 
         return true;
     }
 
-    public boolean writeJson(Path file, MinecraftClient mc)
+    public boolean writeRecipeDetailJson(Path file, MinecraftClient mc)
     {
         if (this.data.isEmpty() || mc.world == null)
         {

@@ -6,7 +6,6 @@ import javax.annotation.Nullable;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import org.jetbrains.annotations.ApiStatus;
 
 import net.minecraft.item.Item;
 import net.minecraft.recipe.Ingredient;
@@ -16,9 +15,7 @@ import net.minecraft.registry.entry.RegistryEntry;
 
 import fi.dy.masa.malilib.mixin.recipe.IMixinIngredient;
 import fi.dy.masa.malilib.util.game.RecipeBookUtils;
-import fi.dy.masa.litematica.Litematica;
 
-@ApiStatus.Experimental
 public class MaterialListJsonBase
 {
     private final RegistryEntry<Item> input;
@@ -146,7 +143,7 @@ public class MaterialListJsonBase
         HashMap<NetworkRecipeId, List<Ingredient>> recipeReq = entry.getRecipeRequirements();
         HashMap<NetworkRecipeId, RecipeBookUtils.Type> recipeTypes = entry.getRecipeTypes();
 
-        Litematica.LOGGER.warn("checkIfLoop(): input: [{}], prev: [{}]", inputItem.getIdAsString(), prevItem != null ? prevItem.getIdAsString() : "<>");
+//        Litematica.LOGGER.warn("checkIfLoop(): input: [{}], prev: [{}]", inputItem.getIdAsString(), prevItem != null ? prevItem.getIdAsString() : "<>");
 
         if (!recipeReq.isEmpty() && !recipeTypes.isEmpty())
         {

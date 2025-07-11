@@ -181,6 +181,7 @@ public class CachedTagManager
         list.add(Registries.ITEM.getId(Items.RAW_IRON_BLOCK).toString());
         list.add(Registries.ITEM.getId(Items.REDSTONE_BLOCK).toString());
         list.add(Registries.ITEM.getId(Items.RESIN_BLOCK).toString());
+        list.add(Registries.ITEM.getId(Items.RESIN_BRICKS).toString());
         list.add(Registries.ITEM.getId(Items.SLIME_BLOCK).toString());
 
         return list;
@@ -190,11 +191,29 @@ public class CachedTagManager
     {
         List<String> list = new ArrayList<>();
 
+        list.add(Registries.ITEM.getId(Items.BONE).toString());
+        list.add(Registries.ITEM.getId(Items.CLAY_BALL).toString());
+        list.add(Registries.ITEM.getId(Items.COAL).toString());
+        list.add(Registries.ITEM.getId(Items.COPPER_INGOT).toString());
+        list.add(Registries.ITEM.getId(Items.DIAMOND).toString());
+        list.add(Registries.ITEM.getId(Items.EMERALD).toString());
         list.add(Registries.ITEM.getId(Items.GLOWSTONE_DUST).toString());
+        list.add(Registries.ITEM.getId(Items.GOLD_INGOT).toString());
+        list.add(Registries.ITEM.getId(Items.GOLD_NUGGET).toString());
         list.add(Registries.ITEM.getId(Items.HONEY_BOTTLE).toString());
         list.add(Registries.ITEM.getId(Items.ICE).toString());
+        list.add(Registries.ITEM.getId(Items.IRON_INGOT).toString());
+        list.add(Registries.ITEM.getId(Items.IRON_NUGGET).toString());
+        list.add(Registries.ITEM.getId(Items.LAPIS_LAZULI).toString());
+        list.add(Registries.ITEM.getId(Items.MELON_SLICE).toString());
+        list.add(Registries.ITEM.getId(Items.NETHERITE_INGOT).toString());
         list.add(Registries.ITEM.getId(Items.NETHER_WART).toString());
         list.add(Registries.ITEM.getId(Items.PACKED_ICE).toString());
+        list.add(Registries.ITEM.getId(Items.REDSTONE).toString());
+        list.add(Registries.ITEM.getId(Items.RESIN_BRICK).toString());
+        list.add(Registries.ITEM.getId(Items.RESIN_CLUMP).toString());
+        list.add(Registries.ITEM.getId(Items.SLIME_BALL).toString());
+        list.add(Registries.ITEM.getId(Items.WHEAT).toString());
 
         return list;
     }
