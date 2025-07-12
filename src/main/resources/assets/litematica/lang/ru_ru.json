@@ -633,7 +633,7 @@
     "litematica.gui.button.save_schematic": "Сохранить схему",
     "litematica.gui.button.save_to_file": "Сохранить в файл",
     "litematica.gui.button.schematic_manager.export_as": "Экспорт как:",
-    "litematica.gui.button.schematic_placement.abbr.rendering": "👁",
+    "litematica.gui.button.schematic_placement.abbr.rendering": "R",
     "litematica.gui.button.schematic_placement.hover.enclosing_box": "Отображение общей границы: %s",
     "litematica.gui.button.schematic_placement.hover.lock": "Фиксация голограммы предотвращает её перемещение\nили иное случайное изменение позиции",
     "litematica.gui.button.schematic_placement.hover.rendering": "Отображение: %s\nОбратите внимание, что это работает немного\nстранно и не влияет на отображение сущностей.\nОбычно достаточно просто полностью\nотключить размещение",
