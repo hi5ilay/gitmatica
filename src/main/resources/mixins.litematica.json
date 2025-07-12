@@ -23,6 +23,7 @@
         "network.IMixinChunkDeltaUpdateS2CPacket",
         "network.MixinServerPlayNetworkHandler",
         "server.MixinMinecraftServer",
+        "server.MixinServerRecipeBook",
         "world.IMixinWorld",
         "world.IMixinWorldTickScheduler",
         "world.MixinWorld",
