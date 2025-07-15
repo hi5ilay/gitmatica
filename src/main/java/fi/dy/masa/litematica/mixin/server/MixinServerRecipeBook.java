@@ -1,6 +1,7 @@
 package fi.dy.masa.litematica.mixin.server;
 
 //@Mixin(ServerRecipeBook.class)
+@Deprecated(forRemoval = true)
 public abstract class MixinServerRecipeBook
 {
 //    @Shadow @Final protected Set<RegistryKey<Recipe<?>>> unlocked;

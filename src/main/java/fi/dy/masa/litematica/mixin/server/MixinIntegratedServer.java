@@ -1,6 +1,6 @@
 package fi.dy.masa.litematica.mixin.server;
 
-@Deprecated
+@Deprecated(forRemoval = true)
 //@Mixin(IntegratedServer.class)
 public abstract class MixinIntegratedServer
         //extends MinecraftServer
