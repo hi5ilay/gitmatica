@@ -150,6 +150,18 @@ public class EntitiesDataStorage implements IClientTickHandler, IDataSyncer
 
                 if (Configs.Generic.ENTITY_DATA_SYNC_BACKUP.getBooleanValue() == false)
                 {
+                    // Expire cached NBT and clear pending Queue if both are disabled
+                    if (!this.pendingBlockEntitiesQueue.isEmpty())
+                    {
+                        this.pendingBlockEntitiesQueue.clear();
+                    }
+
+                    if (!this.pendingEntitiesQueue.isEmpty())
+                    {
+                        this.pendingEntitiesQueue.clear();
+                    }
+
+//                    this.tickCache(now);
                     return;
                 }
             }
@@ -300,12 +312,16 @@ public class EntitiesDataStorage implements IClientTickHandler, IDataSyncer
 
     private long getCacheTimeout()
     {
-        return (long) (MathHelper.clamp(Configs.Generic.ENTITY_DATA_SYNC_CACHE_TIMEOUT.getFloatValue(), 0.25f, 30.0f) * 1000L);
+        // Increase cache timeout when in Backup Mode.
+        int modifier = Configs.Generic.ENTITY_DATA_SYNC_BACKUP.getBooleanValue() ? 5 : 1;
+        return (long) (MathHelper.clamp((Configs.Generic.ENTITY_DATA_SYNC_CACHE_TIMEOUT.getFloatValue() * modifier), 0.25f, 30.0f) * 1000L);
     }
 
     private long getCacheTimeoutLong()
     {
-        return (long) (MathHelper.clamp((Configs.Generic.ENTITY_DATA_SYNC_CACHE_TIMEOUT.getFloatValue() * this.longCacheTimeout), 120.0f, 300.0f) * 1000L);
+        // Increase cache timeout when in Backup Mode.
+        int modifier = Configs.Generic.ENTITY_DATA_SYNC_BACKUP.getBooleanValue() ? 5 : 1;
+        return (long) (MathHelper.clamp(((Configs.Generic.ENTITY_DATA_SYNC_CACHE_TIMEOUT.getFloatValue() * modifier) * this.longCacheTimeout), 120.0f, (300.0f * modifier)) * 1000L);
     }
 
     private void tickCache(long nowTime)
@@ -441,6 +457,11 @@ public class EntitiesDataStorage implements IClientTickHandler, IDataSyncer
     public boolean hasServuxServer()
     {
         return this.servuxServer;
+    }
+
+    public boolean hasBackupStatus()
+    {
+        return Configs.Generic.ENTITY_DATA_SYNC_BACKUP.getBooleanValue() && this.hasOpStatus;
     }
 
     public void setServuxVersion(String ver)
@@ -594,7 +615,7 @@ public class EntitiesDataStorage implements IClientTickHandler, IDataSyncer
                 this.pendingBlockEntitiesQueue.add(pos);
             }
 
-            return this.refreshBlockEntityFromWorld(world, pos);
+            return this.refreshBlockEntityFromWorld(this.getClientWorld(), pos);
         }
 
         return null;
@@ -663,7 +684,7 @@ public class EntitiesDataStorage implements IClientTickHandler, IDataSyncer
             this.pendingEntitiesQueue.add(entityId);
         }
 
-        return this.refreshEntityFromWorld(world, entityId);
+        return this.refreshEntityFromWorld(this.getClientWorld(), entityId);
     }
 
     private @Nullable Pair<Entity, NbtCompound> refreshEntityFromWorld(World world, int entityId)
