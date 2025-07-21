@@ -47,6 +47,7 @@ import fi.dy.masa.malilib.network.ClientPlayHandler;
 import fi.dy.masa.malilib.network.IPluginClientPlayHandler;
 import fi.dy.masa.malilib.util.data.Constants;
 import fi.dy.masa.malilib.util.InventoryUtils;
+import fi.dy.masa.malilib.util.nbt.NbtEntityUtils;
 import fi.dy.masa.malilib.util.nbt.NbtKeys;
 import fi.dy.masa.malilib.util.nbt.NbtUtils;
 import fi.dy.masa.malilib.util.nbt.NbtView;
@@ -695,25 +696,36 @@ public class EntitiesDataStorage implements IClientTickHandler, IDataSyncer
 
             if (entity != null)
             {
-                NbtView view = NbtView.getWriter(world.getRegistryManager());
-                entity.writeData(view.getWriter());
-                NbtCompound nbt = view.readNbt();
-                Identifier id = EntityType.getId(entity.getType());
-
-                if (nbt != null && id != null)
+                if (world instanceof WorldSchematic)
                 {
-                    nbt.putString("id", id.toString());
-                    Pair<Entity, NbtCompound> pair = Pair.of(entity, nbt.copy());
+                    NbtView view = NbtView.getWriter(world.getRegistryManager());
+                    entity.writeData(view.getWriter());
+                    NbtCompound nbt = view.readNbt();
+                    Identifier id = EntityType.getId(entity.getType());
 
-                    if (!(world instanceof WorldSchematic))
+                    if (nbt != null && id != null)
                     {
+                        nbt.putString("id", id.toString());
+                        Pair<Entity, NbtCompound> pair = Pair.of(entity, nbt.copy());
+
+                        return pair;
+                    }
+                }
+                else
+                {
+                    NbtCompound nbt = NbtEntityUtils.invokeEntityNbtDataNoPassengers(entity, entityId);
+
+                    if (!nbt.isEmpty())
+                    {
+                        Pair<Entity, NbtCompound> pair = Pair.of(entity, nbt);
+
                         synchronized (this.entityCache)
                         {
                             this.entityCache.put(entityId, Pair.of(System.currentTimeMillis(), pair));
                         }
-                    }
 
-                    return pair;
+                        return pair;
+                    }
                 }
             }
         }
