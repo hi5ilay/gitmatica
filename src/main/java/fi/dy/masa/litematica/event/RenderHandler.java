@@ -15,7 +15,6 @@ import fi.dy.masa.malilib.interfaces.IRenderer;
 import fi.dy.masa.malilib.util.GuiUtils;
 import fi.dy.masa.litematica.Reference;
 import fi.dy.masa.litematica.config.Configs;
-import fi.dy.masa.litematica.config.Hotkeys;
 import fi.dy.masa.litematica.data.DataManager;
 import fi.dy.masa.litematica.gui.GuiSchematicManager;
 import fi.dy.masa.litematica.render.LitematicaRenderer;
@@ -49,7 +48,7 @@ public class RenderHandler implements IRenderer
             if (Configs.InfoOverlays.VERIFIER_OVERLAY_ENABLED.getBooleanValue())
             {
                 profiler.swap("overlay_mismatches");
-                OverlayRenderer.getInstance().renderSchematicVerifierMismatches(posMatrix, profiler, Hotkeys.RENDER_OVERLAY_THROUGH_BLOCKS.getKeybind().isKeybindHeld());
+                OverlayRenderer.getInstance().renderSchematicVerifierMismatches(posMatrix, profiler);
             }
 
             if (DataManager.getToolMode() == ToolMode.REBUILD)
