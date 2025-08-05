@@ -23,10 +23,12 @@ import net.minecraft.util.Uuids;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
 import fi.dy.masa.malilib.util.InventoryUtils;
+import fi.dy.masa.malilib.util.nbt.NbtKeys;
 import fi.dy.masa.malilib.util.nbt.NbtView;
 import fi.dy.masa.litematica.Litematica;
 import fi.dy.masa.litematica.config.Configs;
@@ -308,13 +310,16 @@ public class EntityUtils
         {
             for (Entity passenger : entity.getPassengerList())
             {
+                Vec3d adjPos = entity.getPassengerRidingPos(passenger);
+
                 passenger.refreshPositionAndAngles(
-                        entity.getX(),
-                        entity.getY() + entity.getPassengerRidingPos(passenger).getY(),
-                        entity.getZ(),
+                        adjPos.getX(),
+                        adjPos.getY(),
+                        adjPos.getZ(),
                         passenger.getYaw(), passenger.getPitch());
                 setEntityRotations(passenger, passenger.getYaw(), passenger.getPitch());
                 spawnEntityAndPassengersInWorld(passenger, world);
+                entity.updatePassengerPosition(passenger);
             }
         }
     }
@@ -479,5 +484,33 @@ public class EntityUtils
         }
 
         return hand;
+    }
+
+    public static NbtList updatePassengersToRelativeRegionPos(NbtList passengers, BlockPos relPos)
+    {
+        NbtList newList = new NbtList();
+
+        for (int i = 0; i < passengers.size(); i++)
+        {
+            NbtCompound entry = passengers.getCompoundOrEmpty(i);
+
+            if (!entry.isEmpty())
+            {
+                if (entry.contains(NbtKeys.POS))
+                {
+                    Vec3d pos = entry.get(NbtKeys.POS, Vec3d.CODEC).orElse(Vec3d.ZERO);
+                    Vec3d adjPos = new Vec3d(pos.getX() - relPos.getX(), pos.getY() - relPos.getY(), pos.getZ() - relPos.getZ());
+
+                    entry.put(NbtKeys.POS, Vec3d.CODEC, adjPos);
+                    newList.add(entry);
+                }
+                else
+                {
+                    newList.add(entry);
+                }
+            }
+        }
+
+        return newList;
     }
 }

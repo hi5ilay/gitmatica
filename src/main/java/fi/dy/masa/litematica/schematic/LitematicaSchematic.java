@@ -741,11 +741,24 @@ public class LitematicaSchematic
                     else
                     {
                         NbtView view = NbtView.getWriter(world.getRegistryManager());
-                        entity.writeData(view.getWriter());
-                        tag = view.readNbt() != null ? view.readNbt() : new NbtCompound();
-                        Identifier id = EntityType.getId(entity.getType());
-                        tag.putString("id", id.toString());
+
+                        // Checks for Vehicle
+                        if (entity.saveData(view.getWriter()))
+                        {
+                            tag = view.readNbt() != null ? view.readNbt() : new NbtCompound();
+                            Identifier id = EntityType.getId(entity.getType());
+                            tag.putString("id", id.toString());
+                        }
                     }
+
+//                    boolean hasVehicle = entity.hasVehicle();
+//                    boolean fixPassengers = tag.contains("Passengers");
+//                    Litematica.LOGGER.error("takeEntitiesFromWorldWithinChunk(): UUID: [{}], HasVehicle({}), HasPassengers({}), NBT: [{}]", uuid.toString(), hasVehicle, fixPassengers, tag.toString());
+
+//                    if (fixPassengers)
+//                    {
+//                        tag.put("Passengers", EntityUtils.updatePassengersToRelativeRegionPos(tag.getListOrEmpty("Passengers"), regionPosAbs));
+//                    }
 
                     if (!tag.isEmpty())
                     {

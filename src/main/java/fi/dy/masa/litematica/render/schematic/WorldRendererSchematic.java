@@ -1097,6 +1097,14 @@ public class WorldRendererSchematic
 
                 for (Entity entityTmp : list)
                 {
+//                    Litematica.LOGGER.error("[WorldRenderer] Chunk: [{}], Entity [{}/{}], CHK-Pos: [X: {} (vs {}), Y: {} (vs {}), Z: {} (vs {})]",
+//                                            pos.toShortString(),
+//                                            entityTmp.getName().getString(), entityTmp.getUuidAsString(),
+//                                            entityTmp.getX(), (int) entityTmp.getX(),
+//                                            entityTmp.getY(), (int) entityTmp.getY(),
+//                                            entityTmp.getZ(), (int) entityTmp.getZ()
+//                    );
+
                     if (!layerRange.isPositionWithinRange((int) entityTmp.getX(), (int) entityTmp.getY(), (int) entityTmp.getZ()))
                     {
                         continue;
@@ -1115,7 +1123,6 @@ public class WorldRendererSchematic
                         double z = lerpZ - cameraZ;
 
 //                        Litematica.LOGGER.warn("[WorldRenderer] Chunk: [{}], EntityPos [{}] // Adj. Pos: X [{}], Y [{}], Z [{}]", pos.toShortString(), entityTmp.getBlockPos().toShortString(), x, y, z);
-
                         matrices.push();
 
                         // Check for Salmon / Cod 'inWater' fix
