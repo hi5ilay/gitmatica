@@ -24,6 +24,8 @@ import fi.dy.masa.litematica.gui.Icons;
 import fi.dy.masa.litematica.schematic.LitematicaSchematic;
 import fi.dy.masa.litematica.schematic.placement.SchematicPlacement;
 import fi.dy.masa.litematica.schematic.placement.SchematicPlacementManager;
+import me.zly2006.lvc.gui.LvcSchematicPlacementRowActions;
+import me.zly2006.lvc.overlay.LvcTrackingOverlayService;
 
 public class WidgetSchematicEntry extends WidgetListEntryBase<LitematicaSchematic>
 {
@@ -46,10 +48,20 @@ public class WidgetSchematicEntry extends WidgetListEntryBase<LitematicaSchemati
 
         int posX = x + width;
 
-        posX -= this.addButton(posX, y, ButtonListener.Type.UNLOAD);
-        posX -= this.addButton(posX, y, ButtonListener.Type.RELOAD);
-        posX -= this.addButton(posX, y, ButtonListener.Type.SAVE_TO_FILE);
-        posX -= this.addButton(posX, y, ButtonListener.Type.CREATE_PLACEMENT);
+        if (LvcSchematicPlacementRowActions.isLvcTrackingOverlay(this.schematic))
+        {
+            posX -= this.addButton(posX, y, ButtonListener.Type.LVC_CLOSE);
+            posX -= this.addButton(posX, y, ButtonListener.Type.LVC_EXPORT);
+            posX -= this.addButton(posX, y, ButtonListener.Type.LVC_EDIT);
+            posX -= this.addButton(posX, y, ButtonListener.Type.LVC_MANAGE);
+        }
+        else
+        {
+            posX -= this.addButton(posX, y, ButtonListener.Type.UNLOAD);
+            posX -= this.addButton(posX, y, ButtonListener.Type.RELOAD);
+            posX -= this.addButton(posX, y, ButtonListener.Type.SAVE_TO_FILE);
+            posX -= this.addButton(posX, y, ButtonListener.Type.CREATE_PLACEMENT);
+        }
 
         this.buttonsStartX = posX;
         this.typeIconX = this.x + 2;
@@ -98,7 +110,11 @@ public class WidgetSchematicEntry extends WidgetListEntryBase<LitematicaSchemati
         String fileName = schematicFile != null ? schematicFile.getFileName().toString() : null;
         Icons icon;
 
-        if (fileName != null)
+        if (LvcTrackingOverlayService.isSemanticTrackingCachePath(schematicFile))
+        {
+            icon = Icons.GITMATICA_SCHEMATIC_TYPE_FILE;
+        }
+        else if (fileName != null)
         {
             icon = Icons.SCHEMATIC_TYPE_FILE;
         }
@@ -183,6 +199,25 @@ public class WidgetSchematicEntry extends WidgetListEntryBase<LitematicaSchemati
 				SchematicHolder.getInstance().removeSchematic(this.widget.schematic);
 				this.widget.parent.refreshEntries();
 			}
+			else if (this.type == Type.LVC_MANAGE)
+			{
+				LvcSchematicPlacementRowActions.openProjectManager(this.widget.schematic);
+			}
+			else if (this.type == Type.LVC_EDIT)
+			{
+				LvcSchematicPlacementRowActions.openProjectEditor(this.widget.schematic);
+			}
+			else if (this.type == Type.LVC_EXPORT)
+			{
+				LvcSchematicPlacementRowActions.exportLoadedOverlay(this.widget.schematic);
+			}
+			else if (this.type == Type.LVC_CLOSE)
+			{
+				if (LvcSchematicPlacementRowActions.closeProject(this.widget.schematic))
+				{
+					this.widget.parent.refreshEntries();
+				}
+			}
 		}
 
 		public enum Type
@@ -190,7 +225,11 @@ public class WidgetSchematicEntry extends WidgetListEntryBase<LitematicaSchemati
 			CREATE_PLACEMENT        ("litematica.gui.button.create_placement"),
 			RELOAD                  ("litematica.gui.button.reload", "litematica.gui.button.hover.schematic_list.reload_schematic"),
 			SAVE_TO_FILE            ("litematica.gui.button.save_to_file"),
-			UNLOAD                  ("litematica.gui.button.unload");
+			UNLOAD                  ("litematica.gui.button.unload"),
+			LVC_MANAGE              ("litematica.gui.button.schematic_placements.lvc_manage"),
+			LVC_EDIT                ("litematica.gui.button.schematic_placements.lvc_edit"),
+			LVC_EXPORT              ("litematica.gui.button.lvc_project.export"),
+			LVC_CLOSE               ("litematica.gui.button.loaded_schematics.lvc_close");
 
 			private final String translationKey;
 			@Nullable

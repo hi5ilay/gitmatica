@@ -13,6 +13,7 @@ import fi.dy.masa.malilib.gui.button.ButtonBase;
 import fi.dy.masa.malilib.gui.button.ButtonGeneric;
 import fi.dy.masa.malilib.gui.button.IButtonActionListener;
 import fi.dy.masa.malilib.util.StringUtils;
+import me.zly2006.lvc.gui.GuiLvcProjectBrowser;
 
 public class GuiMainMenu extends GuiBase
 {
@@ -64,6 +65,8 @@ public class GuiMainMenu extends GuiBase
         y += 22;
 
         this.createChangeMenuButton(x, y, width, ButtonListenerChangeMenu.ButtonType.TASK_MANAGER);
+        y += 22;
+        this.createChangeMenuButton(x, y, width, ButtonListenerChangeMenu.ButtonType.LVC_PROJECT_MANAGER);
 
         if (Configs.Generic.UNHIDE_SCHEMATIC_PROJECTS.getBooleanValue())
         {
@@ -154,6 +157,9 @@ public class GuiMainMenu extends GuiBase
                 case TASK_MANAGER:
                     gui = new GuiTaskManager();
                     break;
+                case LVC_PROJECT_MANAGER:
+                    gui = new GuiLvcProjectBrowser();
+                    break;
                 case SCHEMATIC_PROJECTS_MANAGER:
                     DataManager.getSchematicProjectsManager().openSchematicProjectsGui();
                     return;
@@ -182,6 +188,8 @@ public class GuiMainMenu extends GuiBase
             SCHEMATIC_MANAGER           ("litematica.gui.button.change_menu.schematic_manager", ButtonIcons.SCHEMATIC_MANAGER),
             // Open the Task Manager
             TASK_MANAGER                ("litematica.gui.button.change_menu.task_manager", ButtonIcons.TASK_MANAGER),
+            // Open the LVC Project Manager
+            LVC_PROJECT_MANAGER         ("litematica.gui.button.change_menu.lvc_project_manager", ButtonIcons.FOLDER),
             // Open the Schematic Projects browser
             SCHEMATIC_PROJECTS_MANAGER  ("litematica.gui.button.change_menu.schematic_projects_manager", ButtonIcons.SCHEMATIC_PROJECTS),
             // In-game Configuration GUI

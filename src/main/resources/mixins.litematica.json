@@ -13,6 +13,7 @@
         "block.IMixinWallMountedBlock",
         "block.MixinBlock",
         "block.MixinBlockStateData",
+        "block.MixinBlockStateBaseLvcFreeze",
         "block.MixinChestBlock",
         "block.MixinRailBlocks",
         "block.MixinStairsBlock",
@@ -24,9 +25,14 @@
         "entity.MixinEntity",
         "network.IMixinClientboundSectionBlocksUpdatePacket",
         "server.MixinMinecraftServer",
+        "server.IMixinServerLevel",
+        "server.MixinServerLevel",
         "world.IMixinLevel",
         "world.IMixinLevelTicks",
         "world.MixinLevel",
+        "world.MixinFluidStateLvcFreeze",
+        "world.MixinLevelLvcFreeze",
+        "world.MixinLevelTicks",
         "world.MixinLevelChunk"
     ],
     "client": [

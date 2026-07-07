@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.Identifier;
@@ -16,6 +17,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
@@ -35,6 +37,7 @@ import fi.dy.masa.malilib.util.nbt.NbtView;
 import fi.dy.masa.litematica.Litematica;
 import fi.dy.masa.litematica.config.Configs;
 import fi.dy.masa.litematica.schematic.LitematicaSchematic.EntityInfo;
+import fi.dy.masa.litematica.schematic.container.ILitematicaBlockStatePalette;
 import fi.dy.masa.litematica.schematic.container.LitematicaBlockStateContainer;
 import fi.dy.masa.litematica.schematic.conversion.SchematicConversionFixers.IStateFixer;
 import fi.dy.masa.litematica.schematic.conversion.SchematicConversionMaps;
@@ -864,8 +867,186 @@ public class SchematicaSchematic
             }
             catch (Exception e)
             {
-                Litematica.LOGGER.error("SchematicaSchematic: Failed to read Schematic data from file '{}'", file.toAbsolutePath());
+                Litematica.LOGGER.error("SchematicaSchematic: Failed to read Schematic data from file '{}'", file.toAbsolutePath(), e);
             }
+        }
+
+        return false;
+    }
+
+    private void createPalette()
+    {
+        Arrays.fill(this.palette, null);
+
+        if (this.blocks == null)
+        {
+            return;
+        }
+
+        ILitematicaBlockStatePalette litematicaPalette = this.blocks.getPalette();
+        int numBlocks = litematicaPalette.getPaletteSize();
+
+        for (int i = 0; i < numBlocks; ++i)
+        {
+            BlockState state = litematicaPalette.getBlockState(i);
+
+            if (state != null)
+            {
+                int id = BuiltInRegistries.BLOCK.getId(state.getBlock());
+
+                if (id >= 0 && id < this.palette.length)
+                {
+                    this.palette[id] = state;
+                }
+            }
+        }
+    }
+
+    private void writePaletteToNBT(CompoundTag nbt)
+    {
+        CompoundTag tag = new CompoundTag();
+
+        for (int i = 0; i < this.palette.length; ++i)
+        {
+            BlockState state = this.palette[i];
+
+            if (state != null)
+            {
+                Identifier id = BuiltInRegistries.BLOCK.getKey(state.getBlock());
+
+                if (id != null)
+                {
+                    tag.putShort(id.toString(), (short) (i & 0xFFF));
+                }
+            }
+        }
+
+        nbt.put("SchematicaMapping", tag);
+    }
+
+    private void writeBlocksToNBT(CompoundTag nbt)
+    {
+        nbt.putShort("Width", (short) this.size.getX());
+        nbt.putShort("Height", (short) this.size.getY());
+        nbt.putShort("Length", (short) this.size.getZ());
+        nbt.putString("Materials", "Alpha");
+
+        int numBlocks = this.size.getX() * this.size.getY() * this.size.getZ();
+        int addSize = (int) Math.ceil((double) numBlocks / 2D);
+        byte[] blockIdsArr = new byte[numBlocks];
+        byte[] metaArr = new byte[numBlocks];
+        byte[] addArr = new byte[addSize];
+        int sizeX = this.size.getX();
+        int sizeZ = this.size.getZ();
+        int layerSize = sizeX * sizeZ;
+        int numAdd = 0;
+
+        for (int index = 0; index < numBlocks; ++index)
+        {
+            int x = index % sizeX;
+            int y = index / layerSize;
+            int z = (index % layerSize) / sizeX;
+            BlockState state = this.blocks.get(x, y, z);
+            int idMeta = SchematicConversionMaps.get_1_12_IdMetaForBlockState(state);
+
+            if (idMeta < 0)
+            {
+                idMeta = BuiltInRegistries.BLOCK.getId(state.getBlock()) << 4;
+            }
+
+            int id = idMeta >>> 4;
+
+            blockIdsArr[index] = (byte) (id & 0xFF);
+            metaArr[index] = (byte) (idMeta & 0x0F);
+
+            if (id > 0xFF)
+            {
+                int addIndex = index >> 1;
+
+                if ((index & 1) == 0)
+                {
+                    addArr[addIndex] = (byte) ((id >> 8) & 0x0F);
+                }
+                else
+                {
+                    addArr[addIndex] = (byte) (addArr[addIndex] | ((id >> 4) & 0xF0));
+                }
+
+                numAdd++;
+            }
+        }
+
+        nbt.putByteArray("Blocks", blockIdsArr);
+        nbt.putByteArray("Data", metaArr);
+
+        if (numAdd > 0)
+        {
+            nbt.putByteArray("AddBlocks", addArr);
+        }
+    }
+
+    public CompoundTag writeToNBT()
+    {
+        CompoundTag nbt = new CompoundTag();
+
+        this.writeBlocksToNBT(nbt);
+
+        ListTag tagListTiles = new ListTag();
+        ListTag tagListEntities = new ListTag();
+
+        for (CompoundTag tag : this.entities)
+        {
+            tagListEntities.add(tag);
+        }
+
+        for (CompoundTag tag : this.tiles.values())
+        {
+            tagListTiles.add(tag);
+        }
+
+        nbt.put("TileEntities", tagListTiles);
+        nbt.put("Entities", tagListEntities);
+
+        return nbt;
+    }
+
+    public boolean writeToFile(Path dir, String fileNameIn, boolean override)
+    {
+        String fileName = fileNameIn;
+
+        if (fileName.endsWith(FILE_EXTENSION) == false)
+        {
+            fileName = fileName + FILE_EXTENSION;
+        }
+
+        Path fileSchematic = dir.resolve(fileName).normalize();
+
+        try
+        {
+            if (!Files.exists(dir))
+            {
+                Files.createDirectories(dir);
+            }
+
+            if (!Files.isDirectory(dir))
+            {
+                InfoUtils.showGuiOrInGameMessage(MessageType.ERROR, "litematica.error.schematic_write_to_file_failed.directory_creation_failed", dir.toAbsolutePath());
+                return false;
+            }
+
+            if (override == false && Files.exists(fileSchematic))
+            {
+                InfoUtils.showGuiOrInGameMessage(MessageType.ERROR, "litematica.error.schematic_write_to_file_failed.exists", fileSchematic.toAbsolutePath());
+                return false;
+            }
+
+            NbtUtils.writeCompoundTagToCompressedFile(this.writeToNBT(), fileSchematic);
+            return true;
+        }
+        catch (Exception e)
+        {
+            Litematica.LOGGER.error("SchematicaSchematic: Failed to write Schematic data to file '{}'", fileSchematic.toAbsolutePath(), e);
+            InfoUtils.showGuiOrInGameMessage(MessageType.ERROR, "litematica.error.schematic_write_to_file_failed.exception", fileSchematic.toAbsolutePath());
         }
 
         return false;

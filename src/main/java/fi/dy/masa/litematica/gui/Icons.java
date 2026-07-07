@@ -2,11 +2,17 @@ package fi.dy.masa.litematica.gui;
 
 import java.nio.file.Path;
 import javax.annotation.Nullable;
+import org.apache.commons.lang3.tuple.Pair;
+import org.joml.Matrix3x2f;
+import com.mojang.blaze3d.textures.GpuSampler;
+import com.mojang.blaze3d.textures.GpuTextureView;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
 import fi.dy.masa.malilib.gui.interfaces.IFileBrowserIconProvider;
 import fi.dy.masa.malilib.gui.interfaces.IGuiIcon;
 import fi.dy.masa.malilib.render.GuiContext;
 import fi.dy.masa.malilib.render.RenderUtils;
+import fi.dy.masa.malilib.render.element.MaLiLibTexturedGuiElement;
 import fi.dy.masa.litematica.Reference;
 import fi.dy.masa.litematica.util.FileType;
 
@@ -29,6 +35,10 @@ public enum Icons implements IGuiIcon, IFileBrowserIconProvider
     FILE_ICON_SEARCH        (156,  36, 12, 12),
     FILE_ICON_CREATE_DIR    (156,  48, 12, 12),
     SCHEMATIC_TYPE_FILE     (144,   0, 12, 12),
+    GITMATICA_SCHEMATIC_TYPE_FILE(18, 1, 12, 12, true, 100, 103),
+    GITMATICA_UNDO          (  1,  35, 16, 16, true, 100, 103),
+    GITMATICA_BRANCH        (  1,  86, 16, 16, true, 100, 103),
+    GITMATICA_CHECK         (  1,  69, 16, 16, true, 100, 103),
     SCHEMATIC_TYPE_MEMORY   (186,   0, 12, 12),
     INFO_11                 (168,  18, 11, 11),
     NOTICE_EXCLAMATION_11   (168,  29, 11, 11),
@@ -39,18 +49,30 @@ public enum Icons implements IGuiIcon, IFileBrowserIconProvider
     ARROW_DOWN              (209,  15, 15, 15);
 
     public static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Reference.MOD_ID, "textures/gui/gui_widgets.png");
+    public static final Identifier GITMATICA_TEXTURE = Identifier.fromNamespaceAndPath(Reference.MOD_ID, "textures/gui/gitmatica_widgets.png");
 
     private final int u;
     private final int v;
     private final int w;
     private final int h;
+    private final boolean gitmaticaTexture;
+    private final int textureWidth;
+    private final int textureHeight;
 
     Icons(int u, int v, int w, int h)
+    {
+        this(u, v, w, h, false, 256, 256);
+    }
+
+    Icons(int u, int v, int w, int h, boolean gitmaticaTexture, int textureWidth, int textureHeight)
     {
         this.u = u;
         this.v = v;
         this.w = w;
         this.h = h;
+        this.gitmaticaTexture = gitmaticaTexture;
+        this.textureWidth = textureWidth;
+        this.textureHeight = textureHeight;
     }
 
     @Override
@@ -80,13 +102,66 @@ public enum Icons implements IGuiIcon, IFileBrowserIconProvider
     @Override
     public void renderAt(GuiContext ctx, int x, int y, float zLevel, boolean enabled, boolean selected)
     {
-        RenderUtils.drawTexturedRect(ctx, this.getTexture(), x, y, this.u, this.v, this.w, this.h, zLevel);
+        if (this.textureWidth == 256 && this.textureHeight == 256)
+        {
+            RenderUtils.drawTexturedRect(ctx, this.getTexture(), x, y, this.u, this.v, this.w, this.h, zLevel);
+            return;
+        }
+
+        Pair<GpuTextureView, GpuSampler> pair = ctx.bindTexture(this.getTexture());
+
+        if (pair == null)
+        {
+            return;
+        }
+
+        float uScale = 1.0F / this.textureWidth;
+        float vScale = 1.0F / this.textureHeight;
+        ctx.addSimpleElement(new MaLiLibTexturedGuiElement(
+                RenderPipelines.GUI_TEXTURED,
+                ctx.setupTexture(pair),
+                new Matrix3x2f(ctx.pose()),
+                x, y, x + this.w, y + this.h,
+                this.u * uScale, (this.u + this.w) * uScale,
+                this.v * vScale, (this.v + this.h) * vScale,
+                -1,
+                ctx.peekLastScissor())
+        );
+    }
+
+    public void renderScaledAt(GuiContext ctx, int x, int y, int width, int height, float zLevel)
+    {
+        if (width == this.w && height == this.h)
+        {
+            this.renderAt(ctx, x, y, zLevel, true, false);
+            return;
+        }
+
+        Pair<GpuTextureView, GpuSampler> pair = ctx.bindTexture(this.getTexture());
+
+        if (pair == null)
+        {
+            return;
+        }
+
+        float uScale = 1.0F / this.textureWidth;
+        float vScale = 1.0F / this.textureHeight;
+        ctx.addSimpleElement(new MaLiLibTexturedGuiElement(
+                RenderPipelines.GUI_TEXTURED,
+                ctx.setupTexture(pair),
+                new Matrix3x2f(ctx.pose()),
+                x, y, x + width, y + height,
+                this.u * uScale, (this.u + this.w) * uScale,
+                this.v * vScale, (this.v + this.h) * vScale,
+                -1,
+                ctx.peekLastScissor())
+        );
     }
 
     @Override
     public Identifier getTexture()
     {
-        return TEXTURE;
+        return this.gitmaticaTexture ? GITMATICA_TEXTURE : TEXTURE;
     }
 
     @Override

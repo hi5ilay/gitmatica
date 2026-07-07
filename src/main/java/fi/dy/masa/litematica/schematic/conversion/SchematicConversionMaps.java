@@ -146,6 +146,20 @@ public class SchematicConversionMaps
         return ID_META_TO_BLOCKSTATE.get(idMeta);
     }
 
+    public static int get_1_12_IdMetaForBlockState(BlockState state)
+    {
+        try
+        {
+            computeMaps();
+        }
+        catch (RuntimeException e)
+        {
+            return -1;
+        }
+
+        return BLOCKSTATE_TO_ID_META.getInt(state);
+    }
+
     public static CompoundTag get_1_13_2_StateTagFor_1_12_Tag(CompoundTag oldStateTag)
     {
         CompoundTag tag = OLD_STATE_TO_NEW_STATE.get(oldStateTag);
