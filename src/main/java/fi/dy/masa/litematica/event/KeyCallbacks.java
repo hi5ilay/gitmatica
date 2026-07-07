@@ -1,5 +1,8 @@
 package fi.dy.masa.litematica.event;
 
+import me.zly2006.lvc.LvcDiagnostics;
+import me.zly2006.lvc.gui.GuiLvcDiffViewer;
+import me.zly2006.lvc.overlay.LvcTrackingOverlayService;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
@@ -379,7 +382,15 @@ public class KeyCallbacks
 
                 if (schematicPlacement != null)
                 {
-                    GuiBase.openGui(new GuiSchematicVerifier(schematicPlacement));
+                    if (LvcTrackingOverlayService.isSemanticTrackingPlacement(schematicPlacement))
+                    {
+                        LvcDiagnostics.info("opening GitMatica Diff Viewer for placement='{}'", schematicPlacement.getName());
+                        GuiBase.openGui(new GuiLvcDiffViewer(schematicPlacement));
+                    }
+                    else
+                    {
+                        GuiBase.openGui(new GuiSchematicVerifier(schematicPlacement));
+                    }
                 }
                 else
                 {

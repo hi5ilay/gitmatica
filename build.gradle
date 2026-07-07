@@ -1,9 +1,11 @@
 plugins {
 	id 'net.fabricmc.fabric-loom' version '1.15.+'
+	id 'com.gradleup.shadow' version '9.4.1'
 	id 'maven-publish'
 }
 
 repositories {
+	mavenCentral()
 	maven { url = "https://masa.dy.fi/maven/sakura-ryoko"
 		content {includeGroupAndSubgroups("fi.dy.masa")}
 	}
@@ -19,12 +21,18 @@ repositories {
 //	maven { url = 'https://api.modrinth.com/maven' }
 }
 
+configurations {
+	shadow
+	implementation.extendsFrom shadow
+}
+
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 //    mappings loom.officialMojangMappings()
 	implementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
 	implementation "com.google.code.findbugs:jsr305:3.0.2"
-//	implementation "org.jspecify:jspecify:1.0.0"
+	shadow "org.eclipse.jgit:org.eclipse.jgit:7.6.0.202603022253-r"
+	shadow "org.eclipse.jgit:org.eclipse.jgit.ssh.apache:7.6.0.202603022253-r"
 
 	implementation "fi.dy.masa.malilib:malilib-fabric-${project.minecraft_version_out}:${project.malilib_version}"
 //	implementation "com.github.sakura-ryoko:malilib:${project.malilib_version}"
@@ -33,12 +41,30 @@ dependencies {
 //	compileOnly fabricApi.module("fabric-api-base", project.fabric_api_version)
 //	compileOnly fabricApi.module("fabric-networking-api-v1", project.fabric_api_version)
 //	compileOnly fabricApi.module("fabric-resource-loader-v1", project.fabric_api_version)
-	include(implementation("me.fallenbreath:conditional-mixin-fabric:${project.conditionalmixin_version}"))
+	shadow(implementation("me.fallenbreath:conditional-mixin-fabric:${project.conditionalmixin_version}"))
 
 	compileOnly "com.terraformersmc:modmenu:${project.mod_menu_version}"
 //	compileOnly "maven.modrinth:iris:${project.iris_version}+${project.iris_mc_version}-fabric"
 //	runtimeOnly 'me.fallenbreath:mixin-auditor:0.2.0-u'
 }
+
+sourceSets {
+	integrationTest {
+		java.srcDir file('src/integrationTest/java')
+		resources.srcDir file('src/integrationTest/resources')
+		compileClasspath += sourceSets.main.output + configurations.runtimeClasspath
+		runtimeClasspath += output + compileClasspath
+	}
+}
+
+tasks.register('integrationTest', JavaExec) {
+	group = 'verification'
+	description = 'Runs integration tests without mocks.'
+	classpath = sourceSets.integrationTest.runtimeClasspath
+	mainClass = 'me.zly2006.lvc.LvcRepositoryIntegrationTest'
+}
+
+check.dependsOn integrationTest
 
 base {
 	group = project.group + "." + project.mod_id
@@ -109,6 +135,16 @@ jar {
 	from("LICENSE") {
 		rename { "${it}_${base.archivesName}"}
 	}
+}
+
+tasks.named('shadowJar') {
+	archiveClassifier.set('shadow')
+	configurations = project.configurations.named('shadow').map { [it] }
+	mergeServiceFiles()
+}
+
+tasks.named('assemble') {
+	dependsOn tasks.named('shadowJar')
 }
 
 tasks.publish.dependsOn build

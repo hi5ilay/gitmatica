@@ -8,9 +8,14 @@ import fi.dy.masa.litematica.Litematica;
 import fi.dy.masa.litematica.config.Configs;
 import fi.dy.masa.litematica.data.DataManager;
 import fi.dy.masa.litematica.data.EntitiesDataStorage;
+import fi.dy.masa.litematica.schematic.verifier.SchematicVerifier;
+import fi.dy.masa.litematica.schematic.verifier.inventory.VerifierInventoryOverlay;
 import fi.dy.masa.litematica.util.SchematicWorldRefresher;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.network.protocol.game.ClientboundContainerSetContentPacket;
+import net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket;
 import net.minecraft.network.protocol.game.ClientboundForgetLevelChunkPacket;
 import net.minecraft.network.protocol.game.ClientboundLevelChunkWithLightPacket;
 import net.minecraft.network.protocol.game.ClientboundSystemChatPacket;
@@ -34,6 +39,24 @@ public abstract class MixinClientPacketListener
 
         DataManager.getSchematicPlacementManager().onClientChunkLoad(chunkX, chunkZ);
         // TODO verifier updates?
+    }
+
+    @Inject(method = "handleBlockEntityData", at = @At("RETURN"))
+    private void litematica_onVerifierBlockEntityData(ClientboundBlockEntityDataPacket packet, CallbackInfo ci)
+    {
+        SchematicVerifier.markVerifierBlockChanges(packet.getPos());
+    }
+
+    @Inject(method = "handleContainerSetSlot", at = @At("RETURN"))
+    private void litematica_onVerifierContainerSetSlot(ClientboundContainerSetSlotPacket packet, CallbackInfo ci)
+    {
+        VerifierInventoryOverlay.markOpenContainerChanged();
+    }
+
+    @Inject(method = "handleContainerContent", at = @At("RETURN"))
+    private void litematica_onVerifierContainerContent(ClientboundContainerSetContentPacket packet, CallbackInfo ci)
+    {
+        VerifierInventoryOverlay.markOpenContainerChanged();
     }
 
     @Inject(method = "handleForgetLevelChunk", at = @At("RETURN"))

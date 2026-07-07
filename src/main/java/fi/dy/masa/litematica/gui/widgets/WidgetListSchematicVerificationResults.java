@@ -18,6 +18,8 @@ import fi.dy.masa.litematica.gui.GuiSchematicVerifier.BlockMismatchEntry;
 import fi.dy.masa.litematica.schematic.verifier.SchematicVerifier.BlockMismatch;
 import fi.dy.masa.litematica.schematic.verifier.SchematicVerifier.MismatchType;
 import fi.dy.masa.litematica.schematic.verifier.VerifierResultSorter;
+import fi.dy.masa.litematica.schematic.verifier.inventory.VerifierInventoryOverlay;
+import fi.dy.masa.litematica.schematic.verifier.inventory.VerifierInventoryPreview;
 import fi.dy.masa.litematica.util.ItemUtils;
 
 public class WidgetListSchematicVerificationResults extends WidgetListBase<BlockMismatchEntry, WidgetSchematicVerificationResult>
@@ -42,6 +44,14 @@ public class WidgetListSchematicVerificationResults extends WidgetListBase<Block
     public void drawContents(GuiContext ctx, int mouseX, int mouseY, float partialTicks)
     {
         super.drawContents(ctx, mouseX, mouseY, partialTicks);
+
+        VerifierInventoryPreview preview = this.guiSchematicVerifier.getInventoryPreview();
+
+        if (preview != null)
+        {
+            VerifierInventoryOverlay.renderPreviewTooltip(ctx, preview, mouseX, mouseY);
+        }
+
         lastScrollbarPosition = this.scrollBar.getValue();
     }
 
@@ -88,6 +98,7 @@ public class WidgetListSchematicVerificationResults extends WidgetListBase<Block
 
         if (type == MismatchType.ALL)
         {
+            this.addEntriesForType(MismatchType.WRONG_INVENTORIES);
             this.addEntriesForType(MismatchType.WRONG_BLOCK);
             if (Configs.Generic.ENABLE_DIFFERENT_BLOCKS.getBooleanValue())
             {

@@ -42,6 +42,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import me.zly2006.lvc.overlay.LvcTrackingOverlayService;
 import fi.dy.masa.malilib.util.EntityUtils;
 import fi.dy.masa.malilib.util.IntBoundingBox;
 import fi.dy.masa.malilib.util.LayerRange;
@@ -53,6 +54,7 @@ import fi.dy.masa.litematica.data.DataManager;
 import fi.dy.masa.litematica.render.IWorldSchematicRenderer;
 import fi.dy.masa.litematica.render.RenderUtils;
 import fi.dy.masa.litematica.schematic.placement.SchematicPlacementManager.PlacementPart;
+import fi.dy.masa.litematica.schematic.verifier.SchematicVerifier;
 import fi.dy.masa.litematica.util.IgnoreBlockRegistry;
 import fi.dy.masa.litematica.util.OverlayType;
 import fi.dy.masa.litematica.util.PositionUtils;
@@ -75,7 +77,7 @@ public class ChunkRendererSchematicVbo implements AutoCloseable
     protected final BlockPos.MutableBlockPos chunkRelativePos;
     protected ChunkPos chunkPosition;
 
-    protected final List<IntBoundingBox> boxes;
+    protected final List<PlacementRenderBox> boxes;
     protected final EnumSet<OverlayRenderType> existingOverlays;
 
     private AABB boundingBox;
@@ -756,9 +758,9 @@ public class ChunkRendererSchematicVbo implements AutoCloseable
 
                 this.worldRenderer.getBlockRenderer().enableCache();
 
-                for (IntBoundingBox box : this.boxes)
+                for (PlacementRenderBox renderBox : this.boxes)
                 {
-                    box = range.getClampedRenderBoundingBox(box);
+                    IntBoundingBox box = range.getClampedRenderBoundingBox(renderBox.box);
 
                     // The rendered layer(s) don't intersect this sub-volume
                     if (box == null)
@@ -775,7 +777,8 @@ public class ChunkRendererSchematicVbo implements AutoCloseable
                         // Fluid rendering and the overlay do not use the MatrixStack.
                         // Block models use the VertexConsumer#quad() method, and they use the MatrixStack.
                         Vec3 offset = new Vec3(posMutable.getX() & 0xF, posMutable.getY() - bottomY, posMutable.getZ() & 0xF);
-                        this.renderBlocksAndOverlay(posMutable, data, chunkMeshData, blockOutput, offset, visGraph);
+                        this.renderBlocksAndOverlay(posMutable, data, chunkMeshData, blockOutput, offset, visGraph,
+                                renderBox.lvcTrackingOverlay, renderBox.verifier);
                     }
 
                 }
@@ -859,7 +862,9 @@ public class ChunkRendererSchematicVbo implements AutoCloseable
                                           @Nonnull ChunkRenderDataSchematic data,
                                           @Nonnull ChunkMeshDataSchematic chunkMeshData,
                                           IBlockOutputSchematic blockOutput,
-                                          Vec3 offset, VisGraph visGraph)
+                                          Vec3 offset, VisGraph visGraph,
+                                          boolean lvcTrackingOverlay,
+                                          @Nullable SchematicVerifier verifier)
     {
         BlockState stateSchematic = this.schematicWorldView.getBlockState(pos);
         BlockState stateClient    = this.clientWorldView.getBlockState(pos);
@@ -925,9 +930,9 @@ public class ChunkRendererSchematicVbo implements AutoCloseable
         if (Configs.Visuals.ENABLE_SCHEMATIC_OVERLAY.getBooleanValue())
         {
             this.getProfiler().popPush("render_build_overlays");
-            OverlayType type = this.getOverlayType(stateSchematic, stateClient);
+            OverlayType type = this.getOverlayType(stateSchematic, stateClient, pos, verifier);
 
-            this.overlayColor = getOverlayColor(type);
+            this.overlayColor = getOverlayColor(type, lvcTrackingOverlay);
 
             if (this.overlayColor != null)
             {
@@ -1387,10 +1392,38 @@ public class ChunkRendererSchematicVbo implements AutoCloseable
         }
     }
 
+    private OverlayType getOverlayType(BlockState stateSchematic, BlockState stateClient, BlockPos pos,
+                                       @Nullable SchematicVerifier verifier)
+    {
+        if (verifier != null &&
+            verifier.hasInventoryMismatchForOverlay(pos))
+        {
+            return OverlayType.WRONG_STATE;
+        }
+
+        return this.getOverlayType(stateSchematic, stateClient);
+    }
+
     @Nullable
     protected static Color4f getOverlayColor(OverlayType overlayType)
     {
+        return getOverlayColor(overlayType, false);
+    }
+
+    @Nullable
+    protected static Color4f getOverlayColor(OverlayType overlayType, boolean lvcTrackingOverlay)
+    {
         Color4f overlayColor = null;
+
+        if (lvcTrackingOverlay && isOverlayTypeEnabled(overlayType))
+        {
+            overlayColor = LvcTrackingOverlayService.semanticTrackingOverlayColor(overlayType);
+
+            if (overlayColor != null)
+            {
+                return overlayColor;
+            }
+        }
 
         switch (overlayType)
         {
@@ -1428,6 +1461,19 @@ public class ChunkRendererSchematicVbo implements AutoCloseable
         }
 
         return overlayColor;
+    }
+
+    private static boolean isOverlayTypeEnabled(OverlayType overlayType)
+    {
+        return switch (overlayType)
+        {
+            case MISSING -> Configs.Visuals.SCHEMATIC_OVERLAY_TYPE_MISSING.getBooleanValue();
+            case EXTRA -> Configs.Visuals.SCHEMATIC_OVERLAY_TYPE_EXTRA.getBooleanValue();
+            case WRONG_BLOCK -> Configs.Visuals.SCHEMATIC_OVERLAY_TYPE_WRONG_BLOCK.getBooleanValue();
+            case WRONG_STATE -> Configs.Visuals.SCHEMATIC_OVERLAY_TYPE_WRONG_STATE.getBooleanValue();
+            case DIFF_BLOCK -> Configs.Visuals.SCHEMATIC_OVERLAY_TYPE_DIFF_BLOCK.getBooleanValue();
+            default -> false;
+        };
     }
 
     private <T extends BlockEntity> void addBlockEntity(BlockPos pos, ChunkMeshDataSchematic chunkMeshData)
@@ -2222,8 +2268,24 @@ public class ChunkRendererSchematicVbo implements AutoCloseable
 
             for (PlacementPart part : DataManager.getSchematicPlacementManager().getPlacementPartsInChunk(chunkX, chunkZ))
             {
-                this.boxes.add(part.bb);
+                SchematicVerifier verifier = part.placement.hasVerifier() ? part.placement.getSchematicVerifier() : null;
+                this.boxes.add(new PlacementRenderBox(part.bb,
+                        LvcTrackingOverlayService.isSemanticTrackingPlacement(part.placement), verifier));
             }
+        }
+    }
+
+    private static class PlacementRenderBox
+    {
+        private final IntBoundingBox box;
+        private final boolean lvcTrackingOverlay;
+        @Nullable private final SchematicVerifier verifier;
+
+        private PlacementRenderBox(IntBoundingBox box, boolean lvcTrackingOverlay, @Nullable SchematicVerifier verifier)
+        {
+            this.box = box;
+            this.lvcTrackingOverlay = lvcTrackingOverlay;
+            this.verifier = verifier;
         }
     }
 

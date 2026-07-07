@@ -22,9 +22,13 @@ import fi.dy.masa.litematica.gui.GuiPlacementConfiguration;
 import fi.dy.masa.litematica.gui.Icons;
 import fi.dy.masa.litematica.schematic.placement.SchematicPlacement;
 import fi.dy.masa.litematica.schematic.placement.SchematicPlacementManager;
+import me.zly2006.lvc.gui.LvcSchematicPlacementRowActions;
+import me.zly2006.lvc.overlay.LvcTrackingOverlayService;
 
 public class WidgetSchematicPlacement extends WidgetListEntryBase<SchematicPlacement>
 {
+    private static final int BUTTON_GAP = 2;
+
     public final SchematicPlacementManager manager;
     public final WidgetListSchematicPlacements parent;
     public final SchematicPlacement placement;
@@ -46,22 +50,31 @@ public class WidgetSchematicPlacement extends WidgetListEntryBase<SchematicPlace
 
         // Note: These are placed from right to left
 
-        posX = this.createButtonGeneric(posX, posY, ButtonListener.ButtonType.REMOVE);
-        posX = this.createButtonOnOff(posX, posY, this.placement.isEnabled(), ButtonListener.ButtonType.TOGGLE_ENABLED);
-        posX = this.createButtonGeneric(posX, posY, ButtonListener.ButtonType.CONFIGURE);
+        if (LvcSchematicPlacementRowActions.isLvcTrackingOverlay(this.placement))
+        {
+            posX = this.createButtonOnOff(posX, posY, this.placement.isEnabled(), ButtonListener.ButtonType.TOGGLE_ENABLED);
+            posX = this.createButtonGeneric(posX, posY, ButtonListener.ButtonType.LVC_EDIT);
+            posX = this.createButtonGeneric(posX, posY, ButtonListener.ButtonType.LVC_MANAGE);
+        }
+        else
+        {
+            posX = this.createButtonGeneric(posX, posY, ButtonListener.ButtonType.REMOVE);
+            posX = this.createButtonOnOff(posX, posY, this.placement.isEnabled(), ButtonListener.ButtonType.TOGGLE_ENABLED);
+            posX = this.createButtonGeneric(posX, posY, ButtonListener.ButtonType.CONFIGURE);
+        }
 
         this.buttonsStartX = posX;
     }
 
     public int createButtonGeneric(int xRight, int y, ButtonListener.ButtonType type)
     {
-        return this.addButton(new ButtonGeneric(xRight, y, -1, true, type.getDisplayName()), new ButtonListener(type, this)).getX() - 1;
+        return this.addButton(new ButtonGeneric(xRight, y, -1, true, type.getDisplayName()), new ButtonListener(type, this)).getX() - BUTTON_GAP;
     }
 
     public int createButtonOnOff(int xRight, int y, boolean isCurrentlyOn, ButtonListener.ButtonType type)
     {
         ButtonOnOff button = new ButtonOnOff(xRight, y, -1, true, type.getTranslationKey(), isCurrentlyOn);
-        return this.addButton(button, new ButtonListener(type, this)).getX() - 2;
+        return this.addButton(button, new ButtonListener(type, this)).getX() - BUTTON_GAP;
     }
 
     @Override
@@ -101,7 +114,13 @@ public class WidgetSchematicPlacement extends WidgetListEntryBase<SchematicPlace
 
         Icons icon;
 
-        if (this.placement.getSchematic().getFile() != null)
+        Path schematicFile = this.placement.getSchematicFile();
+
+        if (LvcTrackingOverlayService.isSemanticTrackingCachePath(schematicFile))
+        {
+            icon = Icons.GITMATICA_SCHEMATIC_TYPE_FILE;
+        }
+        else if (schematicFile != null)
         {
             icon = Icons.SCHEMATIC_TYPE_FILE;
         }
@@ -191,13 +210,23 @@ public class WidgetSchematicPlacement extends WidgetListEntryBase<SchematicPlace
 				this.widget.placement.toggleEnabled();
 				this.widget.parent.refreshEntries();
 			}
+			else if (this.type == ButtonType.LVC_MANAGE)
+			{
+				LvcSchematicPlacementRowActions.openProjectManager(this.widget.placement);
+			}
+			else if (this.type == ButtonType.LVC_EDIT)
+			{
+				LvcSchematicPlacementRowActions.openProjectEditor(this.widget.placement);
+			}
 		}
 
 		public enum ButtonType
 		{
 			CONFIGURE       ("litematica.gui.button.schematic_placements.configure"),
 			REMOVE          ("litematica.gui.button.schematic_placements.remove"),
-			TOGGLE_ENABLED  ("litematica.gui.button.schematic_placements.placement_enabled");
+			TOGGLE_ENABLED  ("litematica.gui.button.schematic_placements.placement_enabled"),
+			LVC_MANAGE      ("litematica.gui.button.schematic_placements.lvc_manage"),
+			LVC_EDIT        ("litematica.gui.button.schematic_placements.lvc_edit");
 
 			private final String translationKey;
 

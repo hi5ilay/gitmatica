@@ -22,6 +22,7 @@ import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.MeshData;
 import org.joml.Matrix4f;
+import me.zly2006.lvc.overlay.LvcTrackingOverlayService;
 import fi.dy.masa.malilib.config.HudAlignment;
 import fi.dy.masa.malilib.gui.GuiBase;
 import fi.dy.masa.malilib.gui.LeftRight;
@@ -369,14 +370,14 @@ public class OverlayRenderer
                 List<BlockPos> posList = verifier.getSelectedMismatchBlockPositionsForRender();
                 BlockHitResult trace = RayTraceUtils.traceToPositions(posList, entity, 128);
                 BlockPos posLook = trace != null && trace.getType() == HitResult.Type.BLOCK ? trace.getBlockPos() : null;
-                this.renderSchematicMismatches(list, posLook, profiler);
+                this.renderSchematicMismatches(list, posLook, profiler, LvcTrackingOverlayService.isSemanticTrackingPlacement(placement));
             }
         }
 
         profiler.pop();
     }
 
-    private void renderSchematicMismatches(List<MismatchRenderPos> posList, @Nullable BlockPos lookPos, ProfilerFiller profiler)
+    private void renderSchematicMismatches(List<MismatchRenderPos> posList, @Nullable BlockPos lookPos, ProfilerFiller profiler, boolean lvcTrackingOverlay)
     {
         profiler.push("batched_lines");
         RenderContext ctx = new RenderContext(() -> "litematica:schematic_mistaches/batched_lines", MaLiLibPipelines.DEBUG_LINES_MASA_SIMPLE_NO_DEPTH_NO_CULL);
@@ -389,7 +390,7 @@ public class OverlayRenderer
 
         for (MismatchRenderPos entry : posList)
         {
-            Color4f color = entry.type.getColor();
+            Color4f color = this.getMismatchRenderColor(entry, lvcTrackingOverlay);
 
             if (entry.pos.equals(lookPos) == false)
             {
@@ -412,7 +413,7 @@ public class OverlayRenderer
         {
             if (connections && prevEntry != null)
             {
-                fi.dy.masa.malilib.render.RenderUtils.drawConnectingLineBatchedLines(prevEntry.pos, lookedEntry.pos, false, lookedEntry.type.getColor(), lineWidth, buffer);
+                fi.dy.masa.malilib.render.RenderUtils.drawConnectingLineBatchedLines(prevEntry.pos, lookedEntry.pos, false, this.getMismatchRenderColor(lookedEntry, lvcTrackingOverlay), lineWidth, buffer);
             }
 
             try
@@ -433,7 +434,7 @@ public class OverlayRenderer
 	        lineWidth = 6f;
             buffer = ctx.start(() -> "litematica:schematic_mistaches/outlines", MaLiLibPipelines.DEBUG_LINES_MASA_SIMPLE_NO_DEPTH_NO_CULL);
 
-            fi.dy.masa.malilib.render.RenderUtils.drawBlockBoundingBoxOutlinesBatchedLinesSimple(lookPos, lookedEntry.type.getColor(), 0.002, lineWidth, buffer);
+            fi.dy.masa.malilib.render.RenderUtils.drawBlockBoundingBoxOutlinesBatchedLinesSimple(lookPos, this.getMismatchRenderColor(lookedEntry, lvcTrackingOverlay), 0.002, lineWidth, buffer);
         }
 
         try
@@ -459,7 +460,7 @@ public class OverlayRenderer
 
             for (MismatchRenderPos entry : posList)
             {
-                Color4f color = entry.type.getColor();
+                Color4f color = this.getMismatchRenderColor(entry, lvcTrackingOverlay);
                 color = new Color4f(color.r, color.g, color.b, alpha);
                 fi.dy.masa.malilib.render.RenderUtils.renderAreaSidesBatched(entry.pos, entry.pos, color, 0.002, buffer);
             }
@@ -480,6 +481,16 @@ public class OverlayRenderer
         }
 
         profiler.pop();
+    }
+
+    private Color4f getMismatchRenderColor(MismatchRenderPos entry, boolean lvcTrackingOverlay)
+    {
+        if (entry.colorOverride != null)
+        {
+            return entry.colorOverride;
+        }
+
+        return lvcTrackingOverlay ? LvcTrackingOverlayService.semanticTrackingMismatchColor(entry.type) : entry.type.getColor();
     }
 
     public void renderHoverInfo(GuiContext ctx, ProfilerFiller profiler)

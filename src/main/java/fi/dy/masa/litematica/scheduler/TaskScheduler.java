@@ -2,6 +2,7 @@ package fi.dy.masa.litematica.scheduler;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.profiling.Profiler;
 import net.minecraft.util.profiling.ProfilerFiller;
@@ -192,6 +193,42 @@ public class TaskScheduler
         {
             task.stop();
             return this.tasks.remove(task);
+        }
+    }
+
+    public boolean removeTasksIf(Predicate<ITask> predicate)
+    {
+        synchronized (this)
+        {
+            boolean removed = false;
+
+            for (int i = 0; i < this.tasks.size(); ++i)
+            {
+                ITask task = this.tasks.get(i);
+
+                if (predicate.test(task))
+                {
+                    task.stop();
+                    this.tasks.remove(i);
+                    --i;
+                    removed = true;
+                }
+            }
+
+            for (int i = 0; i < this.tasksToAdd.size(); ++i)
+            {
+                ITask task = this.tasksToAdd.get(i);
+
+                if (predicate.test(task))
+                {
+                    task.stop();
+                    this.tasksToAdd.remove(i);
+                    --i;
+                    removed = true;
+                }
+            }
+
+            return removed;
         }
     }
 

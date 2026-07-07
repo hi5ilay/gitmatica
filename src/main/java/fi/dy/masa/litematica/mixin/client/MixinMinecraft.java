@@ -10,6 +10,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import fi.dy.masa.litematica.data.DataManager;
 import fi.dy.masa.litematica.render.schematic.BlockModelCacheSchematic;
 import fi.dy.masa.litematica.schematic.placement.PlacementManagerDaemonHandler;
+import fi.dy.masa.litematica.schematic.verifier.inventory.VerifierInventoryOverlay;
+import net.minecraft.client.gui.screens.Screen;
 
 @Mixin(value = Minecraft.class)
 public abstract class MixinMinecraft extends ReentrantBlockableEventLoop<Runnable>
@@ -35,5 +37,11 @@ public abstract class MixinMinecraft extends ReentrantBlockableEventLoop<Runnabl
     private void litematica_onRunStop(CallbackInfo ci)
     {
         PlacementManagerDaemonHandler.INSTANCE.endAll();
+    }
+
+    @Inject(method = "setScreen", at = @At("HEAD"))
+    private void litematica_onSetScreen(Screen screen, CallbackInfo ci)
+    {
+        VerifierInventoryOverlay.onScreenChanged(screen);
     }
 }

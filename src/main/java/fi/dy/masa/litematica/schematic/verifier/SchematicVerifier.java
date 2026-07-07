@@ -9,8 +9,11 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
+import net.minecraft.world.Container;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Lists;
@@ -34,6 +37,8 @@ import fi.dy.masa.litematica.scheduler.TaskScheduler;
 import fi.dy.masa.litematica.scheduler.tasks.TaskBase;
 import fi.dy.masa.litematica.schematic.placement.SchematicPlacement;
 import fi.dy.masa.litematica.schematic.placement.SubRegionPlacement;
+import fi.dy.masa.litematica.schematic.verifier.inventory.VerifierInventoryPreview;
+import fi.dy.masa.litematica.schematic.verifier.inventory.VerifierInventorySide;
 import fi.dy.masa.litematica.util.*;
 import fi.dy.masa.litematica.world.WorldSchematic;
 
@@ -47,14 +52,18 @@ public class SchematicVerifier extends TaskBase implements IInfoHudRenderer
     private final ArrayListMultimap<Pair<BlockState, BlockState>, BlockPos> extraBlocksPositions = ArrayListMultimap.create();
     private final ArrayListMultimap<Pair<BlockState, BlockState>, BlockPos> wrongBlocksPositions = ArrayListMultimap.create();
     private final ArrayListMultimap<Pair<BlockState, BlockState>, BlockPos> wrongStatesPositions = ArrayListMultimap.create();
+    private final ArrayListMultimap<Pair<BlockState, BlockState>, BlockPos> wrongInventoriesPositions = ArrayListMultimap.create();
     private final ArrayListMultimap<Pair<BlockState, BlockState>, BlockPos> diffBlocksPositions = ArrayListMultimap.create();
     private final Object2IntOpenHashMap<BlockState> correctStateCounts = new Object2IntOpenHashMap<>();
     private final Object2ObjectOpenHashMap<BlockPos, BlockMismatch> blockMismatches = new Object2ObjectOpenHashMap<>();
+    private final Object2ObjectOpenHashMap<BlockPos, BlockMismatch> inventoryMismatches = new Object2ObjectOpenHashMap<>();
     private final HashSet<Pair<BlockState, BlockState>> ignoredMismatches = new HashSet<>();
+    private final Set<BlockPos> ignoredInventoryMismatches = new HashSet<>();
     private final List<BlockPos> missingBlocksPositionsClosest = new ArrayList<>();
     private final List<BlockPos> extraBlocksPositionsClosest = new ArrayList<>();
     private final List<BlockPos> mismatchedBlocksPositionsClosest = new ArrayList<>();
     private final List<BlockPos> mismatchedStatesPositionsClosest = new ArrayList<>();
+    private final List<BlockPos> wrongInventoriesPositionsClosest = new ArrayList<>();
     private final List<BlockPos> diffBlocksPositionsClosest = new ArrayList<>();
     private final Set<MismatchType> selectedCategories = new HashSet<>();
     private final HashMultimap<MismatchType, BlockMismatch> selectedEntries = HashMultimap.create();
@@ -66,11 +75,13 @@ public class SchematicVerifier extends TaskBase implements IInfoHudRenderer
     private SchematicPlacement schematicPlacement;
     private final List<MismatchRenderPos> mismatchPositionsForRender = new ArrayList<>();
     private final List<BlockPos> mismatchBlockPositionsForRender = new ArrayList<>();
+    private volatile Set<BlockPos> inventoryMismatchPositionsForOverlay = Collections.emptySet();
     private SortCriteria sortCriteria = SortCriteria.NAME_EXPECTED;
     private boolean sortReverse;
     private boolean verificationStarted;
     private boolean verificationActive;
     private boolean shouldRenderInfoHud = true;
+    private boolean lvcDiffInfoHud;
     private int totalRequiredChunks;
     private int schematicBlocks;
     private int clientBlocks;
@@ -105,6 +116,11 @@ public class SchematicVerifier extends TaskBase implements IInfoHudRenderer
     public void toggleShouldRenderInfoHUD()
     {
         this.shouldRenderInfoHud = ! this.shouldRenderInfoHud;
+    }
+
+    public void setLvcDiffInfoHud(boolean lvcDiffInfoHud)
+    {
+        this.lvcDiffInfoHud = lvcDiffInfoHud;
     }
 
     public boolean isActive()
@@ -167,6 +183,16 @@ public class SchematicVerifier extends TaskBase implements IInfoHudRenderer
         return this.diffBlocksPositions.size();
     }
 
+    public int getWrongInventories()
+    {
+        return this.wrongInventoriesPositions.size();
+    }
+
+    public boolean hasInventoryMismatchForOverlay(BlockPos pos)
+    {
+        return this.inventoryMismatchPositionsForOverlay.contains(pos);
+    }
+
     public int getCorrectStatesCount()
     {
         return this.correctStatesCount;
@@ -178,7 +204,8 @@ public class SchematicVerifier extends TaskBase implements IInfoHudRenderer
                 this.getMismatchedStates() +
                 this.getExtraBlocks() +
                 this.getMissingBlocks() +
-                this.getDiffBlocks();
+                this.getDiffBlocks() +
+                this.getWrongInventories();
     }
 
     public SortCriteria getSortCriteria()
@@ -364,10 +391,14 @@ public class SchematicVerifier extends TaskBase implements IInfoHudRenderer
         this.extraBlocksPositions.clear();
         this.wrongBlocksPositions.clear();
         this.wrongStatesPositions.clear();
+        this.wrongInventoriesPositions.clear();
         this.blockMismatches.clear();
+        this.inventoryMismatches.clear();
         this.correctStateCounts.clear();
+        this.ignoredInventoryMismatches.clear();
         this.selectedCategories.clear();
         this.selectedEntries.clear();
+        this.setInventoryMismatchOverlayPositions(Collections.emptySet());
         this.mismatchBlockPositionsForRender.clear();
         this.mismatchPositionsForRender.clear();
 
@@ -382,12 +413,7 @@ public class SchematicVerifier extends TaskBase implements IInfoHudRenderer
     {
         if (this.finished)
         {
-            BlockMismatch mismatch = this.blockMismatches.get(pos);
-
-            if (mismatch != null)
-            {
-                this.recheckQueue.add(pos.immutable());
-            }
+            this.recheckQueue.add(pos.immutable());
         }
     }
 
@@ -430,9 +456,22 @@ public class SchematicVerifier extends TaskBase implements IInfoHudRenderer
                     {
                         BlockState stateExpected = this.worldSchematic.getBlockState(pos);
                         BlockState stateFound = this.worldClient.getBlockState(pos);
-                        this.checkBlockStates(pos.getX(), pos.getY(), pos.getZ(), stateExpected, stateFound);
+
+                        if (stateExpected != stateFound && (stateExpected.isAir() == false || stateFound.isAir() == false))
+                        {
+                            this.correctStateCounts.addTo(stateExpected, -1);
+
+                            if (stateExpected.isAir() == false)
+                            {
+                                --this.correctStatesCount;
+                            }
+
+                            this.checkBlockStates(pos.getX(), pos.getY(), pos.getZ(), stateExpected, stateFound);
+                        }
                     }
 
+                    // Inventory mismatch rows are scan snapshots. Live menu/block-entity
+                    // updates should not clear or rewrite them until the next verifier scan.
                     iter.remove();
                 }
             }
@@ -454,6 +493,7 @@ public class SchematicVerifier extends TaskBase implements IInfoHudRenderer
             case EXTRA -> this.extraBlocksPositions;
             case WRONG_BLOCK -> this.wrongBlocksPositions;
             case WRONG_STATE -> this.wrongStatesPositions;
+            case WRONG_INVENTORIES -> this.wrongInventoriesPositions;
             case DIFF_BLOCK -> this.diffBlocksPositions;
             default -> null;
         };
@@ -489,15 +529,18 @@ public class SchematicVerifier extends TaskBase implements IInfoHudRenderer
                 }
 
                 // Require the surrounding chunks in the client world to be loaded as well
-                if (count == 9 && this.worldSchematic.getChunkSource().hasChunk(pos.x(), pos.z()))
+                Level foundWorld = this.getFoundInventoryWorld();
+                boolean hasFoundChunk = foundWorld == null || foundWorld.getChunkSource().hasChunk(pos.x(), pos.z());
+
+                if (count == 9 && hasFoundChunk && this.worldSchematic.getChunkSource().hasChunk(pos.x(), pos.z()))
                 {
-                    ChunkAccess chunkClient = this.worldClient.getChunk(pos.x(), pos.z());
+                    ChunkAccess chunkClient = foundWorld != null ? foundWorld.getChunk(pos.x(), pos.z()) : this.worldClient.getChunk(pos.x(), pos.z());
                     ChunkAccess chunkSchematic = this.worldSchematic.getChunk(pos.x(), pos.z());
                     Map<String, IntBoundingBox> boxes = this.schematicPlacement.getBoxesWithinChunk(pos.x(), pos.z());
 
                     for (IntBoundingBox box : boxes.values())
                     {
-                        this.verifyChunk(chunkClient, chunkSchematic, box);
+                        this.verifyChunk(chunkClient, chunkSchematic, box, foundWorld);
                     }
 
                     iter.remove();
@@ -515,6 +558,7 @@ public class SchematicVerifier extends TaskBase implements IInfoHudRenderer
                 this.verificationActive = false;
                 this.verificationStarted = false;
                 this.finished = true;
+                this.updateMismatchOverlays();
 
                 this.notifyListener();
             }
@@ -531,13 +575,21 @@ public class SchematicVerifier extends TaskBase implements IInfoHudRenderer
 
     private void ignoreStateMismatch(BlockMismatch mismatch, boolean updateOverlay)
     {
-        Pair<BlockState, BlockState> ignore = Pair.of(mismatch.stateExpected, mismatch.stateFound);
-
-        if (this.ignoredMismatches.contains(ignore) == false)
+        if (mismatch.mismatchType == MismatchType.WRONG_INVENTORIES && mismatch.getInventoryPos() != null)
         {
-            this.ignoredMismatches.add(ignore);
-            this.getMapForMismatchType(mismatch.mismatchType).removeAll(ignore);
-            this.blockMismatches.entrySet().removeIf(entry -> entry.getValue().equals(mismatch));
+            this.ignoredInventoryMismatches.add(mismatch.getInventoryPos());
+            this.removeInventoryMismatchAt(mismatch.getInventoryPos());
+        }
+        else
+        {
+            Pair<BlockState, BlockState> ignore = Pair.of(mismatch.stateExpected, mismatch.stateFound);
+
+            if (this.ignoredMismatches.contains(ignore) == false)
+            {
+                this.ignoredMismatches.add(ignore);
+                this.getMapForMismatchType(mismatch.mismatchType).removeAll(ignore);
+                this.blockMismatches.entrySet().removeIf(entry -> entry.getValue().equals(mismatch));
+            }
         }
 
         if (updateOverlay)
@@ -559,11 +611,17 @@ public class SchematicVerifier extends TaskBase implements IInfoHudRenderer
     public void resetIgnoredStateMismatches()
     {
         this.ignoredMismatches.clear();
+        this.ignoredInventoryMismatches.clear();
     }
 
     public Set<Pair<BlockState, BlockState>> getIgnoredMismatches()
     {
         return this.ignoredMismatches;
+    }
+
+    public int getIgnoredInventoryMismatchesCount()
+    {
+        return this.ignoredInventoryMismatches.size();
     }
 
     public Object2IntOpenHashMap<BlockState> getCorrectStates()
@@ -585,6 +643,10 @@ public class SchematicVerifier extends TaskBase implements IInfoHudRenderer
         {
             return this.getMismatchOverviewCombined();
         }
+        else if (type == MismatchType.WRONG_INVENTORIES)
+        {
+            list.addAll(this.inventoryMismatches.values());
+        }
         else
         {
             this.addCountFor(type, this.getMapForMismatchType(type), list);
@@ -601,6 +663,7 @@ public class SchematicVerifier extends TaskBase implements IInfoHudRenderer
         this.addCountFor(MismatchType.EXTRA, this.extraBlocksPositions, list);
         this.addCountFor(MismatchType.WRONG_BLOCK, this.wrongBlocksPositions, list);
         this.addCountFor(MismatchType.WRONG_STATE, this.wrongStatesPositions, list);
+        list.addAll(this.inventoryMismatches.values());
         this.addCountFor(MismatchType.DIFF_BLOCK, this.diffBlocksPositions, list);
 
         Collections.sort(list);
@@ -612,7 +675,9 @@ public class SchematicVerifier extends TaskBase implements IInfoHudRenderer
     {
         for (Pair<BlockState, BlockState> pair : map.keySet())
         {
-            list.add(new BlockMismatch(mismatchType, pair.getLeft(), pair.getRight(), map.get(pair).size()));
+            List<BlockPos> positions = map.get(pair);
+            VerifierInventoryPreview preview = positions.size() == 1 ? this.createInventoryPreviewForBlockRow(positions.get(0), pair.getLeft(), pair.getRight()) : null;
+            list.add(new BlockMismatch(mismatchType, pair.getLeft(), pair.getRight(), positions.size(), positions.size() == 1 ? positions.get(0) : null, preview));
         }
     }
 
@@ -653,7 +718,7 @@ public class SchematicVerifier extends TaskBase implements IInfoHudRenderer
         return list;
     }
 
-    private boolean verifyChunk(ChunkAccess chunkClient, ChunkAccess chunkSchematic, IntBoundingBox box)
+    private boolean verifyChunk(ChunkAccess chunkClient, ChunkAccess chunkSchematic, IntBoundingBox box, @Nullable Level foundWorld)
     {
         LayerRange range = DataManager.getRenderLayerRange();
         Direction.Axis axis = range.getAxis();
@@ -677,6 +742,12 @@ public class SchematicVerifier extends TaskBase implements IInfoHudRenderer
                     BlockState stateSchematic = chunkSchematic.getBlockState(MUTABLE_POS);
 
                     this.checkBlockStates(x, y, z, stateSchematic, stateClient);
+
+                    if (stateSchematic.hasBlockEntity() && stateClient.hasBlockEntity())
+                    {
+                        this.checkInventories(MUTABLE_POS.immutable(), stateSchematic, stateClient,
+                                chunkSchematic, chunkClient, foundWorld);
+                    }
 
                     if (stateSchematic.isAir() == false)
                     {
@@ -774,8 +845,102 @@ public class SchematicVerifier extends TaskBase implements IInfoHudRenderer
         }
     }
 
+    private void checkInventories(BlockPos pos, BlockState stateSchematic, BlockState stateClient,
+                                  @Nullable ChunkAccess chunkSchematic, @Nullable ChunkAccess chunkClient,
+                                  @Nullable Level foundWorld)
+    {
+        if (this.ignoredInventoryMismatches.contains(pos))
+        {
+            return;
+        }
+
+        if (foundWorld == null)
+        {
+            foundWorld = this.worldClient;
+        }
+
+        BlockEntity blockEntitySchematic = chunkSchematic != null ? chunkSchematic.getBlockEntity(pos) : this.worldSchematic.getBlockEntity(pos);
+        BlockEntity blockEntityClient = chunkClient != null ? chunkClient.getBlockEntity(pos) : foundWorld.getBlockEntity(pos);
+
+        if ((blockEntitySchematic instanceof Container) == false ||
+            (blockEntityClient instanceof Container) == false ||
+            blockEntitySchematic.getType() != blockEntityClient.getType())
+        {
+            return;
+        }
+
+        Container containerSchematic = (Container) blockEntitySchematic;
+        Container containerClient = (Container) blockEntityClient;
+
+        if (containerSchematic.getContainerSize() != containerClient.getContainerSize())
+        {
+            return;
+        }
+
+        VerifierInventorySide expected = VerifierInventorySide.ofBlockEntity(blockEntitySchematic, this.worldSchematic.registryAccess());
+        VerifierInventorySide found = VerifierInventorySide.ofBlockEntity(blockEntityClient, foundWorld.registryAccess());
+
+        if (expected == null || found == null || expected.inventory().getContainerSize() != found.inventory().getContainerSize())
+        {
+            return;
+        }
+
+        VerifierInventoryPreview preview = new VerifierInventoryPreview(pos, expected, found);
+
+        if (preview.hasDiffs() == false)
+        {
+            return;
+        }
+
+        BlockMismatch mismatch = new BlockMismatch(MismatchType.WRONG_INVENTORIES, stateSchematic, stateClient, 1, pos, preview);
+        Pair<BlockState, BlockState> pair = Pair.of(stateSchematic, stateClient);
+        this.wrongInventoriesPositions.put(pair, pos);
+        this.inventoryMismatches.put(pos, mismatch);
+
+        ItemUtils.setItemForBlock(this.worldClient, pos, stateClient);
+        ItemUtils.setItemForBlock(this.worldSchematic, pos, stateSchematic);
+    }
+
+    private void removeInventoryMismatchAt(BlockPos pos)
+    {
+        BlockMismatch mismatch = this.inventoryMismatches.remove(pos);
+
+        if (mismatch != null)
+        {
+            MUTABLE_PAIR.setLeft(mismatch.stateExpected);
+            MUTABLE_PAIR.setRight(mismatch.stateFound);
+            this.wrongInventoriesPositions.remove(MUTABLE_PAIR, pos);
+        }
+    }
+
+    @Nullable
+    private VerifierInventoryPreview createInventoryPreviewForBlockRow(BlockPos pos, BlockState stateSchematic, BlockState stateClient)
+    {
+        Level foundWorld = this.getFoundInventoryWorld();
+        BlockEntity blockEntitySchematic = this.worldSchematic != null ? this.worldSchematic.getBlockEntity(pos) : null;
+        BlockEntity blockEntityClient = foundWorld != null ? foundWorld.getBlockEntity(pos) : null;
+        VerifierInventorySide expected = blockEntitySchematic instanceof Container ? VerifierInventorySide.ofBlockEntity(blockEntitySchematic, this.worldSchematic.registryAccess()) : null;
+        VerifierInventorySide found = blockEntityClient instanceof Container ? VerifierInventorySide.ofBlockEntity(blockEntityClient, foundWorld.registryAccess()) : null;
+
+        if (expected != null || found != null)
+        {
+            return new VerifierInventoryPreview(pos, expected, found);
+        }
+
+        return null;
+    }
+
+    @Nullable
+    private Level getFoundInventoryWorld()
+    {
+        Level bestWorld = fi.dy.masa.malilib.util.WorldUtils.getBestWorld(this.mc);
+        return bestWorld != null ? bestWorld : this.worldClient;
+    }
+
     private void updateMismatchOverlays()
     {
+        this.updateInventoryMismatchOverlayPositions();
+
         if (this.mc.player != null)
         {
             int maxEntries = Configs.InfoOverlays.VERIFIER_ERROR_HILIGHT_MAX_POSITIONS.getIntegerValue();
@@ -798,6 +963,52 @@ public class SchematicVerifier extends TaskBase implements IInfoHudRenderer
         }
     }
 
+    private void updateInventoryMismatchOverlayPositions()
+    {
+        if (this.inventoryMismatches.isEmpty())
+        {
+            this.setInventoryMismatchOverlayPositions(Collections.emptySet());
+        }
+        else
+        {
+            this.setInventoryMismatchOverlayPositions(Set.copyOf(this.inventoryMismatches.keySet()));
+        }
+    }
+
+    private void setInventoryMismatchOverlayPositions(Set<BlockPos> positions)
+    {
+        Set<BlockPos> previous = this.inventoryMismatchPositionsForOverlay;
+
+        if (previous.equals(positions))
+        {
+            return;
+        }
+
+        this.inventoryMismatchPositionsForOverlay = positions;
+        this.markInventoryMismatchOverlayChunksForRebuild(previous, positions);
+    }
+
+    private void markInventoryMismatchOverlayChunksForRebuild(Set<BlockPos> previous, Set<BlockPos> current)
+    {
+        Set<ChunkPos> chunks = new HashSet<>();
+
+        this.addInventoryMismatchOverlayChunks(previous, chunks);
+        this.addInventoryMismatchOverlayChunks(current, chunks);
+
+        for (ChunkPos chunk : chunks)
+        {
+            DataManager.getSchematicPlacementManager().markChunkForRebuild(chunk);
+        }
+    }
+
+    private void addInventoryMismatchOverlayChunks(Set<BlockPos> positions, Set<ChunkPos> chunks)
+    {
+        for (BlockPos pos : positions)
+        {
+            chunks.add(new ChunkPos(pos.getX() >> 4, pos.getZ() >> 4));
+        }
+    }
+
     private void updateClosestPositions(BlockPos centerPos, int maxEntries)
     {
         PositionUtils.BLOCK_POS_COMPARATOR.setReferencePosition(centerPos);
@@ -806,6 +1017,7 @@ public class SchematicVerifier extends TaskBase implements IInfoHudRenderer
         this.addAndSortPositions(MismatchType.DIFF_BLOCK,   this.diffBlocksPositions, this.diffBlocksPositionsClosest, maxEntries);
         this.addAndSortPositions(MismatchType.WRONG_BLOCK,  this.wrongBlocksPositions, this.mismatchedBlocksPositionsClosest, maxEntries);
         this.addAndSortPositions(MismatchType.WRONG_STATE,  this.wrongStatesPositions, this.mismatchedStatesPositionsClosest, maxEntries);
+        this.addAndSortPositions(MismatchType.WRONG_INVENTORIES,  this.wrongInventoriesPositions, this.wrongInventoriesPositionsClosest, maxEntries);
         this.addAndSortPositions(MismatchType.EXTRA,        this.extraBlocksPositions, this.extraBlocksPositionsClosest, maxEntries);
         this.addAndSortPositions(MismatchType.MISSING,      this.missingBlocksPositions, this.missingBlocksPositionsClosest, maxEntries);
     }
@@ -828,9 +1040,16 @@ public class SchematicVerifier extends TaskBase implements IInfoHudRenderer
 
             for (BlockMismatch mismatch : mismatches)
             {
-                MUTABLE_PAIR.setLeft(mismatch.stateExpected);
-                MUTABLE_PAIR.setRight(mismatch.stateFound);
-                listOut.addAll(sourceMap.get(MUTABLE_PAIR));
+                if (type == MismatchType.WRONG_INVENTORIES && mismatch.getInventoryPos() != null)
+                {
+                    listOut.add(mismatch.getInventoryPos());
+                }
+                else
+                {
+                    MUTABLE_PAIR.setLeft(mismatch.stateExpected);
+                    MUTABLE_PAIR.setRight(mismatch.stateFound);
+                    listOut.addAll(sourceMap.get(MUTABLE_PAIR));
+                }
             }
         }
 
@@ -854,6 +1073,7 @@ public class SchematicVerifier extends TaskBase implements IInfoHudRenderer
         List<MismatchRenderPos> tempList = new ArrayList<>();
 
         this.getMismatchRenderPositionFor(MismatchType.WRONG_BLOCK, tempList);
+        this.getMismatchRenderPositionFor(MismatchType.WRONG_INVENTORIES, tempList);
         this.getMismatchRenderPositionFor(MismatchType.DIFF_BLOCK, tempList);
         this.getMismatchRenderPositionFor(MismatchType.WRONG_STATE, tempList);
         this.getMismatchRenderPositionFor(MismatchType.EXTRA, tempList);
@@ -889,6 +1109,7 @@ public class SchematicVerifier extends TaskBase implements IInfoHudRenderer
             case EXTRA -> this.extraBlocksPositionsClosest;
             case WRONG_BLOCK -> this.mismatchedBlocksPositionsClosest;
             case WRONG_STATE -> this.mismatchedStatesPositionsClosest;
+            case WRONG_INVENTORIES -> this.wrongInventoriesPositionsClosest;
             case DIFF_BLOCK -> this.diffBlocksPositionsClosest;
             default -> Collections.emptyList();
         };
@@ -902,7 +1123,12 @@ public class SchematicVerifier extends TaskBase implements IInfoHudRenderer
         {
             String rst = GuiBase.TXT_RST;
 
-            if (mismatchType != null)
+            if (this.lvcDiffInfoHud)
+            {
+                String title = StringUtils.translate("litematica.gui.title.lvc_diff_viewer_info_hud");
+                this.infoHudLines.add(String.format("%s%s%s", GuiBase.TXT_BOLD, title, rst));
+            }
+            else if (mismatchType != null)
             {
                 this.infoHudLines.add(String.format("%s%s%s", mismatchType.getFormattingCode(), mismatchType.getDisplayname(), rst));
             }
@@ -918,9 +1144,38 @@ public class SchematicVerifier extends TaskBase implements IInfoHudRenderer
             {
                 MismatchRenderPos entry = positionList.get(i);
                 BlockPos pos = entry.pos;
-                String pre = entry.type.getColorCode();
+                String pre = this.getMismatchInfoHudColorCode(entry);
                 this.infoHudLines.add(String.format("%sx: %5d, y: %3d, z: %5d%s", pre, pos.getX(), pos.getY(), pos.getZ(), rst));
             }
+        }
+    }
+
+    private String getMismatchInfoHudColorCode(MismatchRenderPos entry)
+    {
+        if (this.lvcDiffInfoHud)
+        {
+            return this.getLvcDiffInfoHudColorCode(entry.type);
+        }
+
+        return entry.type.getColorCode();
+    }
+
+    private String getLvcDiffInfoHudColorCode(MismatchType type)
+    {
+        switch (type)
+        {
+            case EXTRA:
+                return GuiBase.TXT_GREEN;
+            case MISSING:
+                return GuiBase.TXT_RED;
+            case WRONG_STATE:
+            case WRONG_INVENTORIES:
+                return GuiBase.TXT_YELLOW;
+            case WRONG_BLOCK:
+            case DIFF_BLOCK:
+                return GuiBase.TXT_GOLD;
+            default:
+                return type.getColorCode();
         }
     }
 
@@ -946,13 +1201,40 @@ public class SchematicVerifier extends TaskBase implements IInfoHudRenderer
         public final BlockState stateExpected;
         public final BlockState stateFound;
         public final int count;
+        @Nullable private final BlockPos inventoryPos;
+        @Nullable private final VerifierInventoryPreview inventoryPreview;
 
         public BlockMismatch(MismatchType mismatchType, BlockState stateExpected, BlockState stateFound, int count)
+        {
+            this(mismatchType, stateExpected, stateFound, count, null, null);
+        }
+
+        public BlockMismatch(MismatchType mismatchType, BlockState stateExpected, BlockState stateFound, int count,
+                             @Nullable BlockPos inventoryPos, @Nullable VerifierInventoryPreview inventoryPreview)
         {
             this.mismatchType = mismatchType;
             this.stateExpected = stateExpected;
             this.stateFound = stateFound;
             this.count = count;
+            this.inventoryPos = inventoryPos != null ? inventoryPos.immutable() : null;
+            this.inventoryPreview = inventoryPreview;
+        }
+
+        @Nullable
+        public BlockPos getInventoryPos()
+        {
+            return this.inventoryPos;
+        }
+
+        @Nullable
+        public VerifierInventoryPreview getInventoryPreview()
+        {
+            return this.inventoryPreview;
+        }
+
+        public boolean hasInventoryPreview()
+        {
+            return this.inventoryPreview != null;
         }
 
         @Override
@@ -969,6 +1251,7 @@ public class SchematicVerifier extends TaskBase implements IInfoHudRenderer
             result = prime * result + ((mismatchType == null) ? 0 : mismatchType.hashCode());
             result = prime * result + ((stateExpected == null) ? 0 : stateExpected.hashCode());
             result = prime * result + ((stateFound == null) ? 0 : stateFound.hashCode());
+            result = prime * result + ((inventoryPos == null) ? 0 : inventoryPos.hashCode());
             return result;
         }
 
@@ -998,6 +1281,13 @@ public class SchematicVerifier extends TaskBase implements IInfoHudRenderer
             }
             else if (stateFound != other.stateFound)
                 return false;
+            if (inventoryPos == null)
+            {
+                if (other.inventoryPos != null)
+                    return false;
+            }
+            else if (!inventoryPos.equals(other.inventoryPos))
+                return false;
             return true;
         }
     }
@@ -1006,11 +1296,18 @@ public class SchematicVerifier extends TaskBase implements IInfoHudRenderer
     {
         public final MismatchType type;
         public final BlockPos pos;
+        @Nullable public final Color4f colorOverride;
 
         public MismatchRenderPos(MismatchType type, BlockPos pos)
         {
+            this(type, pos, null);
+        }
+
+        public MismatchRenderPos(MismatchType type, BlockPos pos, @Nullable Color4f colorOverride)
+        {
             this.type = type;
             this.pos = pos;
+            this.colorOverride = colorOverride;
         }
     }
 
@@ -1047,6 +1344,7 @@ public class SchematicVerifier extends TaskBase implements IInfoHudRenderer
         EXTRA           (0xFF00CF, "litematica.gui.label.schematic_verifier_display_type.extra", GuiBase.TXT_LIGHT_PURPLE),
         WRONG_BLOCK     (0xFF0000, "litematica.gui.label.schematic_verifier_display_type.wrong_blocks", GuiBase.TXT_RED),
         WRONG_STATE     (0xFFAF00, "litematica.gui.label.schematic_verifier_display_type.wrong_state", GuiBase.TXT_GOLD),
+        WRONG_INVENTORIES(0xFFFF30, "litematica.gui.label.schematic_verifier_display_type.wrong_inventories", GuiBase.TXT_YELLOW),
         CORRECT_STATE   (0x11FF11, "litematica.gui.label.schematic_verifier_display_type.correct_state", GuiBase.TXT_GREEN),
         DIFF_BLOCK      (0xFAF000, "litematica.gui.label.schematic_verifier_display_type.diff_blocks", GuiBase.TXT_YELLOW);
 

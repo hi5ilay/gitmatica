@@ -6,6 +6,7 @@ import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
 import fi.dy.masa.malilib.gui.GuiTextFieldGeneric;
 import fi.dy.masa.malilib.gui.Message.MessageType;
+import fi.dy.masa.malilib.gui.button.ButtonBase;
 import fi.dy.masa.malilib.gui.button.ButtonGeneric;
 import fi.dy.masa.malilib.gui.button.IButtonActionListener;
 import fi.dy.masa.malilib.gui.interfaces.ISelectionListener;
@@ -17,6 +18,7 @@ import fi.dy.masa.malilib.util.FileNameUtils;
 import fi.dy.masa.malilib.util.KeyCodes;
 import fi.dy.masa.malilib.util.StringUtils;
 import fi.dy.masa.litematica.schematic.LitematicaSchematic;
+import me.zly2006.lvc.gui.LvcCreateProjectAction;
 
 public abstract class GuiSchematicSaveBase extends GuiSchematicBrowserBase implements ISelectionListener<DirectoryEntry>
 {
@@ -95,7 +97,12 @@ public abstract class GuiSchematicSaveBase extends GuiSchematicBrowserBase imple
         this.checkboxIncludeSupportBlocks = new WidgetCheckBox(x, y + 36, Icons.CHECKBOX_UNSELECTED, Icons.CHECKBOX_SELECTED, StringUtils.translate("litematica.gui.label.schematic_save.checkbox.support_blocks"), StringUtils.translate("litematica.gui.label.schematic_save.hover_info.support_blocks"));
         this.addWidget(this.checkboxIncludeSupportBlocks);
 
-        this.createButton(10, 54, ButtonType.SAVE);
+        int buttonX = this.createButton(10, 54, ButtonType.SAVE);
+
+        if (this.shouldShowCreateLvcProjectButton())
+        {
+            this.createButton(buttonX, 54, ButtonType.CREATE_LVC_PROJECT);
+        }
     }
 
     protected void setTextFieldText(String text)
@@ -110,6 +117,11 @@ public abstract class GuiSchematicSaveBase extends GuiSchematicBrowserBase imple
     }
 
     protected abstract IButtonActionListener createButtonListener(ButtonType type);
+
+    protected boolean shouldShowCreateLvcProjectButton()
+    {
+        return false;
+    }
 
     private int createButton(int x, int y, ButtonType type)
     {
@@ -127,7 +139,7 @@ public abstract class GuiSchematicSaveBase extends GuiSchematicBrowserBase imple
             button = new ButtonGeneric(x, y, width, 20, label);
         }
 
-        this.addButton(button, this.createButtonListener(type));
+        this.addButton(button, type == ButtonType.CREATE_LVC_PROJECT ? new ButtonListenerCreateLvcProject(this) : this.createButtonListener(type));
 
         return x + width + 4;
     }
@@ -204,7 +216,8 @@ public abstract class GuiSchematicSaveBase extends GuiSchematicBrowserBase imple
 
     public enum ButtonType
     {
-        SAVE ("litematica.gui.button.save_schematic");
+        SAVE ("litematica.gui.button.save_schematic"),
+        CREATE_LVC_PROJECT ("litematica.gui.button.lvc_project.create");
 
         private final String labelKey;
 
@@ -216,6 +229,15 @@ public abstract class GuiSchematicSaveBase extends GuiSchematicBrowserBase imple
         public String getLabelKey()
         {
             return this.labelKey;
+        }
+    }
+
+    private record ButtonListenerCreateLvcProject(GuiSchematicSaveBase gui) implements IButtonActionListener
+    {
+        @Override
+        public void actionPerformedWithButton(ButtonBase button, int mouseButton)
+        {
+            LvcCreateProjectAction.createFromSaveGui(this.gui, this.gui.getTextFieldText());
         }
     }
 }

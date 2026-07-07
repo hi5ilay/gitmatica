@@ -6,6 +6,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import fi.dy.masa.litematica.config.Configs;
+import fi.dy.masa.litematica.schematic.verifier.inventory.VerifierInventoryOverlay;
 import fi.dy.masa.litematica.util.EasyPlaceUtils;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.client.player.LocalPlayer;
@@ -46,6 +47,15 @@ public class MixinClientPlayerInteractionManager_easyPlace
                     }
                 }
             }
+        }
+    }
+
+    @Inject(method = "useItemOn", at = @At("RETURN"))
+    private void litematica_recordVerifierInventoryContainer(LocalPlayer player, InteractionHand hand, BlockHitResult hitResult, CallbackInfoReturnable<InteractionResult> cir)
+    {
+        if (cir.getReturnValue().consumesAction())
+        {
+            VerifierInventoryOverlay.onContainerClick(hitResult);
         }
     }
 
