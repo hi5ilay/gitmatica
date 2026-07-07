@@ -1,11 +1,16 @@
 package fi.dy.masa.litematica.gui;
 
 import javax.annotation.Nullable;
+import java.nio.file.FileAlreadyExistsException;
 import net.minecraft.client.input.CharacterEvent;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.Minecraft;
+import net.minecraft.world.entity.player.Player;
+import fi.dy.masa.malilib.gui.GuiBase;
 import fi.dy.masa.malilib.gui.GuiTextFieldGeneric;
 import fi.dy.masa.malilib.gui.Message.MessageType;
+import fi.dy.masa.malilib.gui.button.ButtonBase;
 import fi.dy.masa.malilib.gui.button.ButtonGeneric;
 import fi.dy.masa.malilib.gui.button.IButtonActionListener;
 import fi.dy.masa.malilib.gui.interfaces.ISelectionListener;
@@ -17,6 +22,11 @@ import fi.dy.masa.malilib.util.FileNameUtils;
 import fi.dy.masa.malilib.util.KeyCodes;
 import fi.dy.masa.malilib.util.StringUtils;
 import fi.dy.masa.litematica.schematic.LitematicaSchematic;
+import fi.dy.masa.litematica.data.DataManager;
+import fi.dy.masa.litematica.selection.AreaSelection;
+import me.zly2006.rvc.GuiRvcProjectManager;
+import me.zly2006.rvc.RvcPlayerIdentity;
+import me.zly2006.rvc.RvcProjectService;
 
 public abstract class GuiSchematicSaveBase extends GuiSchematicBrowserBase implements ISelectionListener<DirectoryEntry>
 {
@@ -95,7 +105,12 @@ public abstract class GuiSchematicSaveBase extends GuiSchematicBrowserBase imple
         this.checkboxIncludeSupportBlocks = new WidgetCheckBox(x, y + 36, Icons.CHECKBOX_UNSELECTED, Icons.CHECKBOX_SELECTED, StringUtils.translate("litematica.gui.label.schematic_save.checkbox.support_blocks"), StringUtils.translate("litematica.gui.label.schematic_save.hover_info.support_blocks"));
         this.addWidget(this.checkboxIncludeSupportBlocks);
 
-        this.createButton(10, 54, ButtonType.SAVE);
+        int buttonX = this.createButton(10, 54, ButtonType.SAVE);
+
+        if (this.shouldShowCreateRvcProjectButton())
+        {
+            this.createButton(buttonX, 54, ButtonType.CREATE_RVC_PROJECT);
+        }
     }
 
     protected void setTextFieldText(String text)
@@ -110,6 +125,11 @@ public abstract class GuiSchematicSaveBase extends GuiSchematicBrowserBase imple
     }
 
     protected abstract IButtonActionListener createButtonListener(ButtonType type);
+
+    protected boolean shouldShowCreateRvcProjectButton()
+    {
+        return false;
+    }
 
     private int createButton(int x, int y, ButtonType type)
     {
@@ -127,7 +147,7 @@ public abstract class GuiSchematicSaveBase extends GuiSchematicBrowserBase imple
             button = new ButtonGeneric(x, y, width, 20, label);
         }
 
-        this.addButton(button, this.createButtonListener(type));
+        this.addButton(button, type == ButtonType.CREATE_RVC_PROJECT ? new ButtonListenerCreateRvcProject(this) : this.createButtonListener(type));
 
         return x + width + 4;
     }
@@ -204,7 +224,8 @@ public abstract class GuiSchematicSaveBase extends GuiSchematicBrowserBase imple
 
     public enum ButtonType
     {
-        SAVE ("litematica.gui.button.save_schematic");
+        SAVE ("litematica.gui.button.save_schematic"),
+        CREATE_RVC_PROJECT ("litematica.gui.button.rvc_project.create");
 
         private final String labelKey;
 
@@ -216,6 +237,66 @@ public abstract class GuiSchematicSaveBase extends GuiSchematicBrowserBase imple
         public String getLabelKey()
         {
             return this.labelKey;
+        }
+    }
+
+    private record ButtonListenerCreateRvcProject(GuiSchematicSaveBase gui) implements IButtonActionListener
+    {
+        @Override
+        public void actionPerformedWithButton(ButtonBase button, int mouseButton)
+        {
+            Minecraft minecraft = Minecraft.getInstance();
+            Player player = minecraft.player;
+
+            if (player == null)
+            {
+                this.gui.addMessage(MessageType.ERROR, "litematica.error.rvc_project.no_player");
+                return;
+            }
+
+            if (minecraft.level == null)
+            {
+                this.gui.addMessage(MessageType.ERROR, "litematica.error.rvc_project.no_world");
+                return;
+            }
+
+            AreaSelection selection = DataManager.getSelectionManager().getCurrentSelection();
+
+            if (selection == null || selection.getAllSubRegionBoxes().isEmpty())
+            {
+                this.gui.addMessage(MessageType.ERROR, "litematica.message.error.schematic_save_no_area_selected");
+                return;
+            }
+
+            String repositoryName = this.gui.getTextFieldText();
+
+            if (repositoryName == null || repositoryName.isBlank())
+            {
+                this.gui.addMessage(MessageType.ERROR, "litematica.error.schematic_save.invalid_schematic_name", repositoryName);
+                return;
+            }
+
+            try
+            {
+                RvcPlayerIdentity identity = new RvcPlayerIdentity(player.getName().getString(), player.getUUID());
+                RvcProjectService.Result result = RvcProjectService.createProject(
+                        minecraft.gameDirectory.toPath(),
+                        repositoryName,
+                        identity,
+                        minecraft.level,
+                        selection
+                );
+                this.gui.addMessage(MessageType.SUCCESS, "litematica.message.rvc_project.created", result.repositoryDirectory(), result.commitId());
+                GuiBase.openGui(new GuiRvcProjectManager());
+            }
+            catch (FileAlreadyExistsException e)
+            {
+                this.gui.addMessage(MessageType.ERROR, "litematica.error.rvc_project_manager.project_name_used");
+            }
+            catch (Exception e)
+            {
+                this.gui.addMessage(MessageType.ERROR, "litematica.error.rvc_project.create_failed", e.getMessage());
+            }
         }
     }
 }
