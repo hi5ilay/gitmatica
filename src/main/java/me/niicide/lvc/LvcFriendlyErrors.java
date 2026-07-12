@@ -85,7 +85,9 @@ public final class LvcFriendlyErrors
         CHECKOUT_BRANCH("Checkout Branch"),
         DELETE_VERSION("Delete Version"),
         LOAD_OVERLAY("Load Overlay"),
-        PROJECT_BROWSER("Project Browser");
+        PROJECT_BROWSER("Project Browser"),
+        PULL("Pull"),
+        PUSH("Push");
 
         private final String displayName;
 

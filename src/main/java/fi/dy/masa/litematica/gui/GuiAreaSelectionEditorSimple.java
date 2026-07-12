@@ -56,7 +56,9 @@ public class GuiAreaSelectionEditorSimple extends GuiAreaSelectionEditorNormal
         this.createCoordinateInputs(x, y, width, Corner.CORNER_1);
         x += width + 42;
         nextY = this.createCoordinateInputs(x, y, width, Corner.CORNER_2);
-        this.createButton(x + 10, nextY, -1, ButtonListener.Type.ANALYZE_AREA);
+        int analyzeX = x + 10;
+        int analyzeWidth = this.createButton(analyzeX, nextY, -1, ButtonListener.Type.ANALYZE_AREA);
+        this.createButton(analyzeX + analyzeWidth + 4, nextY, -1, ButtonListener.Type.CREATE_LVC_PROJECT);
         x += width + 42;
 
         // Manual Origin defined
@@ -65,7 +67,7 @@ public class GuiAreaSelectionEditorSimple extends GuiAreaSelectionEditorNormal
             this.createCoordinateInputs(x, y, width, Corner.NONE);
         }
 
-        x = this.createButton(22, nextY, -1, ButtonListener.Type.CREATE_SCHEMATIC) + 26;
+        this.createButton(22, nextY, -1, ButtonListener.Type.CREATE_SCHEMATIC);
 
         this.addRenderingDisabledWarning(250, 48);
 

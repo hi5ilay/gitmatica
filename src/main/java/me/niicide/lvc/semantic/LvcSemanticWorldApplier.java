@@ -35,11 +35,16 @@ import me.niicide.lvc.model.LvcSitePlacement;
 import me.niicide.lvc.storage.LvcCanonicalNbt;
 import me.niicide.lvc.util.LvcEntityNbt;
 
+import net.minecraft.world.Clearable;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.ticks.LevelChunkTicks;
+import fi.dy.masa.litematica.mixin.world.IMixinLevelTicks;
 import fi.dy.masa.litematica.schematic.LitematicaSchematic;
 import fi.dy.masa.litematica.util.BlockUtils;
 import fi.dy.masa.litematica.util.EntityUtils;
 import fi.dy.masa.litematica.util.WorldUtils;
 import fi.dy.masa.malilib.util.nbt.NbtView;
+import it.unimi.dsi.fastutil.longs.LongCollection;
 
 public final class LvcSemanticWorldApplier
 {
@@ -50,6 +55,25 @@ public final class LvcSemanticWorldApplier
 
     private LvcSemanticWorldApplier()
     {
+    }
+
+    public static int clearScheduledTicksInTrackedChunks(ServerLevel world, LongCollection realChunkKeys)
+    {
+        if (realChunkKeys.isEmpty()) return 0;
+
+        var blockContainers = ((IMixinLevelTicks<Block>) world.getBlockTicks()).litematica_getChunkTickSchedulers();
+        var fluidContainers = ((IMixinLevelTicks<Fluid>) world.getFluidTicks()).litematica_getChunkTickSchedulers();
+        int cleared = 0;
+
+        for (long chunkKey : realChunkKeys)
+        {
+            LevelChunkTicks<Block> blockTicks = blockContainers.get(chunkKey);
+            if (blockTicks instanceof Clearable c) { c.clearContent(); cleared++; }
+            LevelChunkTicks<Fluid> fluidTicks = fluidContainers.get(chunkKey);
+            if (fluidTicks instanceof Clearable c) { c.clearContent(); cleared++; }
+        }
+
+        return cleared;
     }
 
     public static void validateChunkTargets(Level world, LvcIntPosition origin, LvcChunkCoordinate coordinate,

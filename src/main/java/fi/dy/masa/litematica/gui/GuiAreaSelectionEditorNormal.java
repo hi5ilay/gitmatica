@@ -481,6 +481,10 @@ public class GuiAreaSelectionEditorNormal extends GuiListBase<String, WidgetSele
                     SchematicUtils.saveSchematic(GuiBase.isShiftDown());
                     break;
 
+                case CREATE_LVC_PROJECT:
+                    me.niicide.lvc.gui.LvcCreateProjectAction.createFromAreaEditor(this.parent);
+                    break;
+
                 case ANALYZE_AREA:
                 {
                     MaterialListAreaAnalyzer list = new MaterialListAreaAnalyzer(this.parent.selection);
@@ -551,6 +555,7 @@ public class GuiAreaSelectionEditorNormal extends GuiListBase<String, WidgetSele
             TOGGLE_ORIGIN_ENABLED   ("litematica.gui.button.area_editor.origin_enabled"),
             CREATE_SUB_REGION       ("litematica.gui.button.area_editor.create_sub_region"),
             CREATE_SCHEMATIC        ("litematica.gui.button.area_editor.create_schematic"),
+            CREATE_LVC_PROJECT      ("litematica.gui.button.area_editor.create_lvc_project"),
             ANALYZE_AREA            ("litematica.gui.button.area_editor.analyze_area"),
             CHANGE_SELECTION_MODE   ("litematica.gui.button.area_editor.change_selection_mode"),
             CHANGE_CORNER_MODE      ("litematica.gui.button.area_editor.change_corner_mode"),

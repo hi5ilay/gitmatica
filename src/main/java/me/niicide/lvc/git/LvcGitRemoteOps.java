@@ -77,11 +77,36 @@ public final class LvcGitRemoteOps
 
     public static String pull(Path repositoryDirectory) throws GitAPIException, IOException
     {
+        return pullWithOutcome(repositoryDirectory).status();
+    }
+
+    public static PullOutcome pullWithOutcome(Path repositoryDirectory) throws GitAPIException, IOException
+    {
         try (Git git = Git.open(repositoryDirectory.toFile()))
         {
             LvcGitBranchOps.currentBranch(git.getRepository());
+            org.eclipse.jgit.lib.ObjectId headBefore = LvcGitBranchOps.resolveHeadCommitId(git.getRepository());
             PullResult result = git.pull().setRemote("origin").call();
-            return result.isSuccessful() ? "OK" : "FAILED";
+            org.eclipse.jgit.lib.ObjectId headAfter = LvcGitBranchOps.resolveHeadCommitId(git.getRepository());
+            String status = result.isSuccessful() ? "OK" : "FAILED";
+            return new PullOutcome(
+                    headBefore != null ? headBefore.name() : null,
+                    headAfter != null ? headAfter.name() : null,
+                    status
+            );
+        }
+    }
+
+    public record PullOutcome(String headBefore, String headAfter, String status)
+    {
+        public boolean headMoved()
+        {
+            return headBefore != null && headAfter != null && !headBefore.equals(headAfter);
+        }
+
+        public boolean succeeded()
+        {
+            return "OK".equals(this.status);
         }
     }
 

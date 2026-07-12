@@ -385,8 +385,10 @@ final class GuiLvcProjectController
                 return;
             }
 
-            LvcProjectService.push(this.gui.repositoryDirectory);
-            LvcGuiMessages.show(MessageType.SUCCESS, "litematica.message.lvc_project.pushed");
+            LvcGuiMessages.show(MessageType.INFO, "litematica.message.lvc_project.task_started", "LVC Push");
+            List<String> statuses = LvcProjectService.push(this.gui.repositoryDirectory);
+            String statusSummary = statuses.isEmpty() ? "OK" : String.join(", ", statuses);
+            LvcGuiMessages.show(MessageType.SUCCESS, "litematica.message.lvc_project.pushed", statusSummary);
         }
         catch (Exception e)
         {
@@ -404,7 +406,139 @@ final class GuiLvcProjectController
             return;
         }
 
-        this.reportUnsupported("litematica.error.lvc_project.pull_failed", SEMANTIC_PULL_UNSUPPORTED_KEY);
+        try
+        {
+            if (!LvcProjectService.hasRemote(this.gui.repositoryDirectory))
+            {
+                LvcGuiMessages.show(MessageType.ERROR, "litematica.error.lvc_project.pull_failed",
+                        StringUtils.translate("litematica.error.lvc_project.no_remote_configured"));
+                return;
+            }
+
+            boolean dirty = LvcProjectService.hasUncommittedChanges(this.gui.repositoryDirectory);
+
+            if (dirty)
+            {
+                GuiLvcProjectController self = this;
+                GuiBase.openGui(new GuiLvcConfirmAction(
+                        420,
+                        "litematica.gui.title.lvc_project.confirm_reset_pull",
+                        new fi.dy.masa.malilib.interfaces.IConfirmationListener()
+                        {
+                            @Override public boolean onActionConfirmed() { self.executePull(minecraft.level); return true; }
+                            @Override public boolean onActionCancelled() { return true; }
+                        },
+                        this.gui,
+                        "litematica.gui.message.lvc_project.confirm_reset_pull"
+                ));
+                return;
+            }
+        }
+        catch (Exception e)
+        {
+            LvcGuiMessages.showTaskError(Operation.PULL, "litematica.error.lvc_project.pull_failed", e);
+            return;
+        }
+
+        this.executePull(minecraft.level);
+    }
+
+    private void executePull(Level level)
+    {
+        Optional<LvcOperationHandle> handle = LvcOperationCoordinator.acquire(this, "LVC Pull");
+        if (handle.isEmpty()) return;
+
+        try
+        {
+            LvcGuiMessages.show(MessageType.INFO, "litematica.message.lvc_project.task_started", "LVC Pull");
+            me.niicide.lvc.git.LvcGitRemoteOps.PullOutcome outcome = LvcProjectService.pullWithOutcome(this.gui.repositoryDirectory);
+
+            if (!outcome.succeeded())
+            {
+                LvcTaskRegistry.release(handle.get());
+                LvcGuiMessages.show(MessageType.ERROR, "litematica.error.lvc_project.pull_failed", outcome.status());
+                return;
+            }
+
+            if (!outcome.headMoved())
+            {
+                LvcTaskRegistry.release(handle.get());
+                this.gui.initGui();
+                LvcGuiMessages.show(MessageType.SUCCESS, "litematica.message.lvc_project.pull_up_to_date");
+                return;
+            }
+
+            this.schedulePullRestore(handle.get(), level, outcome.headBefore(), outcome.headAfter());
+        }
+        catch (Exception e)
+        {
+            LvcTaskRegistry.release(handle.get());
+            LvcGuiMessages.show(MessageType.ERROR, "litematica.error.lvc_project.pull_failed", LvcProjectService.describeRemoteFailure(e));
+        }
+    }
+
+    private void schedulePullRestore(LvcOperationHandle handle, Level level, String headBefore, String headAfter)
+    {
+        try
+        {
+            LvcWorldBackend backend = LvcWorldBackend.resolve(level);
+
+            if (backend != LvcWorldBackend.DIRECT)
+            {
+                this.removeTrackingOverlay();
+                LvcRemoteServerApplyTask task = LvcRemoteServerApplyTask.checkout(
+                        handle, this.gui.repositoryDirectory, level, headAfter, this.gui.checkoutBranchName,
+                        LvcTaskCallbacks.of(
+                                result -> { this.loadTrackingOverlay(); this.gui.initGui(); LvcGuiMessages.show(MessageType.SUCCESS, "litematica.message.lvc_project.pulled", "OK"); },
+                                e -> LvcGuiMessages.showTaskError(Operation.PULL, "litematica.error.lvc_project.pull_failed", e, true),
+                                () -> LvcGuiMessages.show(MessageType.INFO, "litematica.message.lvc_project.task_aborted", "LVC Pull")
+                        )
+                );
+                LvcTaskScheduling.scheduleForWorld(level, task);
+                return;
+            }
+
+            Level restoreWorld = LvcWorldAccess.resolveSemanticRestoreWorld(level);
+            LvcSemanticCheckoutTask.Preflight preflight = new LvcSemanticCheckoutTask.Preflight(
+                    handle, this.gui.repositoryDirectory, restoreWorld, headAfter,
+                    LvcTaskCallbacks.of(
+                            result -> this.schedulePullApply(handle, result.prepared(), headBefore),
+                            e -> LvcGuiMessages.showTaskError(Operation.PULL, "litematica.error.lvc_project.pull_failed", e),
+                            () -> LvcGuiMessages.show(MessageType.INFO, "litematica.message.lvc_project.task_aborted", "LVC Pull")
+                    )
+            );
+            LvcOperationCoordinator.scheduleStarted(restoreWorld, preflight, "LVC Pull");
+        }
+        catch (Exception e)
+        {
+            LvcTaskRegistry.release(handle);
+            LvcGuiMessages.showTaskError(Operation.PULL, "litematica.error.lvc_project.pull_failed", e);
+        }
+    }
+
+    private void schedulePullApply(LvcOperationHandle handle, LvcSemanticCheckoutTask.PreparedCheckout prepared, String previousHead)
+    {
+        try
+        {
+            this.removeTrackingOverlay();
+            LvcSemanticCheckoutTask.Apply task = new LvcSemanticCheckoutTask.Apply(
+                    handle, prepared, this.gui.checkoutBranchName, previousHead, null,
+                    LvcTaskCallbacks.of(
+                            result -> { this.loadTrackingOverlay(); this.gui.initGui();
+                                if (result.postOperationDiffs().detected()) LvcOperationCoordinator.showPostOperationDiffsNotice(this, "LVC Pull", result.postOperationDiffs());
+                                else LvcGuiMessages.show(MessageType.SUCCESS, "litematica.message.lvc_project.pulled", "OK"); },
+                            e -> LvcGuiMessages.showTaskError(Operation.PULL, "litematica.error.lvc_project.pull_failed", e, true),
+                            () -> LvcGuiMessages.show(MessageType.INFO, "litematica.message.lvc_project.task_aborted", "LVC Pull")
+                    )
+            );
+            LvcTaskScheduling.scheduleForWorld(prepared.world(), task);
+        }
+        catch (Exception e)
+        {
+            prepared.close();
+            LvcTaskRegistry.release(handle);
+            LvcGuiMessages.showTaskError(Operation.PULL, "litematica.error.lvc_project.pull_failed", e);
+        }
     }
 
     void updateAreas()
@@ -464,6 +598,22 @@ final class GuiLvcProjectController
     void scanChanges()
     {
         GuiLvcProjectTaskActions.scanChanges(this);
+    }
+
+    void viewChanges()
+    {
+        LvcProjectService.TrackingOverlay overlay = this.gui.trackingOverlay;
+
+        if (overlay == null)
+        {
+            LvcGuiMessages.show(MessageType.INFO, "litematica.message.lvc_project.open_project_first");
+            return;
+        }
+
+        GuiLvcDiffViewer diffViewer = new GuiLvcDiffViewer(overlay.placement());
+        diffViewer.setParent(this.gui);
+        GuiBase.openGui(diffViewer);
+        LvcVerifierStartWorkflow.startIfGitMatica(overlay.placement(), diffViewer, diffViewer::initGui);
     }
 
     void promptClearArea()
@@ -1262,7 +1412,7 @@ final class GuiLvcProjectController
             case PULL -> this.promptPull();
             case BRANCH_SELECTOR -> this.openBranchSelector();
             case CHECKOUT_VERSION -> this.promptCheckoutSelectedCommit();
-            case VIEW_CHANGES -> this.scanChanges();
+            case VIEW_CHANGES -> this.viewChanges();
             case REVERT_CHANGES -> this.showFullReleaseFeature();
             case PROJECT_EDITOR -> GuiBase.openGui(new GuiLvcProjectEditor(this.gui.repositoryDirectory, this.gui.projectName));
             case PROJECT_SETTINGS -> this.showFullReleaseFeature();

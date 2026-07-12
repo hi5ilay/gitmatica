@@ -1,0 +1,2997 @@
+{
+  "build.gradle": {
+    "mtime": 1783492977.1258585,
+    "ast_hash": "f633f8ecde158f027c4003e1a8d82b0f",
+    "semantic_hash": "f633f8ecde158f027c4003e1a8d82b0f"
+  },
+  "gradlew": {
+    "mtime": 1783492977.1322196,
+    "ast_hash": "a43be8432bac3ffd05b3769aa42fe996",
+    "semantic_hash": "a43be8432bac3ffd05b3769aa42fe996"
+  },
+  "settings.gradle": {
+    "mtime": 1783492977.1332297,
+    "ast_hash": "6fc8b80494577fc1c8c75be2899409bb",
+    "semantic_hash": "6fc8b80494577fc1c8c75be2899409bb"
+  },
+  "src/integrationTest/java/me/zly2006/lvc/FakeWorldReader.java": {
+    "mtime": 1783492977.1347332,
+    "ast_hash": "32c4b625b292f1c261cb67bd241133b5",
+    "semantic_hash": "32c4b625b292f1c261cb67bd241133b5"
+  },
+  "src/integrationTest/java/me/zly2006/lvc/IntegrationTestSupport.java": {
+    "mtime": 1783492977.1363654,
+    "ast_hash": "9f5527e15e09a289e26e433b35c26209",
+    "semantic_hash": "9f5527e15e09a289e26e433b35c26209"
+  },
+  "src/integrationTest/java/me/zly2006/lvc/LvcFriendlyErrorsIntegrationTest.java": {
+    "mtime": 1783492977.1373925,
+    "ast_hash": "398722e351f435c8ee45f7aa90b85f57",
+    "semantic_hash": "398722e351f435c8ee45f7aa90b85f57"
+  },
+  "src/integrationTest/java/me/zly2006/lvc/LvcIntegrationFixtures.java": {
+    "mtime": 1783492977.1378973,
+    "ast_hash": "a5d806890b1b4943d9a4b5b5d1756b3f",
+    "semantic_hash": "a5d806890b1b4943d9a4b5b5d1756b3f"
+  },
+  "src/integrationTest/java/me/zly2006/lvc/LvcOperationRecoveryIntegrationTest.java": {
+    "mtime": 1783492977.1378973,
+    "ast_hash": "dc790319009894382c7f48c7c00623b1",
+    "semantic_hash": "dc790319009894382c7f48c7c00623b1"
+  },
+  "src/integrationTest/java/me/zly2006/lvc/LvcRepositoryIntegrationTest.java": {
+    "mtime": 1783836135.6111064,
+    "ast_hash": "66f4d4a18a05251da03bc7a8abd2ea5e",
+    "semantic_hash": "66f4d4a18a05251da03bc7a8abd2ea5e"
+  },
+  "src/integrationTest/java/me/zly2006/lvc/LvcSemanticStorageIntegrationTest.java": {
+    "mtime": 1783836287.9935641,
+    "ast_hash": "72eae8bcabd1b3b1c3eb13d096671617",
+    "semantic_hash": "72eae8bcabd1b3b1c3eb13d096671617"
+  },
+  "src/main/java/fi/dy/masa/litematica/InitHandler.java": {
+    "mtime": 1783492977.1409879,
+    "ast_hash": "a32b0baf9bc9a37abcf6c2a056052298",
+    "semantic_hash": "a32b0baf9bc9a37abcf6c2a056052298"
+  },
+  "src/main/java/fi/dy/masa/litematica/Litematica.java": {
+    "mtime": 1783492977.1419876,
+    "ast_hash": "4632d4b23c56b9abad9aff2dc2126dd5",
+    "semantic_hash": "4632d4b23c56b9abad9aff2dc2126dd5"
+  },
+  "src/main/java/fi/dy/masa/litematica/Reference.java": {
+    "mtime": 1783492977.1424918,
+    "ast_hash": "dd3a850e0d70ad9e0938545aaa096f3b",
+    "semantic_hash": "dd3a850e0d70ad9e0938545aaa096f3b"
+  },
+  "src/main/java/fi/dy/masa/litematica/command/PmCommand.java": {
+    "mtime": 1783492977.1424918,
+    "ast_hash": "d6c74326eb24e9ad02f6655e9106389d",
+    "semantic_hash": "d6c74326eb24e9ad02f6655e9106389d"
+  },
+  "src/main/java/fi/dy/masa/litematica/compat/iris/IrisCompat.java": {
+    "mtime": 1783492977.143512,
+    "ast_hash": "b1074f6de82e1a04c0aa5478f11b549e",
+    "semantic_hash": "b1074f6de82e1a04c0aa5478f11b549e"
+  },
+  "src/main/java/fi/dy/masa/litematica/compat/iris/IrisRenderingFix.java": {
+    "mtime": 1783492977.143512,
+    "ast_hash": "07c8c14e043221a1e95bf35caba59c6e",
+    "semantic_hash": "07c8c14e043221a1e95bf35caba59c6e"
+  },
+  "src/main/java/fi/dy/masa/litematica/compat/jade/JadeCompat.java": {
+    "mtime": 1783492977.145014,
+    "ast_hash": "37f165de56edea3a273400b8d5ee90b7",
+    "semantic_hash": "37f165de56edea3a273400b8d5ee90b7"
+  },
+  "src/main/java/fi/dy/masa/litematica/compat/mixin/LitematicaMixinConfigPlugin.java": {
+    "mtime": 1783492977.145014,
+    "ast_hash": "89bf5cecd567177bd65497625fde6770",
+    "semantic_hash": "89bf5cecd567177bd65497625fde6770"
+  },
+  "src/main/java/fi/dy/masa/litematica/compat/modmenu/ModMenuImpl.java": {
+    "mtime": 1783492977.145014,
+    "ast_hash": "6d4db3ee47a623a37fcb7f619f6d2c26",
+    "semantic_hash": "6d4db3ee47a623a37fcb7f619f6d2c26"
+  },
+  "src/main/java/fi/dy/masa/litematica/config/Configs.java": {
+    "mtime": 1783492977.14653,
+    "ast_hash": "884042011a399c9d45925b8f65a8f406",
+    "semantic_hash": "884042011a399c9d45925b8f65a8f406"
+  },
+  "src/main/java/fi/dy/masa/litematica/config/Hotkeys.java": {
+    "mtime": 1783492977.147555,
+    "ast_hash": "fb769e780ffed3e1285992df9fafa913",
+    "semantic_hash": "fb769e780ffed3e1285992df9fafa913"
+  },
+  "src/main/java/fi/dy/masa/litematica/data/CachedTagManager.java": {
+    "mtime": 1783492977.147555,
+    "ast_hash": "5d5c58a91174ea462bfa8d9a3d02f966",
+    "semantic_hash": "5d5c58a91174ea462bfa8d9a3d02f966"
+  },
+  "src/main/java/fi/dy/masa/litematica/data/DataManager.java": {
+    "mtime": 1783492977.1485696,
+    "ast_hash": "f53e76e14eeee1d8bb866ab913718997",
+    "semantic_hash": "f53e76e14eeee1d8bb866ab913718997"
+  },
+  "src/main/java/fi/dy/masa/litematica/data/EntityDataManager.java": {
+    "mtime": 1783492977.1485696,
+    "ast_hash": "39f369745395b5d2b93b9b7a03ef80df",
+    "semantic_hash": "39f369745395b5d2b93b9b7a03ef80df"
+  },
+  "src/main/java/fi/dy/masa/litematica/data/SchematicHolder.java": {
+    "mtime": 1783492977.1496794,
+    "ast_hash": "7ac56ab3f9fa2f9195b2e69ab53fc572",
+    "semantic_hash": "7ac56ab3f9fa2f9195b2e69ab53fc572"
+  },
+  "src/main/java/fi/dy/masa/litematica/event/InputHandler.java": {
+    "mtime": 1783492977.1508305,
+    "ast_hash": "277201a279eaf8b8889297960d6a5c8c",
+    "semantic_hash": "277201a279eaf8b8889297960d6a5c8c"
+  },
+  "src/main/java/fi/dy/masa/litematica/event/KeyCallbacks.java": {
+    "mtime": 1783492977.1508305,
+    "ast_hash": "484d28d673980160838ce4377db17c81",
+    "semantic_hash": "484d28d673980160838ce4377db17c81"
+  },
+  "src/main/java/fi/dy/masa/litematica/event/RenderHandler.java": {
+    "mtime": 1783492977.1519406,
+    "ast_hash": "b11476ee7cc7825d828f619c21ec62df",
+    "semantic_hash": "b11476ee7cc7825d828f619c21ec62df"
+  },
+  "src/main/java/fi/dy/masa/litematica/event/ServerListener.java": {
+    "mtime": 1783492977.1519406,
+    "ast_hash": "aec90b363fe10d79923348a433e0b3f7",
+    "semantic_hash": "aec90b363fe10d79923348a433e0b3f7"
+  },
+  "src/main/java/fi/dy/masa/litematica/event/WorldLoadListener.java": {
+    "mtime": 1783492977.152962,
+    "ast_hash": "f9e9a2d798af4ef955b4411078dc1f81",
+    "semantic_hash": "f9e9a2d798af4ef955b4411078dc1f81"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/ButtonIcons.java": {
+    "mtime": 1783492977.152962,
+    "ast_hash": "5f801a337cd8377f86412200ac62bc9f",
+    "semantic_hash": "5f801a337cd8377f86412200ac62bc9f"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/GuiAreaSelectionEditorNormal.java": {
+    "mtime": 1783500670.2371097,
+    "ast_hash": "e93eefbd38eda8b78c69cd784ad7db1c",
+    "semantic_hash": "e93eefbd38eda8b78c69cd784ad7db1c"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/GuiAreaSelectionEditorSimple.java": {
+    "mtime": 1783836089.6638765,
+    "ast_hash": "5a3704e1f8d253fabe08cbd8b7f76fb0",
+    "semantic_hash": "5a3704e1f8d253fabe08cbd8b7f76fb0"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/GuiAreaSelectionEditorSubRegion.java": {
+    "mtime": 1783492977.1554668,
+    "ast_hash": "5fe73214888a7bece6e59aecee38bfc4",
+    "semantic_hash": "5fe73214888a7bece6e59aecee38bfc4"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/GuiAreaSelectionManager.java": {
+    "mtime": 1783492977.1559703,
+    "ast_hash": "13b6c4a95fe4bcf89e29af979772ff9d",
+    "semantic_hash": "13b6c4a95fe4bcf89e29af979772ff9d"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/GuiConfigs.java": {
+    "mtime": 1783492977.1559703,
+    "ast_hash": "818f9c94390fdcac3ea8395302f8dfec",
+    "semantic_hash": "818f9c94390fdcac3ea8395302f8dfec"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/GuiMainMenu.java": {
+    "mtime": 1783492977.1569812,
+    "ast_hash": "d71f269f1d26b860050d01d83f6c582d",
+    "semantic_hash": "d71f269f1d26b860050d01d83f6c582d"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/GuiMaterialList.java": {
+    "mtime": 1783492977.1569812,
+    "ast_hash": "29a9004c683bc0d910ce86efb2a5c436",
+    "semantic_hash": "29a9004c683bc0d910ce86efb2a5c436"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/GuiPlacementConfiguration.java": {
+    "mtime": 1783492977.1579964,
+    "ast_hash": "2e7987b86a75310d2ddd6a3bad81829a",
+    "semantic_hash": "2e7987b86a75310d2ddd6a3bad81829a"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/GuiRenderLayer.java": {
+    "mtime": 1783492977.1579964,
+    "ast_hash": "1660870f3f69e3d19da1ddd9e05905b0",
+    "semantic_hash": "1660870f3f69e3d19da1ddd9e05905b0"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/GuiSchematicBrowserBase.java": {
+    "mtime": 1783492977.1579964,
+    "ast_hash": "7822354b64e51434cae275b4311f75bd",
+    "semantic_hash": "7822354b64e51434cae275b4311f75bd"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/GuiSchematicLoad.java": {
+    "mtime": 1783492977.1594996,
+    "ast_hash": "b734540078881b3117fe52e9e9a700b5",
+    "semantic_hash": "b734540078881b3117fe52e9e9a700b5"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/GuiSchematicLoadedList.java": {
+    "mtime": 1783492977.1594996,
+    "ast_hash": "fc67c8343e2d77c26b640b3e2ae138a7",
+    "semantic_hash": "fc67c8343e2d77c26b640b3e2ae138a7"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/GuiSchematicManager.java": {
+    "mtime": 1783492977.1606958,
+    "ast_hash": "e78a19b691eb4942dd693048301994c9",
+    "semantic_hash": "e78a19b691eb4942dd693048301994c9"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/GuiSchematicPlacementsList.java": {
+    "mtime": 1783492977.1606958,
+    "ast_hash": "0949eff95b4bd7c18618f6d654176012",
+    "semantic_hash": "0949eff95b4bd7c18618f6d654176012"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/GuiSchematicProjectManager.java": {
+    "mtime": 1783492977.1606958,
+    "ast_hash": "92d64a26ce195a85b94e8337dc1412e6",
+    "semantic_hash": "92d64a26ce195a85b94e8337dc1412e6"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/GuiSchematicProjectsBrowser.java": {
+    "mtime": 1783492977.1622,
+    "ast_hash": "01df600f60130432d4688cc491ee0614",
+    "semantic_hash": "01df600f60130432d4688cc491ee0614"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/GuiSchematicSave.java": {
+    "mtime": 1783492977.1622,
+    "ast_hash": "6b18984b24e81531aeff17d22e1b8516",
+    "semantic_hash": "6b18984b24e81531aeff17d22e1b8516"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/GuiSchematicSaveBase.java": {
+    "mtime": 1783492977.1632123,
+    "ast_hash": "f8b186d82698128e7eb2d6aced40dec1",
+    "semantic_hash": "f8b186d82698128e7eb2d6aced40dec1"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/GuiSchematicSaveExported.java": {
+    "mtime": 1783492977.1632123,
+    "ast_hash": "37d07e7425b2d34e704a30c84187c821",
+    "semantic_hash": "37d07e7425b2d34e704a30c84187c821"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/GuiSchematicSaveImported.java": {
+    "mtime": 1783492977.1647153,
+    "ast_hash": "2dbd9c9c3bb3a0048f9057e16b9eb621",
+    "semantic_hash": "2dbd9c9c3bb3a0048f9057e16b9eb621"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/GuiSchematicVerifier.java": {
+    "mtime": 1783492977.165736,
+    "ast_hash": "ac196732fcf0f9933212be45f91c7e58",
+    "semantic_hash": "ac196732fcf0f9933212be45f91c7e58"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/GuiSubRegionConfiguration.java": {
+    "mtime": 1783492977.1662388,
+    "ast_hash": "26d9a5f34b388109c9a523ac1fa711dc",
+    "semantic_hash": "26d9a5f34b388109c9a523ac1fa711dc"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/GuiTaskManager.java": {
+    "mtime": 1783492977.1662388,
+    "ast_hash": "8da6678f1b11a424de4397df0ac44c58",
+    "semantic_hash": "8da6678f1b11a424de4397df0ac44c58"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/Icons.java": {
+    "mtime": 1783492977.167413,
+    "ast_hash": "ec3e67a64d2772ece72ed0035759b00b",
+    "semantic_hash": "ec3e67a64d2772ece72ed0035759b00b"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/widgets/WidgetAreaSelectionBrowser.java": {
+    "mtime": 1783492977.1684253,
+    "ast_hash": "62894a8565640cb0a0ceeee787f304c1",
+    "semantic_hash": "62894a8565640cb0a0ceeee787f304c1"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/widgets/WidgetAreaSelectionEntry.java": {
+    "mtime": 1783492977.1684253,
+    "ast_hash": "dc25de10bf5951fc083261edbbe84bba",
+    "semantic_hash": "dc25de10bf5951fc083261edbbe84bba"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/widgets/WidgetListLoadedSchematics.java": {
+    "mtime": 1783492977.1694615,
+    "ast_hash": "f153aec55eabbd1a9a77722f94e5234f",
+    "semantic_hash": "f153aec55eabbd1a9a77722f94e5234f"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/widgets/WidgetListMaterialList.java": {
+    "mtime": 1783492977.1694615,
+    "ast_hash": "9b84e488aa79c1d75f44138314a46db0",
+    "semantic_hash": "9b84e488aa79c1d75f44138314a46db0"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/widgets/WidgetListPlacementSubRegions.java": {
+    "mtime": 1783492977.1704612,
+    "ast_hash": "160cf413b2cb3bc68c86240d1358d8ba",
+    "semantic_hash": "160cf413b2cb3bc68c86240d1358d8ba"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/widgets/WidgetListSchematicPlacements.java": {
+    "mtime": 1783492977.1709647,
+    "ast_hash": "58075365f36e046f690338901df0355d",
+    "semantic_hash": "58075365f36e046f690338901df0355d"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/widgets/WidgetListSchematicVerificationResults.java": {
+    "mtime": 1783492977.1709647,
+    "ast_hash": "76ec594b5cb294b7babdbfd0e43524ff",
+    "semantic_hash": "76ec594b5cb294b7babdbfd0e43524ff"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/widgets/WidgetListSchematicVersions.java": {
+    "mtime": 1783492977.1719677,
+    "ast_hash": "f542c8d502bcfe99f87e9b55562142d6",
+    "semantic_hash": "f542c8d502bcfe99f87e9b55562142d6"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/widgets/WidgetListSelectionSubRegions.java": {
+    "mtime": 1783492977.1719677,
+    "ast_hash": "9baeae9be29b648d28a1cc385ea89eb8",
+    "semantic_hash": "9baeae9be29b648d28a1cc385ea89eb8"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/widgets/WidgetListTasks.java": {
+    "mtime": 1783492977.1719677,
+    "ast_hash": "43f2b638667499247bdc9193962482ab",
+    "semantic_hash": "43f2b638667499247bdc9193962482ab"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/widgets/WidgetMaterialListEntry.java": {
+    "mtime": 1783492977.1719677,
+    "ast_hash": "bc46453519df7514c49d35aa069023cb",
+    "semantic_hash": "bc46453519df7514c49d35aa069023cb"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/widgets/WidgetPlacementSubRegion.java": {
+    "mtime": 1783492977.1734793,
+    "ast_hash": "0de6a661929fac182b8b768d610acf2a",
+    "semantic_hash": "0de6a661929fac182b8b768d610acf2a"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/widgets/WidgetSchematicBrowser.java": {
+    "mtime": 1783492977.1734793,
+    "ast_hash": "28c6b3795fcca80584c1c03f1d10eef7",
+    "semantic_hash": "28c6b3795fcca80584c1c03f1d10eef7"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/widgets/WidgetSchematicEntry.java": {
+    "mtime": 1783492977.1744812,
+    "ast_hash": "c299ee1313d7c090dddce7e3710f4ecc",
+    "semantic_hash": "c299ee1313d7c090dddce7e3710f4ecc"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/widgets/WidgetSchematicPlacement.java": {
+    "mtime": 1783492977.1749866,
+    "ast_hash": "3092d2388f0263be68fc130ab999ff5d",
+    "semantic_hash": "3092d2388f0263be68fc130ab999ff5d"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/widgets/WidgetSchematicProjectBrowser.java": {
+    "mtime": 1783492977.1749866,
+    "ast_hash": "a5e9236ae7d41f300e00d49bc73b9dd2",
+    "semantic_hash": "a5e9236ae7d41f300e00d49bc73b9dd2"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/widgets/WidgetSchematicVerificationResult.java": {
+    "mtime": 1783492977.1759906,
+    "ast_hash": "384be1482813ff15847e77cd695177e7",
+    "semantic_hash": "384be1482813ff15847e77cd695177e7"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/widgets/WidgetSchematicVersion.java": {
+    "mtime": 1783492977.1759906,
+    "ast_hash": "2b915be0410201b1fe822dfcf2b7790a",
+    "semantic_hash": "2b915be0410201b1fe822dfcf2b7790a"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/widgets/WidgetSelectionSubRegion.java": {
+    "mtime": 1783492977.1770003,
+    "ast_hash": "008e43ba88d3475e12db9e5c5b49c130",
+    "semantic_hash": "008e43ba88d3475e12db9e5c5b49c130"
+  },
+  "src/main/java/fi/dy/masa/litematica/gui/widgets/WidgetTaskEntry.java": {
+    "mtime": 1783492977.1770003,
+    "ast_hash": "8cc3697d5476fdbe649e697d481470fb",
+    "semantic_hash": "8cc3697d5476fdbe649e697d481470fb"
+  },
+  "src/main/java/fi/dy/masa/litematica/interfaces/IMixinChunkProviderClient.java": {
+    "mtime": 1783492977.178011,
+    "ast_hash": "adc50b9e12ffc4af2d686baf59aecf41",
+    "semantic_hash": "adc50b9e12ffc4af2d686baf59aecf41"
+  },
+  "src/main/java/fi/dy/masa/litematica/interfaces/ISchematicPickBlockEventListener.java": {
+    "mtime": 1783492977.178011,
+    "ast_hash": "8d63f5ea1257d5341eb7f91626a22ca2",
+    "semantic_hash": "8d63f5ea1257d5341eb7f91626a22ca2"
+  },
+  "src/main/java/fi/dy/masa/litematica/interfaces/ISchematicPickBlockEventManager.java": {
+    "mtime": 1783492977.178011,
+    "ast_hash": "2c67c9c2fea467493a191db6f6450242",
+    "semantic_hash": "2c67c9c2fea467493a191db6f6450242"
+  },
+  "src/main/java/fi/dy/masa/litematica/interfaces/ISchematicPickBlockSlotHandler.java": {
+    "mtime": 1783492977.1790118,
+    "ast_hash": "0511ffa2e5092388e20f9ac424df7a34",
+    "semantic_hash": "0511ffa2e5092388e20f9ac424df7a34"
+  },
+  "src/main/java/fi/dy/masa/litematica/interfaces/ISchematicPlacementEventListener.java": {
+    "mtime": 1783492977.1790118,
+    "ast_hash": "ae304ee1f71ec5d3f0efc3ce1c618efa",
+    "semantic_hash": "ae304ee1f71ec5d3f0efc3ce1c618efa"
+  },
+  "src/main/java/fi/dy/masa/litematica/interfaces/ISchematicPlacementEventManager.java": {
+    "mtime": 1783492977.1790118,
+    "ast_hash": "bdad83df12ba47d2f4a6211e222083e1",
+    "semantic_hash": "bdad83df12ba47d2f4a6211e222083e1"
+  },
+  "src/main/java/fi/dy/masa/litematica/materials/IMaterialList.java": {
+    "mtime": 1783492977.1801846,
+    "ast_hash": "b788c9073d17ab497a096b904034589b",
+    "semantic_hash": "b788c9073d17ab497a096b904034589b"
+  },
+  "src/main/java/fi/dy/masa/litematica/materials/MaterialCache.java": {
+    "mtime": 1783492977.1801846,
+    "ast_hash": "4eca3c0e2585542ca68fd0b926e13f7d",
+    "semantic_hash": "4eca3c0e2585542ca68fd0b926e13f7d"
+  },
+  "src/main/java/fi/dy/masa/litematica/materials/MaterialListAreaAnalyzer.java": {
+    "mtime": 1783492977.181687,
+    "ast_hash": "4bd19172eb80f4ec8d4c5bcb98293a79",
+    "semantic_hash": "4bd19172eb80f4ec8d4c5bcb98293a79"
+  },
+  "src/main/java/fi/dy/masa/litematica/materials/MaterialListBase.java": {
+    "mtime": 1783492977.181687,
+    "ast_hash": "7963555144a141131341d294ec6624e7",
+    "semantic_hash": "7963555144a141131341d294ec6624e7"
+  },
+  "src/main/java/fi/dy/masa/litematica/materials/MaterialListEntry.java": {
+    "mtime": 1783492977.1826885,
+    "ast_hash": "2ebcbc5f9f2cf4df55dd6d5cf60af1f1",
+    "semantic_hash": "2ebcbc5f9f2cf4df55dd6d5cf60af1f1"
+  },
+  "src/main/java/fi/dy/masa/litematica/materials/MaterialListHudRenderer.java": {
+    "mtime": 1783492977.1836898,
+    "ast_hash": "c2edb815f0bc2a6a05bba3ddd5c28d41",
+    "semantic_hash": "c2edb815f0bc2a6a05bba3ddd5c28d41"
+  },
+  "src/main/java/fi/dy/masa/litematica/materials/MaterialListJsonExporter.java": {
+    "mtime": 1783492977.1841967,
+    "ast_hash": "dab1ea73875e817acacf1b490dbc7189",
+    "semantic_hash": "dab1ea73875e817acacf1b490dbc7189"
+  },
+  "src/main/java/fi/dy/masa/litematica/materials/MaterialListPlacement.java": {
+    "mtime": 1783492977.184702,
+    "ast_hash": "82657ad0c44dfd6a916d657128ef3e24",
+    "semantic_hash": "82657ad0c44dfd6a916d657128ef3e24"
+  },
+  "src/main/java/fi/dy/masa/litematica/materials/MaterialListSchematic.java": {
+    "mtime": 1783492977.184702,
+    "ast_hash": "a6ce1bf28979eebf138eb96d1180a7cc",
+    "semantic_hash": "a6ce1bf28979eebf138eb96d1180a7cc"
+  },
+  "src/main/java/fi/dy/masa/litematica/materials/MaterialListSorter.java": {
+    "mtime": 1783492977.185741,
+    "ast_hash": "c506eb19fdca86072a167edfb4b2dfc3",
+    "semantic_hash": "c506eb19fdca86072a167edfb4b2dfc3"
+  },
+  "src/main/java/fi/dy/masa/litematica/materials/MaterialListUtils.java": {
+    "mtime": 1783492977.185741,
+    "ast_hash": "20da946935e345518c096a1515ed8e39",
+    "semantic_hash": "20da946935e345518c096a1515ed8e39"
+  },
+  "src/main/java/fi/dy/masa/litematica/materials/json/MaterialListJson.java": {
+    "mtime": 1783492977.1877654,
+    "ast_hash": "7702c6ec4a7a45613fbbda158c4d6463",
+    "semantic_hash": "7702c6ec4a7a45613fbbda158c4d6463"
+  },
+  "src/main/java/fi/dy/masa/litematica/materials/json/MaterialListJsonBase.java": {
+    "mtime": 1783492977.1877654,
+    "ast_hash": "588dc369b8f56b95a6aa024b1c532770",
+    "semantic_hash": "588dc369b8f56b95a6aa024b1c532770"
+  },
+  "src/main/java/fi/dy/masa/litematica/materials/json/MaterialListJsonCache.java": {
+    "mtime": 1783492977.1887836,
+    "ast_hash": "02c546a533a9917baa5f17cc7f942665",
+    "semantic_hash": "02c546a533a9917baa5f17cc7f942665"
+  },
+  "src/main/java/fi/dy/masa/litematica/materials/json/MaterialListJsonEntry.java": {
+    "mtime": 1783492977.1887836,
+    "ast_hash": "456eaaca116fc516e04bb2686ca1da3b",
+    "semantic_hash": "456eaaca116fc516e04bb2686ca1da3b"
+  },
+  "src/main/java/fi/dy/masa/litematica/materials/json/MaterialListJsonOverrides.java": {
+    "mtime": 1783492977.1897855,
+    "ast_hash": "addfd76fb4401d5d182c42413f4f4472",
+    "semantic_hash": "addfd76fb4401d5d182c42413f4f4472"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/block/IMixinAbstractBlock.java": {
+    "mtime": 1783492977.1908534,
+    "ast_hash": "dec68d6a9765d26f0d6ed06760733e58",
+    "semantic_hash": "dec68d6a9765d26f0d6ed06760733e58"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/block/IMixinFenceGateBlock.java": {
+    "mtime": 1783492977.1908534,
+    "ast_hash": "f3bce0f1587e5ad83501d43723d723ec",
+    "semantic_hash": "f3bce0f1587e5ad83501d43723d723ec"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/block/IMixinRedstoneWireBlock.java": {
+    "mtime": 1783492977.1918633,
+    "ast_hash": "71f27147a578b49959995d71fd29bd9f",
+    "semantic_hash": "71f27147a578b49959995d71fd29bd9f"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/block/IMixinStairsBlock.java": {
+    "mtime": 1783492977.1918633,
+    "ast_hash": "dba8698d27cbef2fe47f6494e2fe7bc9",
+    "semantic_hash": "dba8698d27cbef2fe47f6494e2fe7bc9"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/block/IMixinVineBlock.java": {
+    "mtime": 1783492977.1918633,
+    "ast_hash": "5f30be1bb6d46fd49e31b889dce7e772",
+    "semantic_hash": "5f30be1bb6d46fd49e31b889dce7e772"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/block/IMixinWallMountedBlock.java": {
+    "mtime": 1783492977.192883,
+    "ast_hash": "133abd818a65a055e67e7455c6b02eac",
+    "semantic_hash": "133abd818a65a055e67e7455c6b02eac"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/block/MixinBlock.java": {
+    "mtime": 1783492977.192883,
+    "ast_hash": "b3dfa6728fbef5873d800be88dd5f25d",
+    "semantic_hash": "b3dfa6728fbef5873d800be88dd5f25d"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/block/MixinBlockStateData.java": {
+    "mtime": 1783492977.192883,
+    "ast_hash": "9232638e33f78e38fabc61114d47ee94",
+    "semantic_hash": "9232638e33f78e38fabc61114d47ee94"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/block/MixinChestBlock.java": {
+    "mtime": 1783492977.192883,
+    "ast_hash": "117e307eaeb3c34c843cc15e0041c1ba",
+    "semantic_hash": "117e307eaeb3c34c843cc15e0041c1ba"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/block/MixinRailBlocks.java": {
+    "mtime": 1783492977.1943865,
+    "ast_hash": "30e70e0cf89921b55bdaad4848854d46",
+    "semantic_hash": "30e70e0cf89921b55bdaad4848854d46"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/block/MixinStairsBlock.java": {
+    "mtime": 1783492977.1943865,
+    "ast_hash": "5c3f30de4028121bcbae02647679303e",
+    "semantic_hash": "5c3f30de4028121bcbae02647679303e"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/client/IMixinActiveProfiler.java": {
+    "mtime": 1783492977.195412,
+    "ast_hash": "2c4ca611cd9744e0c0a4b5a82edb7672",
+    "semantic_hash": "2c4ca611cd9744e0c0a4b5a82edb7672"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/client/MixinGui.java": {
+    "mtime": 1783492977.195412,
+    "ast_hash": "359c560cc595451da3edc2cb0bdca136",
+    "semantic_hash": "359c560cc595451da3edc2cb0bdca136"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/client/MixinMinecraft.java": {
+    "mtime": 1783492977.1964228,
+    "ast_hash": "5bdc5feb224ad51835f77535dcfbb553",
+    "semantic_hash": "5bdc5feb224ad51835f77535dcfbb553"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/client/MixinOptions.java": {
+    "mtime": 1783492977.1964228,
+    "ast_hash": "c7ac1b70ae6ceae659f972de3d319687",
+    "semantic_hash": "c7ac1b70ae6ceae659f972de3d319687"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/easyplace/MixinBlockItem_easyPlace.java": {
+    "mtime": 1783492977.1974232,
+    "ast_hash": "2db5c2e8780c30c45b937b246f329e8a",
+    "semantic_hash": "2db5c2e8780c30c45b937b246f329e8a"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/easyplace/MixinClientPlayerInteractionManager_easyPlace.java": {
+    "mtime": 1783492977.1974232,
+    "ast_hash": "606996bd9dc91f3c8296d0f83c35c65b",
+    "semantic_hash": "606996bd9dc91f3c8296d0f83c35c65b"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/easyplace/MixinMinecraft_easyPlace.java": {
+    "mtime": 1783492977.1974232,
+    "ast_hash": "674450bd1d99cef95319d7b075e0353d",
+    "semantic_hash": "674450bd1d99cef95319d7b075e0353d"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/easyplace/MixinServerGamePacketListenerImpl_easyPlace.java": {
+    "mtime": 1783492977.1985557,
+    "ast_hash": "dbf043e94284bf0411c567eb9590ab00",
+    "semantic_hash": "dbf043e94284bf0411c567eb9590ab00"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/entity/IMixinEntity.java": {
+    "mtime": 1783492977.1985557,
+    "ast_hash": "d414a5dd7427d75ba80757201f603ca5",
+    "semantic_hash": "d414a5dd7427d75ba80757201f603ca5"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/entity/IMixinSignBlockEntity.java": {
+    "mtime": 1783492977.1995673,
+    "ast_hash": "b00be75e7897561874a1ad8575065672",
+    "semantic_hash": "b00be75e7897561874a1ad8575065672"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/entity/MixinAbstractSignEditScreen.java": {
+    "mtime": 1783492977.1995673,
+    "ast_hash": "701a97c8eb87b37fe6c4b4dd3ecebc7e",
+    "semantic_hash": "701a97c8eb87b37fe6c4b4dd3ecebc7e"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/entity/MixinClientMannequin.java": {
+    "mtime": 1783492977.2008512,
+    "ast_hash": "b764dc7d9ab1d1a68a57f4d75f76978f",
+    "semantic_hash": "b764dc7d9ab1d1a68a57f4d75f76978f"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/entity/MixinEntity.java": {
+    "mtime": 1783492977.2008512,
+    "ast_hash": "a836f85f2d26f2a54f4e4a780c9a18f1",
+    "semantic_hash": "a836f85f2d26f2a54f4e4a780c9a18f1"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/hud/MixinDebugScreenEntryList.java": {
+    "mtime": 1783492977.2018967,
+    "ast_hash": "8735253f38088d50339d3967459a904b",
+    "semantic_hash": "8735253f38088d50339d3967459a904b"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/hud/MixinDebugScreenOverlay.java": {
+    "mtime": 1783492977.2018967,
+    "ast_hash": "ceb643fd5731b1f6c8106caa4bb6463e",
+    "semantic_hash": "ceb643fd5731b1f6c8106caa4bb6463e"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/model/IMixinBlockModelSet.java": {
+    "mtime": 1783492977.2029102,
+    "ast_hash": "3605c69139b958ef5c23b53c29169487",
+    "semantic_hash": "3605c69139b958ef5c23b53c29169487"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/model/IMixinBlockStateModelSet.java": {
+    "mtime": 1783492977.2029102,
+    "ast_hash": "6a1f32b04015937d31fe341f61f0a8b0",
+    "semantic_hash": "6a1f32b04015937d31fe341f61f0a8b0"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/model/IMixinEntityModelSet.java": {
+    "mtime": 1783492977.203909,
+    "ast_hash": "0f3f915b305e40c45567846d328bece9",
+    "semantic_hash": "0f3f915b305e40c45567846d328bece9"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/model/IMixinEntityRenderDispatcher.java": {
+    "mtime": 1783492977.2044148,
+    "ast_hash": "dc40b3e0574e3d270d00247df3ba3867",
+    "semantic_hash": "dc40b3e0574e3d270d00247df3ba3867"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/model/IMixinFluidStateModelSet.java": {
+    "mtime": 1783492977.204929,
+    "ast_hash": "40df0ff3b87c68a1f8b4499379ed4740",
+    "semantic_hash": "40df0ff3b87c68a1f8b4499379ed4740"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/model/IMixinMinecraft.java": {
+    "mtime": 1783492977.204929,
+    "ast_hash": "971d9277793ff51a3a84c3085f209690",
+    "semantic_hash": "971d9277793ff51a3a84c3085f209690"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/model/IMixinModelManager.java": {
+    "mtime": 1783492977.204929,
+    "ast_hash": "91202f64ce349402aa3624d1abbb605f",
+    "semantic_hash": "91202f64ce349402aa3624d1abbb605f"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/model/MixinBlockStateDefinitions.java": {
+    "mtime": 1783492977.2059405,
+    "ast_hash": "38e4e5074e6e9050dba2bb23512d9e5f",
+    "semantic_hash": "38e4e5074e6e9050dba2bb23512d9e5f"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/network/IMixinClientboundSectionBlocksUpdatePacket.java": {
+    "mtime": 1783492977.2064438,
+    "ast_hash": "461a08ded580f26ee4d8daaea1d915b3",
+    "semantic_hash": "461a08ded580f26ee4d8daaea1d915b3"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/network/MixinClientCommonPacketListenerImpl.java": {
+    "mtime": 1783492977.206959,
+    "ast_hash": "0716d1c7ef96f22dfd08eb330bde8264",
+    "semantic_hash": "0716d1c7ef96f22dfd08eb330bde8264"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/network/MixinClientPacketListener.java": {
+    "mtime": 1783492977.206959,
+    "ast_hash": "df52157da5453553a9090b347a25c8a5",
+    "semantic_hash": "df52157da5453553a9090b347a25c8a5"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/render/IMixinGameRenderer.java": {
+    "mtime": 1783492977.2079718,
+    "ast_hash": "2fd4f60a502b69dd858b0102bf791d57",
+    "semantic_hash": "2fd4f60a502b69dd858b0102bf791d57"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/render/MixinEntityHitboxDebugRenderer.java": {
+    "mtime": 1783492977.2084756,
+    "ast_hash": "9ff103108cf08fffe9bdde0bfd82e962",
+    "semantic_hash": "9ff103108cf08fffe9bdde0bfd82e962"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/render/MixinEntityRenderDispatcher.java": {
+    "mtime": 1783492977.2084756,
+    "ast_hash": "2933e7ebf93264304b802294ba2b3c38",
+    "semantic_hash": "2933e7ebf93264304b802294ba2b3c38"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/render/MixinGameRenderer.java": {
+    "mtime": 1783492977.2094805,
+    "ast_hash": "a92c422c3d3ca133942eacb709eeb460",
+    "semantic_hash": "a92c422c3d3ca133942eacb709eeb460"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/render/MixinGuiGraphicsExtractorVerifierInventory.java": {
+    "mtime": 1783492977.2094805,
+    "ast_hash": "4c1248ecb5753499ba54be0454f6849d",
+    "semantic_hash": "4c1248ecb5753499ba54be0454f6849d"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/render/MixinGuiRendererVerifierInventory.java": {
+    "mtime": 1783492977.2094805,
+    "ast_hash": "632e05338ab69ef3c1ab429516ce4e9f",
+    "semantic_hash": "632e05338ab69ef3c1ab429516ce4e9f"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/render/MixinInventoryOverlayVerifierInventory.java": {
+    "mtime": 1783492977.210489,
+    "ast_hash": "aa6360c7edf769141a6f487a813d3b85",
+    "semantic_hash": "aa6360c7edf769141a6f487a813d3b85"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/render/MixinLevelExtractor.java": {
+    "mtime": 1783492977.210489,
+    "ast_hash": "dccea97c854662bc2894990faf45b9d0",
+    "semantic_hash": "dccea97c854662bc2894990faf45b9d0"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/render/MixinLevelRenderer.java": {
+    "mtime": 1783492977.210489,
+    "ast_hash": "9635d87354ede0b00f1db533a5ee9678",
+    "semantic_hash": "9635d87354ede0b00f1db533a5ee9678"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/screen/IMixinAbstractContainerScreen.java": {
+    "mtime": 1783492977.2114992,
+    "ast_hash": "bb8685ef98ba6ee6efe1ce455bed810e",
+    "semantic_hash": "bb8685ef98ba6ee6efe1ce455bed810e"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/screen/MixinAbstractContainerScreen.java": {
+    "mtime": 1783492977.2114992,
+    "ast_hash": "c4cb128fee8595e7a7ec02cba12480c5",
+    "semantic_hash": "c4cb128fee8595e7a7ec02cba12480c5"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/screen/MixinVideoSettingsScreen.java": {
+    "mtime": 1783492977.2125008,
+    "ast_hash": "0abce139883bc7da2e180b173ab2a843",
+    "semantic_hash": "0abce139883bc7da2e180b173ab2a843"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/server/MixinMinecraftServer.java": {
+    "mtime": 1783492977.2136364,
+    "ast_hash": "7077d704bec097a8d78473072d22376c",
+    "semantic_hash": "7077d704bec097a8d78473072d22376c"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/test/MixinBindGroupLayouts.java": {
+    "mtime": 1783492977.2136364,
+    "ast_hash": "df243e64628bee02349be91e25547edf",
+    "semantic_hash": "df243e64628bee02349be91e25547edf"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/test/MixinRenderPipelines.java": {
+    "mtime": 1783492977.2146375,
+    "ast_hash": "398cdc3486072350cecb59df864f46e9",
+    "semantic_hash": "398cdc3486072350cecb59df864f46e9"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/world/IMixinLevel.java": {
+    "mtime": 1783492977.2151413,
+    "ast_hash": "36d9064927cbbb9b834860dbd403fc54",
+    "semantic_hash": "36d9064927cbbb9b834860dbd403fc54"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/world/IMixinLevelTicks.java": {
+    "mtime": 1783492977.2151413,
+    "ast_hash": "5c1d4bb44ddab4330cc834eb23128dc6",
+    "semantic_hash": "5c1d4bb44ddab4330cc834eb23128dc6"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/world/MixinClientLevel.java": {
+    "mtime": 1783492977.2151413,
+    "ast_hash": "25a0d30188e0115481eb579447c392ed",
+    "semantic_hash": "25a0d30188e0115481eb579447c392ed"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/world/MixinLevel.java": {
+    "mtime": 1783492977.2161465,
+    "ast_hash": "0897d61ac51c893b9e7d7eb94bac570f",
+    "semantic_hash": "0897d61ac51c893b9e7d7eb94bac570f"
+  },
+  "src/main/java/fi/dy/masa/litematica/mixin/world/MixinLevelChunk.java": {
+    "mtime": 1783492977.2161465,
+    "ast_hash": "813255a80ee859add3b501e56d61cc4b",
+    "semantic_hash": "813255a80ee859add3b501e56d61cc4b"
+  },
+  "src/main/java/fi/dy/masa/litematica/network/ServuxLitematicaHandler.java": {
+    "mtime": 1783492977.2171564,
+    "ast_hash": "841b652be81a42ef7331ef632090096b",
+    "semantic_hash": "841b652be81a42ef7331ef632090096b"
+  },
+  "src/main/java/fi/dy/masa/litematica/network/ServuxLitematicaPacket.java": {
+    "mtime": 1783492977.2171564,
+    "ast_hash": "44c696b8ee9aec48a8640c5a785fd626",
+    "semantic_hash": "44c696b8ee9aec48a8640c5a785fd626"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/BlockInfo.java": {
+    "mtime": 1783492977.2183378,
+    "ast_hash": "c000476f5072d849c3cf8bac5bfdafe2",
+    "semantic_hash": "c000476f5072d849c3cf8bac5bfdafe2"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/IWorldSchematicRenderer.java": {
+    "mtime": 1783492977.2183378,
+    "ast_hash": "0cd97b0542d4ebaf095582fb19ed4224",
+    "semantic_hash": "0cd97b0542d4ebaf095582fb19ed4224"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/LitematicaDebugHud.java": {
+    "mtime": 1783492977.21934,
+    "ast_hash": "73fcbb0a0c511ffcf7f63ba0fe04a422",
+    "semantic_hash": "73fcbb0a0c511ffcf7f63ba0fe04a422"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/LitematicaPipelines.java": {
+    "mtime": 1783492977.21934,
+    "ast_hash": "08ddb3239064d026e0d81643f26d3e3a",
+    "semantic_hash": "08ddb3239064d026e0d81643f26d3e3a"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/LitematicaRenderer.java": {
+    "mtime": 1783492977.2206676,
+    "ast_hash": "ea2bc64c8af3b0c0a4847f4223a80ee1",
+    "semantic_hash": "ea2bc64c8af3b0c0a4847f4223a80ee1"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/OverlayRenderer.java": {
+    "mtime": 1783492977.2206676,
+    "ast_hash": "97036312a2fe1edd63f4ff5645bfd5a3",
+    "semantic_hash": "97036312a2fe1edd63f4ff5645bfd5a3"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/RenderUtils.java": {
+    "mtime": 1783492977.222198,
+    "ast_hash": "fda759550a8c5e348e77654963871c01",
+    "semantic_hash": "fda759550a8c5e348e77654963871c01"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/infohud/IInfoHudRenderer.java": {
+    "mtime": 1783492977.2227027,
+    "ast_hash": "1a0d9a075032cc51aaeaa2ee65e94da2",
+    "semantic_hash": "1a0d9a075032cc51aaeaa2ee65e94da2"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/infohud/InfoHud.java": {
+    "mtime": 1783492977.2227027,
+    "ast_hash": "262576e682710b565c5c33a0c6cd28e5",
+    "semantic_hash": "262576e682710b565c5c33a0c6cd28e5"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/infohud/RenderPhase.java": {
+    "mtime": 1783492977.2227027,
+    "ast_hash": "0a04f27bfa094c5349c02c88a8661cc5",
+    "semantic_hash": "0a04f27bfa094c5349c02c88a8661cc5"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/infohud/StatusInfoRenderer.java": {
+    "mtime": 1783492977.2242136,
+    "ast_hash": "950c019f5f172feace2f7d43668c6fc1",
+    "semantic_hash": "950c019f5f172feace2f7d43668c6fc1"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/infohud/ToolHud.java": {
+    "mtime": 1783492977.22473,
+    "ast_hash": "0f5dcd3ca6a5a710b18c9f6543ffb3d5",
+    "semantic_hash": "0f5dcd3ca6a5a710b18c9f6543ffb3d5"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/BlockModelCacheSchematic.java": {
+    "mtime": 1783492977.2252517,
+    "ast_hash": "8d4df49642ba43e0483d14571f3f85c6",
+    "semantic_hash": "8d4df49642ba43e0483d14571f3f85c6"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/BlockModelRendererSchematic.java": {
+    "mtime": 1783492977.2262733,
+    "ast_hash": "46707fb4483fdfce8decbf3a15318c32",
+    "semantic_hash": "46707fb4483fdfce8decbf3a15318c32"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/BlockTintCache.java": {
+    "mtime": 1783492977.2262733,
+    "ast_hash": "c7391e8a413068dd66103e9cbbf90261",
+    "semantic_hash": "c7391e8a413068dd66103e9cbbf90261"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/BufferBuilderCache.java": {
+    "mtime": 1783492977.2273297,
+    "ast_hash": "5ece8ed1e5cb7b61bf99e066617493dc",
+    "semantic_hash": "5ece8ed1e5cb7b61bf99e066617493dc"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/ByteBufferBuilderCache.java": {
+    "mtime": 1783492977.2273297,
+    "ast_hash": "ee076ce9377272b280f106b1f5b6e71c",
+    "semantic_hash": "ee076ce9377272b280f106b1f5b6e71c"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/ChunkCacheSchematic.java": {
+    "mtime": 1783492977.2273297,
+    "ast_hash": "2997a75895bb152496d8ed0ac45432c9",
+    "semantic_hash": "2997a75895bb152496d8ed0ac45432c9"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/ChunkMeshCache.java": {
+    "mtime": 1783492977.2288337,
+    "ast_hash": "d7f7a6fc2a72af181f5880d5acf8c83d",
+    "semantic_hash": "d7f7a6fc2a72af181f5880d5acf8c83d"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/ChunkMeshDataSchematic.java": {
+    "mtime": 1783492977.2288337,
+    "ast_hash": "13060bde843f5fdc104ab0ddf3376381",
+    "semantic_hash": "13060bde843f5fdc104ab0ddf3376381"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/ChunkRenderBatchDraw.java": {
+    "mtime": 1783492977.229935,
+    "ast_hash": "5967f2f6f21c74555506f3a1f76de86f",
+    "semantic_hash": "5967f2f6f21c74555506f3a1f76de86f"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/ChunkRenderDataSchematic.java": {
+    "mtime": 1783492977.229935,
+    "ast_hash": "5af5787996f307bea9b2ec53a42a96d7",
+    "semantic_hash": "5af5787996f307bea9b2ec53a42a96d7"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/ChunkRenderDispatcherBuffers.java": {
+    "mtime": 1783492977.229935,
+    "ast_hash": "5b3d90c9e4cf3ccddde6c9432d0a886a",
+    "semantic_hash": "5b3d90c9e4cf3ccddde6c9432d0a886a"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/ChunkRenderDispatcherLitematica.java": {
+    "mtime": 1783492977.2311246,
+    "ast_hash": "335ee2af7341fd666dacc3f47593d997",
+    "semantic_hash": "335ee2af7341fd666dacc3f47593d997"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/ChunkRenderDispatcherSchematic.java": {
+    "mtime": 1783492977.2321758,
+    "ast_hash": "84786ea4377ef3e9c20878f3fdee7bc7",
+    "semantic_hash": "84786ea4377ef3e9c20878f3fdee7bc7"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/ChunkRenderGpuBuffers.java": {
+    "mtime": 1783492977.2321758,
+    "ast_hash": "32d290b5e23da4c557f947627249af3b",
+    "semantic_hash": "32d290b5e23da4c557f947627249af3b"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/ChunkRenderGpuDispatcher.java": {
+    "mtime": 1783492977.2331767,
+    "ast_hash": "0cae22c0b1a979624131231999f89750",
+    "semantic_hash": "0cae22c0b1a979624131231999f89750"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/ChunkRenderGpuUploader.java": {
+    "mtime": 1783492977.2331767,
+    "ast_hash": "9fabb8e9e740418a3528d9a543a11624",
+    "semantic_hash": "9fabb8e9e740418a3528d9a543a11624"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/ChunkRenderLayers.java": {
+    "mtime": 1783492977.2346816,
+    "ast_hash": "06cea39e4084b744e951ce6728586ada",
+    "semantic_hash": "06cea39e4084b744e951ce6728586ada"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/ChunkRenderTaskSchematic.java": {
+    "mtime": 1783492977.2346816,
+    "ast_hash": "f16320b218e1501df1a4a7ef2546d98b",
+    "semantic_hash": "f16320b218e1501df1a4a7ef2546d98b"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/ChunkRenderWorkerLitematica.java": {
+    "mtime": 1783492977.235726,
+    "ast_hash": "a023c4c99557196fada8bfdeb243fc6c",
+    "semantic_hash": "a023c4c99557196fada8bfdeb243fc6c"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/ChunkRendererSchematicVbo.java": {
+    "mtime": 1783492977.235726,
+    "ast_hash": "e507b0736983a878d228a8f2f61f7fb9",
+    "semantic_hash": "e507b0736983a878d228a8f2f61f7fb9"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/FallbackBlocks.java": {
+    "mtime": 1783492977.2372305,
+    "ast_hash": "6ae98a0adec1512c33bf298e0882b073",
+    "semantic_hash": "6ae98a0adec1512c33bf298e0882b073"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/FluidModelRendererSchematic.java": {
+    "mtime": 1783492977.2372305,
+    "ast_hash": "5ca546b60c7757b3b7a531e46359977a",
+    "semantic_hash": "5ca546b60c7757b3b7a531e46359977a"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/GpuBufferCache.java": {
+    "mtime": 1783492977.2372305,
+    "ast_hash": "f1e6ba155610d853ceaa1db7a821e35e",
+    "semantic_hash": "f1e6ba155610d853ceaa1db7a821e35e"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/IBlockOutputSchematic.java": {
+    "mtime": 1783492977.238261,
+    "ast_hash": "04635a237a567f7a3b7057f7e2d527b7",
+    "semantic_hash": "04635a237a567f7a3b7057f7e2d527b7"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/IChunkRendererFactory.java": {
+    "mtime": 1783492977.238261,
+    "ast_hash": "7aa0bc5d4a1f34d15394167e7a81174e",
+    "semantic_hash": "7aa0bc5d4a1f34d15394167e7a81174e"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/OverlayRenderType.java": {
+    "mtime": 1783492977.2392714,
+    "ast_hash": "5f3972d881c66d374965cbf0a5320a02",
+    "semantic_hash": "5f3972d881c66d374965cbf0a5320a02"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/SchematicRenderState.java": {
+    "mtime": 1783492977.239775,
+    "ast_hash": "da7a374cf7342caebc50290574ab8828",
+    "semantic_hash": "da7a374cf7342caebc50290574ab8828"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/WorldRendererSchematic.java": {
+    "mtime": 1783492977.239775,
+    "ast_hash": "827b87ca9f224dfb05ffff72ee7cb892",
+    "semantic_hash": "827b87ca9f224dfb05ffff72ee7cb892"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/ao/AOBrightness.java": {
+    "mtime": 1783492977.2412877,
+    "ast_hash": "f2c15b41dba615f6e4c4e04b6e1065c3",
+    "semantic_hash": "f2c15b41dba615f6e4c4e04b6e1065c3"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/ao/AOLightmap.java": {
+    "mtime": 1783492977.2412877,
+    "ast_hash": "79395cc0f56bf4c25b270e69db520072",
+    "semantic_hash": "79395cc0f56bf4c25b270e69db520072"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/ao/AONeighborInfoLegacy.java": {
+    "mtime": 1783492977.2422936,
+    "ast_hash": "1cbade645bbdc895fea8dc8957b1c709",
+    "semantic_hash": "1cbade645bbdc895fea8dc8957b1c709"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/ao/AONeighborInfoModern.java": {
+    "mtime": 1783492977.2422936,
+    "ast_hash": "dcebacf3a70d60b146941b360ea409f1",
+    "semantic_hash": "dcebacf3a70d60b146941b360ea409f1"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/ao/AOProcessor.java": {
+    "mtime": 1783492977.2422936,
+    "ast_hash": "fb946d5d161918a4eacee543a1a030b6",
+    "semantic_hash": "fb946d5d161918a4eacee543a1a030b6"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/ao/AOProcessorLegacy.java": {
+    "mtime": 1783492977.2433398,
+    "ast_hash": "eb9cd0e4c51dd3f457da4fda261556d2",
+    "semantic_hash": "eb9cd0e4c51dd3f457da4fda261556d2"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/ao/AOProcessorModern.java": {
+    "mtime": 1783492977.2433398,
+    "ast_hash": "627907f95da94823b5d5e01bc5ff504b",
+    "semantic_hash": "627907f95da94823b5d5e01bc5ff504b"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/ao/AOSizeLegacy.java": {
+    "mtime": 1783492977.2443435,
+    "ast_hash": "b3f1179dae3798d794ee7634d0c35b39",
+    "semantic_hash": "b3f1179dae3798d794ee7634d0c35b39"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/ao/AOSizeModern.java": {
+    "mtime": 1783492977.2443435,
+    "ast_hash": "f9280a8e089418b3b76629b3047fdd35",
+    "semantic_hash": "f9280a8e089418b3b76629b3047fdd35"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/schematic/ao/AOVertexMap.java": {
+    "mtime": 1783492977.2443435,
+    "ast_hash": "7465ede68e734db89fdb1b71c0fbede8",
+    "semantic_hash": "7465ede68e734db89fdb1b71c0fbede8"
+  },
+  "src/main/java/fi/dy/masa/litematica/render/uniform/LegacyTerrainFixUniform.java": {
+    "mtime": 1783492977.2443435,
+    "ast_hash": "a9a50ac003fbb59b46577a5133e2cb97",
+    "semantic_hash": "a9a50ac003fbb59b46577a5133e2cb97"
+  },
+  "src/main/java/fi/dy/masa/litematica/scheduler/ClientTickHandler.java": {
+    "mtime": 1783492977.2459266,
+    "ast_hash": "1c6d73fcf8813847406bf7f8f6fe1f39",
+    "semantic_hash": "1c6d73fcf8813847406bf7f8f6fe1f39"
+  },
+  "src/main/java/fi/dy/masa/litematica/scheduler/ITask.java": {
+    "mtime": 1783492977.2469518,
+    "ast_hash": "02823aefff2136ccbde4e75271cab537",
+    "semantic_hash": "02823aefff2136ccbde4e75271cab537"
+  },
+  "src/main/java/fi/dy/masa/litematica/scheduler/TaskScheduler.java": {
+    "mtime": 1783492977.2469518,
+    "ast_hash": "c97e7e1f75fdf1cb6cb45e833bbdb992",
+    "semantic_hash": "c97e7e1f75fdf1cb6cb45e833bbdb992"
+  },
+  "src/main/java/fi/dy/masa/litematica/scheduler/TaskTimer.java": {
+    "mtime": 1783492977.2479675,
+    "ast_hash": "e625c1d71f1b9e32ba29d33f0e5d37bf",
+    "semantic_hash": "e625c1d71f1b9e32ba29d33f0e5d37bf"
+  },
+  "src/main/java/fi/dy/masa/litematica/scheduler/tasks/TaskBase.java": {
+    "mtime": 1783492977.2479675,
+    "ast_hash": "6a8a25b7fcdeb5630c4d43379420a021",
+    "semantic_hash": "6a8a25b7fcdeb5630c4d43379420a021"
+  },
+  "src/main/java/fi/dy/masa/litematica/scheduler/tasks/TaskCountBlocksArea.java": {
+    "mtime": 1783492977.2494707,
+    "ast_hash": "30e40954c400aa2b48462558bed13d46",
+    "semantic_hash": "30e40954c400aa2b48462558bed13d46"
+  },
+  "src/main/java/fi/dy/masa/litematica/scheduler/tasks/TaskCountBlocksBase.java": {
+    "mtime": 1783492977.250529,
+    "ast_hash": "0ff6bd5e0ad31a685db69a17b71cd1fe",
+    "semantic_hash": "0ff6bd5e0ad31a685db69a17b71cd1fe"
+  },
+  "src/main/java/fi/dy/masa/litematica/scheduler/tasks/TaskCountBlocksPlacement.java": {
+    "mtime": 1783492977.250529,
+    "ast_hash": "9919fb2ab862459a00863786df0c0c36",
+    "semantic_hash": "9919fb2ab862459a00863786df0c0c36"
+  },
+  "src/main/java/fi/dy/masa/litematica/scheduler/tasks/TaskDelay.java": {
+    "mtime": 1783492977.250529,
+    "ast_hash": "89bf419e6592db34e4ed36a4e4771897",
+    "semantic_hash": "89bf419e6592db34e4ed36a4e4771897"
+  },
+  "src/main/java/fi/dy/masa/litematica/scheduler/tasks/TaskDeleteArea.java": {
+    "mtime": 1783492977.2520316,
+    "ast_hash": "80be0e2a1d0b0d1618c76d12b1ee5c39",
+    "semantic_hash": "80be0e2a1d0b0d1618c76d12b1ee5c39"
+  },
+  "src/main/java/fi/dy/masa/litematica/scheduler/tasks/TaskDeleteBlocksByPlacement.java": {
+    "mtime": 1783492977.2520316,
+    "ast_hash": "a4abfd3f0bc215043e1a7bad47613b2d",
+    "semantic_hash": "a4abfd3f0bc215043e1a7bad47613b2d"
+  },
+  "src/main/java/fi/dy/masa/litematica/scheduler/tasks/TaskFillArea.java": {
+    "mtime": 1783492977.2520316,
+    "ast_hash": "4b6cbf77c5b9c4813e3814860ae4a3b9",
+    "semantic_hash": "4b6cbf77c5b9c4813e3814860ae4a3b9"
+  },
+  "src/main/java/fi/dy/masa/litematica/scheduler/tasks/TaskPasteSchematicPerChunkBase.java": {
+    "mtime": 1783492977.2535493,
+    "ast_hash": "1deefb1d24908701f9a950857c1b3166",
+    "semantic_hash": "1deefb1d24908701f9a950857c1b3166"
+  },
+  "src/main/java/fi/dy/masa/litematica/scheduler/tasks/TaskPasteSchematicPerChunkCommand.java": {
+    "mtime": 1783492977.2535493,
+    "ast_hash": "2241206ed7c50724b8a9d86cb3e87d7e",
+    "semantic_hash": "2241206ed7c50724b8a9d86cb3e87d7e"
+  },
+  "src/main/java/fi/dy/masa/litematica/scheduler/tasks/TaskPasteSchematicPerChunkDirect.java": {
+    "mtime": 1783492977.2545526,
+    "ast_hash": "a3a1a1cfd54ac31ace95db2e37a849a4",
+    "semantic_hash": "a3a1a1cfd54ac31ace95db2e37a849a4"
+  },
+  "src/main/java/fi/dy/masa/litematica/scheduler/tasks/TaskPasteSchematicSetblockToMcfunction.java": {
+    "mtime": 1783492977.2545526,
+    "ast_hash": "b799b70a9b06adab39766e391445f3d5",
+    "semantic_hash": "b799b70a9b06adab39766e391445f3d5"
+  },
+  "src/main/java/fi/dy/masa/litematica/scheduler/tasks/TaskProcessChunkBase.java": {
+    "mtime": 1783492977.2545526,
+    "ast_hash": "e34a2582ad943cdd3c6c786a39c04165",
+    "semantic_hash": "e34a2582ad943cdd3c6c786a39c04165"
+  },
+  "src/main/java/fi/dy/masa/litematica/scheduler/tasks/TaskProcessChunkMultiPhase.java": {
+    "mtime": 1783492977.255708,
+    "ast_hash": "f1db544ea9ecf7e70844ad484c2cb4b5",
+    "semantic_hash": "f1db544ea9ecf7e70844ad484c2cb4b5"
+  },
+  "src/main/java/fi/dy/masa/litematica/scheduler/tasks/TaskSaveSchematic.java": {
+    "mtime": 1783492977.2567203,
+    "ast_hash": "e1dd6a9d8305337638a1687d581e9b4d",
+    "semantic_hash": "e1dd6a9d8305337638a1687d581e9b4d"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/LitematicaSchematic.java": {
+    "mtime": 1783492977.2567203,
+    "ast_hash": "69ba6e7248c79b0bd37595e74b51b2b8",
+    "semantic_hash": "69ba6e7248c79b0bd37595e74b51b2b8"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/SchematicMetadata.java": {
+    "mtime": 1783492977.258224,
+    "ast_hash": "d02c76e813ec5c8d4dfacd052d7f06f0",
+    "semantic_hash": "d02c76e813ec5c8d4dfacd052d7f06f0"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/SchematicSchema.java": {
+    "mtime": 1783492977.2587435,
+    "ast_hash": "0fce8389f14205f2bdc4a1bf3eefeb11",
+    "semantic_hash": "0fce8389f14205f2bdc4a1bf3eefeb11"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/SchematicaSchematic.java": {
+    "mtime": 1783492977.2587435,
+    "ast_hash": "5d6f2090df63cbe88e7a8437ec150e73",
+    "semantic_hash": "5d6f2090df63cbe88e7a8437ec150e73"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/container/ILitematicaBlockStatePalette.java": {
+    "mtime": 1783492977.2597575,
+    "ast_hash": "e0edff64183297eccc2d6c1927408148",
+    "semantic_hash": "e0edff64183297eccc2d6c1927408148"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/container/ILitematicaBlockStatePaletteResizer.java": {
+    "mtime": 1783492977.260893,
+    "ast_hash": "3475b5da51ef008c76e9448636e1b0f4",
+    "semantic_hash": "3475b5da51ef008c76e9448636e1b0f4"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/container/LitematicaBitArray.java": {
+    "mtime": 1783492977.260893,
+    "ast_hash": "698733bc15359dd3c1b6d3ad54ad08b6",
+    "semantic_hash": "698733bc15359dd3c1b6d3ad54ad08b6"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/container/LitematicaBlockStateContainer.java": {
+    "mtime": 1783492977.261895,
+    "ast_hash": "1425ba6c2361b4be5a26003353634e3d",
+    "semantic_hash": "1425ba6c2361b4be5a26003353634e3d"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/container/LitematicaBlockStatePaletteHashMap.java": {
+    "mtime": 1783492977.2623994,
+    "ast_hash": "852c8581ee3e27156ae54411790e2a85",
+    "semantic_hash": "852c8581ee3e27156ae54411790e2a85"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/container/LitematicaBlockStatePaletteLinear.java": {
+    "mtime": 1783492977.2623994,
+    "ast_hash": "b8b1f86797635c294e7163bc65f13264",
+    "semantic_hash": "b8b1f86797635c294e7163bc65f13264"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/conversion/IBlockReaderWithData.java": {
+    "mtime": 1783492977.263422,
+    "ast_hash": "cf4176ed2eedcac853889142dabcaef1",
+    "semantic_hash": "cf4176ed2eedcac853889142dabcaef1"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/conversion/SchematicConversionFixers.java": {
+    "mtime": 1783492977.2649264,
+    "ast_hash": "d9d9e997de595b8145cfce350d6fb0b0",
+    "semantic_hash": "d9d9e997de595b8145cfce350d6fb0b0"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/conversion/SchematicConversionMaps.java": {
+    "mtime": 1783492977.2654307,
+    "ast_hash": "2f6f43ba0e37812572e583ff05c3d1f8",
+    "semantic_hash": "2f6f43ba0e37812572e583ff05c3d1f8"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/conversion/SchematicConverter.java": {
+    "mtime": 1783492977.265945,
+    "ast_hash": "52ddbc90e5a472c115fcee8ebc0d1808",
+    "semantic_hash": "52ddbc90e5a472c115fcee8ebc0d1808"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/conversion/SchematicDowngradeConverter.java": {
+    "mtime": 1783492977.2669568,
+    "ast_hash": "4b309b232443d91784ef79dbbd520dcf",
+    "semantic_hash": "4b309b232443d91784ef79dbbd520dcf"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/conversion/WallStateFixer.java": {
+    "mtime": 1783492977.2669568,
+    "ast_hash": "fe82104856500d37822fc3686f730963",
+    "semantic_hash": "fe82104856500d37822fc3686f730963"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/pickblock/SchematicPickBlockEventHandler.java": {
+    "mtime": 1783492977.2689989,
+    "ast_hash": "53acf1cc5597e0a7048648928e8e1b84",
+    "semantic_hash": "53acf1cc5597e0a7048648928e8e1b84"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/pickblock/SchematicPickBlockEventResult.java": {
+    "mtime": 1783492977.2689989,
+    "ast_hash": "2c6b32fc485b70bf2141c84ad2114b45",
+    "semantic_hash": "2c6b32fc485b70bf2141c84ad2114b45"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/placement/PlacementManagerDaemonExecutor.java": {
+    "mtime": 1783492977.2699986,
+    "ast_hash": "f09b50e7283e6f34abf82dab629cb527",
+    "semantic_hash": "f09b50e7283e6f34abf82dab629cb527"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/placement/PlacementManagerDaemonHandler.java": {
+    "mtime": 1783492977.2711623,
+    "ast_hash": "4ab93d0e5d2e9bb344335bb17e838851",
+    "semantic_hash": "4ab93d0e5d2e9bb344335bb17e838851"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/placement/PlacementManagerTask.java": {
+    "mtime": 1783492977.2711623,
+    "ast_hash": "59ca989ffb5a14840b34233dc9d7bf98",
+    "semantic_hash": "59ca989ffb5a14840b34233dc9d7bf98"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/placement/PlacementManagerTaskFixer.java": {
+    "mtime": 1783492977.2721777,
+    "ast_hash": "d75de8f15abfd495534a69fd2f043872",
+    "semantic_hash": "d75de8f15abfd495534a69fd2f043872"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/placement/PlacementManagerTaskOther.java": {
+    "mtime": 1783492977.2721777,
+    "ast_hash": "a06d686eeec46f7749fa1bafac939f10",
+    "semantic_hash": "a06d686eeec46f7749fa1bafac939f10"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/placement/PlacementManagerTaskRebuild.java": {
+    "mtime": 1783492977.2731786,
+    "ast_hash": "8d1fea8ead8abf9c87cbe561c6ea176e",
+    "semantic_hash": "8d1fea8ead8abf9c87cbe561c6ea176e"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/placement/PlacementManagerTaskUnload.java": {
+    "mtime": 1783492977.2736826,
+    "ast_hash": "a715f43387e2f65df59331f35df2de6f",
+    "semantic_hash": "a715f43387e2f65df59331f35df2de6f"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/placement/SchematicPlacement.java": {
+    "mtime": 1783492977.2746868,
+    "ast_hash": "4a615d95bd77f7e6ef33272e35ee84cd",
+    "semantic_hash": "4a615d95bd77f7e6ef33272e35ee84cd"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/placement/SchematicPlacementEventFlag.java": {
+    "mtime": 1783492977.2746868,
+    "ast_hash": "387280a8481b8a4475c8b0f22a54b117",
+    "semantic_hash": "387280a8481b8a4475c8b0f22a54b117"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/placement/SchematicPlacementEventHandler.java": {
+    "mtime": 1783492977.2757213,
+    "ast_hash": "fb792e7f8d63e706e88dd424f3021856",
+    "semantic_hash": "fb792e7f8d63e706e88dd424f3021856"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/placement/SchematicPlacementManager.java": {
+    "mtime": 1783492977.2757213,
+    "ast_hash": "45800e2c30c86c979973d6e9abe4a7e9",
+    "semantic_hash": "45800e2c30c86c979973d6e9abe4a7e9"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/placement/SubRegionPlacement.java": {
+    "mtime": 1783492977.2767239,
+    "ast_hash": "15dda0aace92a94ac1c70aa67cea9550",
+    "semantic_hash": "15dda0aace92a94ac1c70aa67cea9550"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/placement/TemporaryWorldHolder.java": {
+    "mtime": 1783492977.2767239,
+    "ast_hash": "08f713eb7b5a26b54ffefec5a948cd18",
+    "semantic_hash": "08f713eb7b5a26b54ffefec5a948cd18"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/placement/TemporaryWorldManager.java": {
+    "mtime": 1783492977.2781205,
+    "ast_hash": "3e6ca81a9691f7bba138b9dd5afeb09d",
+    "semantic_hash": "3e6ca81a9691f7bba138b9dd5afeb09d"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/projects/SchematicProject.java": {
+    "mtime": 1783492977.2791197,
+    "ast_hash": "b006e1112c4adc2686348120feda9c68",
+    "semantic_hash": "b006e1112c4adc2686348120feda9c68"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/projects/SchematicProjectsManager.java": {
+    "mtime": 1783492977.2802608,
+    "ast_hash": "393b4560c1b38dbba8218f9f8a2e6768",
+    "semantic_hash": "393b4560c1b38dbba8218f9f8a2e6768"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/projects/SchematicVersion.java": {
+    "mtime": 1783492977.2802608,
+    "ast_hash": "45dd5dcbb368ecaf6452901e0a36de13",
+    "semantic_hash": "45dd5dcbb368ecaf6452901e0a36de13"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/transmit/SchematicBuffer.java": {
+    "mtime": 1783492977.2812617,
+    "ast_hash": "fbbbce1e0120289e14e9bebeb3ab85c8",
+    "semantic_hash": "fbbbce1e0120289e14e9bebeb3ab85c8"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/transmit/SchematicBufferManager.java": {
+    "mtime": 1783492977.2822988,
+    "ast_hash": "4ebc022df7996f16c766e8974a43e155",
+    "semantic_hash": "4ebc022df7996f16c766e8974a43e155"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/verifier/SchematicVerifier.java": {
+    "mtime": 1783492977.2833085,
+    "ast_hash": "2055cc2383b040c15f3b507fbc795b1b",
+    "semantic_hash": "2055cc2383b040c15f3b507fbc795b1b"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/verifier/VerifierResultSorter.java": {
+    "mtime": 1783492977.2833085,
+    "ast_hash": "91aeb055d3fc3ebfdf0041a632e9870b",
+    "semantic_hash": "91aeb055d3fc3ebfdf0041a632e9870b"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/verifier/inventory/VerifierInventoryLookup.java": {
+    "mtime": 1783492977.2843096,
+    "ast_hash": "c1a20f0bde2e58d5f656241dd346c763",
+    "semantic_hash": "c1a20f0bde2e58d5f656241dd346c763"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/verifier/inventory/VerifierInventoryOverlay.java": {
+    "mtime": 1783492977.2843096,
+    "ast_hash": "bb55bd6d8c6cd30764e35d140da76a0d",
+    "semantic_hash": "bb55bd6d8c6cd30764e35d140da76a0d"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/verifier/inventory/VerifierInventoryPreview.java": {
+    "mtime": 1783492977.2854085,
+    "ast_hash": "6510e9112bd63d002d42f6389707a59f",
+    "semantic_hash": "6510e9112bd63d002d42f6389707a59f"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/verifier/inventory/VerifierInventorySide.java": {
+    "mtime": 1783492977.2864254,
+    "ast_hash": "48688461db20d5768a1927a0a3852087",
+    "semantic_hash": "48688461db20d5768a1927a0a3852087"
+  },
+  "src/main/java/fi/dy/masa/litematica/schematic/verifier/inventory/VerifierInventorySlotDiff.java": {
+    "mtime": 1783492977.2869287,
+    "ast_hash": "4a815aac431a3080897a160a27aa0a05",
+    "semantic_hash": "4a815aac431a3080897a160a27aa0a05"
+  },
+  "src/main/java/fi/dy/masa/litematica/selection/AreaSelection.java": {
+    "mtime": 1783492977.2869287,
+    "ast_hash": "0a0d403783c23a7d239e597215e0788d",
+    "semantic_hash": "0a0d403783c23a7d239e597215e0788d"
+  },
+  "src/main/java/fi/dy/masa/litematica/selection/AreaSelectionSimple.java": {
+    "mtime": 1783492977.288228,
+    "ast_hash": "63d90f74a3dfa17885a27be01c659de9",
+    "semantic_hash": "63d90f74a3dfa17885a27be01c659de9"
+  },
+  "src/main/java/fi/dy/masa/litematica/selection/Box.java": {
+    "mtime": 1783492977.2892528,
+    "ast_hash": "0784d20dd7ca5b43529bf9c5f6f5cef1",
+    "semantic_hash": "0784d20dd7ca5b43529bf9c5f6f5cef1"
+  },
+  "src/main/java/fi/dy/masa/litematica/selection/BoxSliced.java": {
+    "mtime": 1783492977.2892528,
+    "ast_hash": "008c079a3bd1ed614998925c1b118c62",
+    "semantic_hash": "008c079a3bd1ed614998925c1b118c62"
+  },
+  "src/main/java/fi/dy/masa/litematica/selection/CornerSelectionMode.java": {
+    "mtime": 1783492977.2902687,
+    "ast_hash": "712dedad98d6706fb036e37918679e57",
+    "semantic_hash": "712dedad98d6706fb036e37918679e57"
+  },
+  "src/main/java/fi/dy/masa/litematica/selection/SelectionManager.java": {
+    "mtime": 1783492977.29128,
+    "ast_hash": "268a897fb7ed11af98dfccc6e285c83e",
+    "semantic_hash": "268a897fb7ed11af98dfccc6e285c83e"
+  },
+  "src/main/java/fi/dy/masa/litematica/selection/SelectionMode.java": {
+    "mtime": 1783492977.29128,
+    "ast_hash": "5fd43f1fd43dfe9c3b2fc521e6a7095c",
+    "semantic_hash": "5fd43f1fd43dfe9c3b2fc521e6a7095c"
+  },
+  "src/main/java/fi/dy/masa/litematica/tool/ToolMode.java": {
+    "mtime": 1783492977.292532,
+    "ast_hash": "17d3862c3cc0e12e634697212d223a9e",
+    "semantic_hash": "17d3862c3cc0e12e634697212d223a9e"
+  },
+  "src/main/java/fi/dy/masa/litematica/tool/ToolModeData.java": {
+    "mtime": 1783492977.2935443,
+    "ast_hash": "fb94eed6110cccf5f03c3e589da432c8",
+    "semantic_hash": "fb94eed6110cccf5f03c3e589da432c8"
+  },
+  "src/main/java/fi/dy/masa/litematica/util/BlockInfoAlignment.java": {
+    "mtime": 1783492977.2945454,
+    "ast_hash": "2c3614d1e6607fe729a6cf89a1a9d913",
+    "semantic_hash": "2c3614d1e6607fe729a6cf89a1a9d913"
+  },
+  "src/main/java/fi/dy/masa/litematica/util/BlockInfoListType.java": {
+    "mtime": 1783492977.2945454,
+    "ast_hash": "21cabba217645b272238445c6c50fde7",
+    "semantic_hash": "21cabba217645b272238445c6c50fde7"
+  },
+  "src/main/java/fi/dy/masa/litematica/util/BlockUtils.java": {
+    "mtime": 1783492977.2956102,
+    "ast_hash": "f93b145c9a66eebd0fa28b19c1c9de9e",
+    "semantic_hash": "f93b145c9a66eebd0fa28b19c1c9de9e"
+  },
+  "src/main/java/fi/dy/masa/litematica/util/DataFixerMode.java": {
+    "mtime": 1783492977.2956102,
+    "ast_hash": "ec451e2adf4c1727ee101bf7d8473799",
+    "semantic_hash": "ec451e2adf4c1727ee101bf7d8473799"
+  },
+  "src/main/java/fi/dy/masa/litematica/util/DebugHudMode.java": {
+    "mtime": 1783492977.2956102,
+    "ast_hash": "32541b197f9da4fb533ccdb7bc283b9e",
+    "semantic_hash": "32541b197f9da4fb533ccdb7bc283b9e"
+  },
+  "src/main/java/fi/dy/masa/litematica/util/EasyPlaceProtocol.java": {
+    "mtime": 1783492977.2971268,
+    "ast_hash": "7a22595710b9bf4e83abf69b7cfb4fa7",
+    "semantic_hash": "7a22595710b9bf4e83abf69b7cfb4fa7"
+  },
+  "src/main/java/fi/dy/masa/litematica/util/EasyPlaceUtils.java": {
+    "mtime": 1783492977.297708,
+    "ast_hash": "2a14e92439972f876374877d5a54d9e2",
+    "semantic_hash": "2a14e92439972f876374877d5a54d9e2"
+  },
+  "src/main/java/fi/dy/masa/litematica/util/EntityUtils.java": {
+    "mtime": 1783492977.298485,
+    "ast_hash": "8c85c05d436aa80d6c875ce1a6b9868c",
+    "semantic_hash": "8c85c05d436aa80d6c875ce1a6b9868c"
+  },
+  "src/main/java/fi/dy/masa/litematica/util/FileType.java": {
+    "mtime": 1783492977.2994983,
+    "ast_hash": "a5797aafc49b107ff6f9a8ed784e3ff5",
+    "semantic_hash": "a5797aafc49b107ff6f9a8ed784e3ff5"
+  },
+  "src/main/java/fi/dy/masa/litematica/util/IgnoreBlockRegistry.java": {
+    "mtime": 1783492977.2994983,
+    "ast_hash": "704afa636f1b87efb04bd983301e42f2",
+    "semantic_hash": "704afa636f1b87efb04bd983301e42f2"
+  },
+  "src/main/java/fi/dy/masa/litematica/util/InventoryUtils.java": {
+    "mtime": 1783492977.300017,
+    "ast_hash": "8469788c21ce4bc34a5bc4ec87f3208c",
+    "semantic_hash": "8469788c21ce4bc34a5bc4ec87f3208c"
+  },
+  "src/main/java/fi/dy/masa/litematica/util/ItemUtils.java": {
+    "mtime": 1783492977.301044,
+    "ast_hash": "a6c3149e247d046b4213dd0f39c93aa3",
+    "semantic_hash": "a6c3149e247d046b4213dd0f39c93aa3"
+  },
+  "src/main/java/fi/dy/masa/litematica/util/LayerUtils.java": {
+    "mtime": 1783492977.301044,
+    "ast_hash": "423319abd9e7a3060d2cb0ee6fa14c4f",
+    "semantic_hash": "423319abd9e7a3060d2cb0ee6fa14c4f"
+  },
+  "src/main/java/fi/dy/masa/litematica/util/OverlayType.java": {
+    "mtime": 1783492977.3021607,
+    "ast_hash": "4fb662411c25ee5da58bb985850d4b3b",
+    "semantic_hash": "4fb662411c25ee5da58bb985850d4b3b"
+  },
+  "src/main/java/fi/dy/masa/litematica/util/PasteLayerBehavior.java": {
+    "mtime": 1783492977.3026638,
+    "ast_hash": "935367881df84b6ba4239756ac1d59f9",
+    "semantic_hash": "935367881df84b6ba4239756ac1d59f9"
+  },
+  "src/main/java/fi/dy/masa/litematica/util/PasteNbtBehavior.java": {
+    "mtime": 1783492977.3026638,
+    "ast_hash": "8fea04ed24acb41a756f3873821b3fe0",
+    "semantic_hash": "8fea04ed24acb41a756f3873821b3fe0"
+  },
+  "src/main/java/fi/dy/masa/litematica/util/PickBlockUtils.java": {
+    "mtime": 1783492977.3039036,
+    "ast_hash": "84dba2de1dc3d88eab829fe8521b264e",
+    "semantic_hash": "84dba2de1dc3d88eab829fe8521b264e"
+  },
+  "src/main/java/fi/dy/masa/litematica/util/PlacementDeletionMode.java": {
+    "mtime": 1783492977.3044076,
+    "ast_hash": "6656285d94a02ab0a708a529851801bb",
+    "semantic_hash": "6656285d94a02ab0a708a529851801bb"
+  },
+  "src/main/java/fi/dy/masa/litematica/util/PlacementHandler.java": {
+    "mtime": 1783492977.3044076,
+    "ast_hash": "20b9b1ff4b155ca5d9a8c1a50d24ec5b",
+    "semantic_hash": "20b9b1ff4b155ca5d9a8c1a50d24ec5b"
+  },
+  "src/main/java/fi/dy/masa/litematica/util/PositionUtils.java": {
+    "mtime": 1783492977.305923,
+    "ast_hash": "847b131a4a206ea8cf9272f3aa4e972e",
+    "semantic_hash": "847b131a4a206ea8cf9272f3aa4e972e"
+  },
+  "src/main/java/fi/dy/masa/litematica/util/RayTraceUtils.java": {
+    "mtime": 1783492977.305923,
+    "ast_hash": "43a941209a2c56440333fb7730321ab4",
+    "semantic_hash": "43a941209a2c56440333fb7730321ab4"
+  },
+  "src/main/java/fi/dy/masa/litematica/util/ReplaceBehavior.java": {
+    "mtime": 1783492977.306942,
+    "ast_hash": "837a4afaf2a6b783df561a58929acd2d",
+    "semantic_hash": "837a4afaf2a6b783df561a58929acd2d"
+  },
+  "src/main/java/fi/dy/masa/litematica/util/SchematicPlacingUtils.java": {
+    "mtime": 1783492977.306942,
+    "ast_hash": "37b02e8aa427d760e9511d0949055070",
+    "semantic_hash": "37b02e8aa427d760e9511d0949055070"
+  },
+  "src/main/java/fi/dy/masa/litematica/util/SchematicUtils.java": {
+    "mtime": 1783492977.3081095,
+    "ast_hash": "27a912a021ff1a61552f9c6952ac7f9c",
+    "semantic_hash": "27a912a021ff1a61552f9c6952ac7f9c"
+  },
+  "src/main/java/fi/dy/masa/litematica/util/SchematicWorldRefresher.java": {
+    "mtime": 1783492977.3091214,
+    "ast_hash": "d97638ec61d0cfef6fba225cd2211736",
+    "semantic_hash": "d97638ec61d0cfef6fba225cd2211736"
+  },
+  "src/main/java/fi/dy/masa/litematica/util/ToBooleanFunction.java": {
+    "mtime": 1783492977.3111713,
+    "ast_hash": "cb33402fa49b364f99424e7fc2c06103",
+    "semantic_hash": "cb33402fa49b364f99424e7fc2c06103"
+  },
+  "src/main/java/fi/dy/masa/litematica/util/ToolUtils.java": {
+    "mtime": 1783492977.3111713,
+    "ast_hash": "9d8b9430fce62a3f6a6de37653635f3a",
+    "semantic_hash": "9d8b9430fce62a3f6a6de37653635f3a"
+  },
+  "src/main/java/fi/dy/masa/litematica/util/WorldPlacingUtils.java": {
+    "mtime": 1783492977.3121889,
+    "ast_hash": "bce404ba648a04c007848f7f5612867a",
+    "semantic_hash": "bce404ba648a04c007848f7f5612867a"
+  },
+  "src/main/java/fi/dy/masa/litematica/util/WorldUtils.java": {
+    "mtime": 1783492977.3121889,
+    "ast_hash": "f7329ffb753a356028fc97481579fe6c",
+    "semantic_hash": "f7329ffb753a356028fc97481579fe6c"
+  },
+  "src/main/java/fi/dy/masa/litematica/util/invoker/IAvatarInvoker.java": {
+    "mtime": 1783492977.31319,
+    "ast_hash": "7ea1387a1ada2cffa2502faa72828561",
+    "semantic_hash": "7ea1387a1ada2cffa2502faa72828561"
+  },
+  "src/main/java/fi/dy/masa/litematica/util/invoker/IEntityHitboxDebugRendererInvoker.java": {
+    "mtime": 1783492977.31319,
+    "ast_hash": "05d0c9b1a255d896832c33e1b0823283",
+    "semantic_hash": "05d0c9b1a255d896832c33e1b0823283"
+  },
+  "src/main/java/fi/dy/masa/litematica/util/invoker/IEntityInvoker.java": {
+    "mtime": 1783492977.314941,
+    "ast_hash": "5504a69602b5283e46b1acbcc14d650e",
+    "semantic_hash": "5504a69602b5283e46b1acbcc14d650e"
+  },
+  "src/main/java/fi/dy/masa/litematica/util/invoker/IEntityRendererInvoker.java": {
+    "mtime": 1783492977.314941,
+    "ast_hash": "8261707fe305d3d9fd0f54d57e00ad1e",
+    "semantic_hash": "8261707fe305d3d9fd0f54d57e00ad1e"
+  },
+  "src/main/java/fi/dy/masa/litematica/util/invoker/IFluidRendererInvoker.java": {
+    "mtime": 1783492977.3160312,
+    "ast_hash": "9ef62004f13ee05959aa1d3ca17e1693",
+    "semantic_hash": "9ef62004f13ee05959aa1d3ca17e1693"
+  },
+  "src/main/java/fi/dy/masa/litematica/util/invoker/IWorldUpdateSuppressor.java": {
+    "mtime": 1783492977.3160312,
+    "ast_hash": "4c3bd30ca0eb191468b7321da421fd1c",
+    "semantic_hash": "4c3bd30ca0eb191468b7321da421fd1c"
+  },
+  "src/main/java/fi/dy/masa/litematica/world/ChunkManagerSchematic.java": {
+    "mtime": 1783492977.3170323,
+    "ast_hash": "d29253d4dd38ad2fddf5a92df2de79c9",
+    "semantic_hash": "d29253d4dd38ad2fddf5a92df2de79c9"
+  },
+  "src/main/java/fi/dy/masa/litematica/world/ChunkSchematic.java": {
+    "mtime": 1783492977.3184159,
+    "ast_hash": "4f8cabe4d373a374e6a0418f871c134f",
+    "semantic_hash": "4f8cabe4d373a374e6a0418f871c134f"
+  },
+  "src/main/java/fi/dy/masa/litematica/world/ChunkSchematicState.java": {
+    "mtime": 1783492977.3189206,
+    "ast_hash": "ebce5c15d020d57500741e65c7cf0aac",
+    "semantic_hash": "ebce5c15d020d57500741e65c7cf0aac"
+  },
+  "src/main/java/fi/dy/masa/litematica/world/FakeLightingProvider.java": {
+    "mtime": 1783492977.3199377,
+    "ast_hash": "f8021e2007c44b00aa954d7b45b3dd71",
+    "semantic_hash": "f8021e2007c44b00aa954d7b45b3dd71"
+  },
+  "src/main/java/fi/dy/masa/litematica/world/ProtoChunkSchematic.java": {
+    "mtime": 1783492977.3199377,
+    "ast_hash": "7425581b9fccfcf2889368789051ac53",
+    "semantic_hash": "7425581b9fccfcf2889368789051ac53"
+  },
+  "src/main/java/fi/dy/masa/litematica/world/SchematicEntityLookup.java": {
+    "mtime": 1783492977.3209584,
+    "ast_hash": "c83201642609f498a17ce7f8c14bb100",
+    "semantic_hash": "c83201642609f498a17ce7f8c14bb100"
+  },
+  "src/main/java/fi/dy/masa/litematica/world/SchematicWorldHandler.java": {
+    "mtime": 1783492977.3209584,
+    "ast_hash": "43d0d12b9c193caaafa9e0c31d60f352",
+    "semantic_hash": "43d0d12b9c193caaafa9e0c31d60f352"
+  },
+  "src/main/java/fi/dy/masa/litematica/world/WorldSchematic.java": {
+    "mtime": 1783492977.3228152,
+    "ast_hash": "85b2967d8c321117b388b65080b8636f",
+    "semantic_hash": "85b2967d8c321117b388b65080b8636f"
+  },
+  "src/main/java/me/zly2006/lvc/LvcDiagnostics.java": {
+    "mtime": 1783492977.325334,
+    "ast_hash": "6970dd84f113352181834349c4a28504",
+    "semantic_hash": "6970dd84f113352181834349c4a28504"
+  },
+  "src/main/java/me/zly2006/lvc/LvcFriendlyErrors.java": {
+    "mtime": 1783836089.6648805,
+    "ast_hash": "a644a259b3ccab56d1da41b2ef966d6d",
+    "semantic_hash": "a644a259b3ccab56d1da41b2ef966d6d"
+  },
+  "src/main/java/me/zly2006/lvc/LvcPlayerIdentity.java": {
+    "mtime": 1783492977.3274965,
+    "ast_hash": "fe420bda6f26fb1014646f24bf2eb782",
+    "semantic_hash": "fe420bda6f26fb1014646f24bf2eb782"
+  },
+  "src/main/java/me/zly2006/lvc/LvcProjectService.java": {
+    "mtime": 1783836089.6658819,
+    "ast_hash": "02de0ca3e3887fc8f0c354ec84646c62",
+    "semantic_hash": "02de0ca3e3887fc8f0c354ec84646c62"
+  },
+  "src/main/java/me/zly2006/lvc/LvcUserActionException.java": {
+    "mtime": 1783492977.3274965,
+    "ast_hash": "de22f2f453fb244adecfb0407a6b473d",
+    "semantic_hash": "de22f2f453fb244adecfb0407a6b473d"
+  },
+  "src/main/java/me/zly2006/lvc/capture/LvcBlockStateOnlyWorldReader.java": {
+    "mtime": 1783492977.3300095,
+    "ast_hash": "4f6650ec909d6d5ddd235cfb133e79ae",
+    "semantic_hash": "4f6650ec909d6d5ddd235cfb133e79ae"
+  },
+  "src/main/java/me/zly2006/lvc/capture/LvcCaptureEngine.java": {
+    "mtime": 1783492977.3300095,
+    "ast_hash": "5a84de87205738063b06b7fb4448f791",
+    "semantic_hash": "5a84de87205738063b06b7fb4448f791"
+  },
+  "src/main/java/me/zly2006/lvc/capture/LvcCapturePlanner.java": {
+    "mtime": 1783492977.3315623,
+    "ast_hash": "9c27adb429988e7786285b2b0f1d9dbd",
+    "semantic_hash": "9c27adb429988e7786285b2b0f1d9dbd"
+  },
+  "src/main/java/me/zly2006/lvc/capture/LvcCaptureSession.java": {
+    "mtime": 1783492977.332593,
+    "ast_hash": "403e92d56355ff88c442dd5b47350815",
+    "semantic_hash": "403e92d56355ff88c442dd5b47350815"
+  },
+  "src/main/java/me/zly2006/lvc/capture/LvcMinecraftWorldReader.java": {
+    "mtime": 1783492977.335108,
+    "ast_hash": "7b360c1364d2c3f1b0d4dc88f00faec2",
+    "semantic_hash": "7b360c1364d2c3f1b0d4dc88f00faec2"
+  },
+  "src/main/java/me/zly2006/lvc/capture/LvcServuxBulkEntityCache.java": {
+    "mtime": 1783492977.3356278,
+    "ast_hash": "c6dc25c977d103932bf04a7c135a0ca3",
+    "semantic_hash": "c6dc25c977d103932bf04a7c135a0ca3"
+  },
+  "src/main/java/me/zly2006/lvc/capture/LvcServuxWorldReader.java": {
+    "mtime": 1783492977.336156,
+    "ast_hash": "f158f9b4af90f6046d05deb00d3ebe52",
+    "semantic_hash": "f158f9b4af90f6046d05deb00d3ebe52"
+  },
+  "src/main/java/me/zly2006/lvc/capture/LvcSiteWorkPlan.java": {
+    "mtime": 1783492977.336156,
+    "ast_hash": "1c845d5b371ec4317b05e74f2ec4db39",
+    "semantic_hash": "1c845d5b371ec4317b05e74f2ec4db39"
+  },
+  "src/main/java/me/zly2006/lvc/capture/LvcWorldReader.java": {
+    "mtime": 1783492977.337666,
+    "ast_hash": "4b702d262c9f74aee34c4fe2ce8ca6b5",
+    "semantic_hash": "4b702d262c9f74aee34c4fe2ce8ca6b5"
+  },
+  "src/main/java/me/zly2006/lvc/git/LvcBranchMergeOps.java": {
+    "mtime": 1783492977.3388875,
+    "ast_hash": "86447b0fdeb0da0467d9294dd52e487e",
+    "semantic_hash": "86447b0fdeb0da0467d9294dd52e487e"
+  },
+  "src/main/java/me/zly2006/lvc/git/LvcGitBranchOps.java": {
+    "mtime": 1783492977.3398883,
+    "ast_hash": "08ed7aa5735ea6b6e8e0957c2ea4da64",
+    "semantic_hash": "08ed7aa5735ea6b6e8e0957c2ea4da64"
+  },
+  "src/main/java/me/zly2006/lvc/git/LvcGitHeadSnapshot.java": {
+    "mtime": 1783492977.3398883,
+    "ast_hash": "cc74a49d81e1492dcc4d7c6fb2e06fac",
+    "semantic_hash": "cc74a49d81e1492dcc4d7c6fb2e06fac"
+  },
+  "src/main/java/me/zly2006/lvc/git/LvcGitHistoryOps.java": {
+    "mtime": 1783492977.3409815,
+    "ast_hash": "f5e1114edfc1900d3acc6800e75a6863",
+    "semantic_hash": "f5e1114edfc1900d3acc6800e75a6863"
+  },
+  "src/main/java/me/zly2006/lvc/git/LvcGitRemoteOps.java": {
+    "mtime": 1783836089.6658819,
+    "ast_hash": "ac8afe5dbcd68ea8626aac1100546529",
+    "semantic_hash": "ac8afe5dbcd68ea8626aac1100546529"
+  },
+  "src/main/java/me/zly2006/lvc/git/LvcGitTreeReader.java": {
+    "mtime": 1783492977.3419971,
+    "ast_hash": "1a72c3f4c499b91be50e0b04235325ee",
+    "semantic_hash": "1a72c3f4c499b91be50e0b04235325ee"
+  },
+  "src/main/java/me/zly2006/lvc/git/LvcMergeConflictException.java": {
+    "mtime": 1783492977.3419971,
+    "ast_hash": "6495a0e633f9f5b00a758b1aa665f91e",
+    "semantic_hash": "6495a0e633f9f5b00a758b1aa665f91e"
+  },
+  "src/main/java/me/zly2006/lvc/git/LvcMergeObjectResolver.java": {
+    "mtime": 1783492977.342998,
+    "ast_hash": "fd38cecd8d1bde47dec2338f498fc9c8",
+    "semantic_hash": "fd38cecd8d1bde47dec2338f498fc9c8"
+  },
+  "src/main/java/me/zly2006/lvc/git/LvcProjectGitOps.java": {
+    "mtime": 1783492977.342998,
+    "ast_hash": "32c954bd698285030b60a9ec80ee09b6",
+    "semantic_hash": "32c954bd698285030b60a9ec80ee09b6"
+  },
+  "src/main/java/me/zly2006/lvc/git/LvcSemanticMergeEngine.java": {
+    "mtime": 1783492977.342998,
+    "ast_hash": "d113e02d5d786bd1a7bdc03829467438",
+    "semantic_hash": "d113e02d5d786bd1a7bdc03829467438"
+  },
+  "src/main/java/me/zly2006/lvc/git/LvcSshTransportFactory.java": {
+    "mtime": 1783492977.342998,
+    "ast_hash": "d163134637bbde9d5e1c9351465e901f",
+    "semantic_hash": "d163134637bbde9d5e1c9351465e901f"
+  },
+  "src/main/java/me/zly2006/lvc/gui/GuiLvcCommitMessageDialog.java": {
+    "mtime": 1783492977.3448792,
+    "ast_hash": "83d4e8a82813c5a5cafe2e6e624e7d3a",
+    "semantic_hash": "83d4e8a82813c5a5cafe2e6e624e7d3a"
+  },
+  "src/main/java/me/zly2006/lvc/gui/GuiLvcConfirmAction.java": {
+    "mtime": 1783492977.3448792,
+    "ast_hash": "2c084c3fbbc1fd61f19f058a183a305b",
+    "semantic_hash": "2c084c3fbbc1fd61f19f058a183a305b"
+  },
+  "src/main/java/me/zly2006/lvc/gui/GuiLvcDeleteBranchDialog.java": {
+    "mtime": 1783492977.3463967,
+    "ast_hash": "beb254d3b0c49913b6b30d1e1a408154",
+    "semantic_hash": "beb254d3b0c49913b6b30d1e1a408154"
+  },
+  "src/main/java/me/zly2006/lvc/gui/GuiLvcDeleteVersionDialog.java": {
+    "mtime": 1783492977.3463967,
+    "ast_hash": "f04cf4094ca58cf3226350d339f45b02",
+    "semantic_hash": "f04cf4094ca58cf3226350d339f45b02"
+  },
+  "src/main/java/me/zly2006/lvc/gui/GuiLvcDiffViewer.java": {
+    "mtime": 1783550801.6866899,
+    "ast_hash": "aa441e8eb50b6e29def960e0aaa4092f",
+    "semantic_hash": "aa441e8eb50b6e29def960e0aaa4092f"
+  },
+  "src/main/java/me/zly2006/lvc/gui/GuiLvcMergeBranchDialog.java": {
+    "mtime": 1783492977.347424,
+    "ast_hash": "8278006a7c96f41d4e21441eba92ff13",
+    "semantic_hash": "8278006a7c96f41d4e21441eba92ff13"
+  },
+  "src/main/java/me/zly2006/lvc/gui/GuiLvcMergeConflictDialog.java": {
+    "mtime": 1783492977.3484406,
+    "ast_hash": "a9ba95ce82eab38a945f462059057e0d",
+    "semantic_hash": "a9ba95ce82eab38a945f462059057e0d"
+  },
+  "src/main/java/me/zly2006/lvc/gui/GuiLvcNoticeDialog.java": {
+    "mtime": 1783492977.3484406,
+    "ast_hash": "f375d62b12a7eb83ce3a9aed6d1a65e8",
+    "semantic_hash": "f375d62b12a7eb83ce3a9aed6d1a65e8"
+  },
+  "src/main/java/me/zly2006/lvc/gui/GuiLvcProjectBrowser.java": {
+    "mtime": 1783551256.6273766,
+    "ast_hash": "7532e4cf15f9340457b8133f97f1ad7f",
+    "semantic_hash": "7532e4cf15f9340457b8133f97f1ad7f"
+  },
+  "src/main/java/me/zly2006/lvc/gui/GuiLvcProjectButtonType.java": {
+    "mtime": 1783493932.6968758,
+    "ast_hash": "98a48665d97775bc20e754c7d1448154",
+    "semantic_hash": "98a48665d97775bc20e754c7d1448154"
+  },
+  "src/main/java/me/zly2006/lvc/gui/GuiLvcProjectCommandListeners.java": {
+    "mtime": 1783492977.3494532,
+    "ast_hash": "a759fe594e094cb12b2cf7bc2b508bd9",
+    "semantic_hash": "a759fe594e094cb12b2cf7bc2b508bd9"
+  },
+  "src/main/java/me/zly2006/lvc/gui/GuiLvcProjectController.java": {
+    "mtime": 1783836089.6669445,
+    "ast_hash": "692b46ec19c637e0eaff76835e90eca4",
+    "semantic_hash": "692b46ec19c637e0eaff76835e90eca4"
+  },
+  "src/main/java/me/zly2006/lvc/gui/GuiLvcProjectEditor.java": {
+    "mtime": 1783501613.10287,
+    "ast_hash": "5267b649874632d7d4830f70593c0e30",
+    "semantic_hash": "5267b649874632d7d4830f70593c0e30"
+  },
+  "src/main/java/me/zly2006/lvc/gui/GuiLvcProjectManager.java": {
+    "mtime": 1783498006.8366272,
+    "ast_hash": "6c66c5f8f85d3dae2a71c80c088aea9d",
+    "semantic_hash": "6c66c5f8f85d3dae2a71c80c088aea9d"
+  },
+  "src/main/java/me/zly2006/lvc/gui/GuiLvcProjectTaskActions.java": {
+    "mtime": 1783492977.352002,
+    "ast_hash": "ab284e26f11999833acdb31eeeb03972",
+    "semantic_hash": "ab284e26f11999833acdb31eeeb03972"
+  },
+  "src/main/java/me/zly2006/lvc/gui/GuiLvcRecoveryDialog.java": {
+    "mtime": 1783492977.3530517,
+    "ast_hash": "2756f74fea371e1ae6a413b062f7a808",
+    "semantic_hash": "2756f74fea371e1ae6a413b062f7a808"
+  },
+  "src/main/java/me/zly2006/lvc/gui/GuiLvcRenameBranchDialog.java": {
+    "mtime": 1783492977.3530517,
+    "ast_hash": "8addc3c166cbd56a9e86829db3cecd9c",
+    "semantic_hash": "8addc3c166cbd56a9e86829db3cecd9c"
+  },
+  "src/main/java/me/zly2006/lvc/gui/GuiLvcTextInputDialog.java": {
+    "mtime": 1783492977.3545568,
+    "ast_hash": "9b0cbbed26e2fc6292628929aee7a576",
+    "semantic_hash": "9b0cbbed26e2fc6292628929aee7a576"
+  },
+  "src/main/java/me/zly2006/lvc/gui/GuiLvcWarningConfirmDialog.java": {
+    "mtime": 1783492977.355607,
+    "ast_hash": "f46d87094765d91536d433028406fcc4",
+    "semantic_hash": "f46d87094765d91536d433028406fcc4"
+  },
+  "src/main/java/me/zly2006/lvc/gui/LvcAreaWorkflow.java": {
+    "mtime": 1783492977.355607,
+    "ast_hash": "120dfbba5290c8fcac5f0411ac7efc0f",
+    "semantic_hash": "120dfbba5290c8fcac5f0411ac7efc0f"
+  },
+  "src/main/java/me/zly2006/lvc/gui/LvcCheckoutWorkflow.java": {
+    "mtime": 1783492977.3567924,
+    "ast_hash": "329a261a1b8ffa72c7eb8f86b91b9f93",
+    "semantic_hash": "329a261a1b8ffa72c7eb8f86b91b9f93"
+  },
+  "src/main/java/me/zly2006/lvc/gui/LvcCommitHistoryPanel.java": {
+    "mtime": 1783492977.3567924,
+    "ast_hash": "100c118df5b2602863b8b8e72c2b8df0",
+    "semantic_hash": "100c118df5b2602863b8b8e72c2b8df0"
+  },
+  "src/main/java/me/zly2006/lvc/gui/LvcCommitMetadataPanel.java": {
+    "mtime": 1783492977.357805,
+    "ast_hash": "e5fa8b60e64941bf6d7c4cb47ba07803",
+    "semantic_hash": "e5fa8b60e64941bf6d7c4cb47ba07803"
+  },
+  "src/main/java/me/zly2006/lvc/gui/LvcCreateProjectAction.java": {
+    "mtime": 1783492977.358839,
+    "ast_hash": "814e98d2eb9981525cac0b8b09f71666",
+    "semantic_hash": "814e98d2eb9981525cac0b8b09f71666"
+  },
+  "src/main/java/me/zly2006/lvc/gui/LvcGuiMessages.java": {
+    "mtime": 1783492977.358839,
+    "ast_hash": "cbfe8ff654282c0410a0ba7e413d2943",
+    "semantic_hash": "cbfe8ff654282c0410a0ba7e413d2943"
+  },
+  "src/main/java/me/zly2006/lvc/gui/LvcGuiText.java": {
+    "mtime": 1783492977.360345,
+    "ast_hash": "a1529b6b11a531e09683222b248f261c",
+    "semantic_hash": "a1529b6b11a531e09683222b248f261c"
+  },
+  "src/main/java/me/zly2006/lvc/gui/LvcInterruptedOperationPrompts.java": {
+    "mtime": 1783492977.360345,
+    "ast_hash": "284fc79572853930f412d3fb84576163",
+    "semantic_hash": "284fc79572853930f412d3fb84576163"
+  },
+  "src/main/java/me/zly2006/lvc/gui/LvcMergeWorkflow.java": {
+    "mtime": 1783492977.3614028,
+    "ast_hash": "eff3a16dd3684b7d9cb5a11e87095539",
+    "semantic_hash": "eff3a16dd3684b7d9cb5a11e87095539"
+  },
+  "src/main/java/me/zly2006/lvc/gui/LvcOperationCoordinator.java": {
+    "mtime": 1783492977.3624008,
+    "ast_hash": "f61b2aecdc7cc1396fefe57f8a2e4946",
+    "semantic_hash": "f61b2aecdc7cc1396fefe57f8a2e4946"
+  },
+  "src/main/java/me/zly2006/lvc/gui/LvcSchematicPlacementRowActions.java": {
+    "mtime": 1783492977.3624008,
+    "ast_hash": "dc30120c91962d27f094a6fb0143f7d9",
+    "semantic_hash": "dc30120c91962d27f094a6fb0143f7d9"
+  },
+  "src/main/java/me/zly2006/lvc/gui/LvcScrollbarMath.java": {
+    "mtime": 1783492977.363658,
+    "ast_hash": "73afc653a8377ddf743f49fecc5929cb",
+    "semantic_hash": "73afc653a8377ddf743f49fecc5929cb"
+  },
+  "src/main/java/me/zly2006/lvc/gui/LvcVerifierStartWorkflow.java": {
+    "mtime": 1783492977.3646593,
+    "ast_hash": "6d850881da07689f221841b22ee72158",
+    "semantic_hash": "6d850881da07689f221841b22ee72158"
+  },
+  "src/main/java/me/zly2006/lvc/gui/LvcVersionWorkflow.java": {
+    "mtime": 1783492977.3646593,
+    "ast_hash": "c08d482a3f2645e42db143f70358897a",
+    "semantic_hash": "c08d482a3f2645e42db143f70358897a"
+  },
+  "src/main/java/me/zly2006/lvc/gui/widgets/WidgetLvcBranchActionMenu.java": {
+    "mtime": 1783492977.3664515,
+    "ast_hash": "bd90a19a2d1581d60dafc15c4e486262",
+    "semantic_hash": "bd90a19a2d1581d60dafc15c4e486262"
+  },
+  "src/main/java/me/zly2006/lvc/gui/widgets/WidgetLvcBranchDropdown.java": {
+    "mtime": 1783492977.3674703,
+    "ast_hash": "fac33c3bbe862b9ced84bd750835c380",
+    "semantic_hash": "fac33c3bbe862b9ced84bd750835c380"
+  },
+  "src/main/java/me/zly2006/lvc/gui/widgets/WidgetLvcProjectBrowser.java": {
+    "mtime": 1783493234.0138812,
+    "ast_hash": "97fc32303b17f65cc52219ed3d4c7369",
+    "semantic_hash": "97fc32303b17f65cc52219ed3d4c7369"
+  },
+  "src/main/java/me/zly2006/lvc/gui/widgets/WidgetLvcProjectSubRegion.java": {
+    "mtime": 1783492977.368497,
+    "ast_hash": "374545bf6a74e87f9ec792d86a272a20",
+    "semantic_hash": "374545bf6a74e87f9ec792d86a272a20"
+  },
+  "src/main/java/me/zly2006/lvc/gui/widgets/WidgetLvcProjectSubRegionList.java": {
+    "mtime": 1783492977.3697028,
+    "ast_hash": "ae243fc783272e766aa3a57cb40d3411",
+    "semantic_hash": "ae243fc783272e766aa3a57cb40d3411"
+  },
+  "src/main/java/me/zly2006/lvc/gui/widgets/WidgetLvcSearchableListDropdown.java": {
+    "mtime": 1783492977.3697028,
+    "ast_hash": "b55841273f1f5ae3bb9b6c35d4737d37",
+    "semantic_hash": "b55841273f1f5ae3bb9b6c35d4737d37"
+  },
+  "src/main/java/me/zly2006/lvc/model/LvcChunk.java": {
+    "mtime": 1783492977.3707376,
+    "ast_hash": "a6c0051385af18a300c8d86bd4face1a",
+    "semantic_hash": "a6c0051385af18a300c8d86bd4face1a"
+  },
+  "src/main/java/me/zly2006/lvc/model/LvcChunkCoordinate.java": {
+    "mtime": 1783492977.3707376,
+    "ast_hash": "d9f164fbc884e875cb4d5e8322c9068d",
+    "semantic_hash": "d9f164fbc884e875cb4d5e8322c9068d"
+  },
+  "src/main/java/me/zly2006/lvc/model/LvcIntPosition.java": {
+    "mtime": 1783492977.3717525,
+    "ast_hash": "7336ea5c5143c8e4e02683cdc96d284b",
+    "semantic_hash": "7336ea5c5143c8e4e02683cdc96d284b"
+  },
+  "src/main/java/me/zly2006/lvc/model/LvcLocalState.java": {
+    "mtime": 1783492977.3717525,
+    "ast_hash": "dfd0b991fb7b1df55ee9f59ef65b7cde",
+    "semantic_hash": "dfd0b991fb7b1df55ee9f59ef65b7cde"
+  },
+  "src/main/java/me/zly2006/lvc/model/LvcManifest.java": {
+    "mtime": 1783492977.372752,
+    "ast_hash": "357ee15401a76bd7d37b07515077c585",
+    "semantic_hash": "357ee15401a76bd7d37b07515077c585"
+  },
+  "src/main/java/me/zly2006/lvc/overlay/LvcTrackingOverlayService.java": {
+    "mtime": 1783492977.3732567,
+    "ast_hash": "f79da8c0f8b171d1cee6e363ab5ea62d",
+    "semantic_hash": "f79da8c0f8b171d1cee6e363ab5ea62d"
+  },
+  "src/main/java/me/zly2006/lvc/project/LvcProjectPaths.java": {
+    "mtime": 1783492977.3732567,
+    "ast_hash": "66ae5b26b3f98de9ce7e0e10e32532e8",
+    "semantic_hash": "66ae5b26b3f98de9ce7e0e10e32532e8"
+  },
+  "src/main/java/me/zly2006/lvc/project/LvcProjectPositions.java": {
+    "mtime": 1783492977.3747747,
+    "ast_hash": "46e76a73ba1d876846fec147749d17cb",
+    "semantic_hash": "46e76a73ba1d876846fec147749d17cb"
+  },
+  "src/main/java/me/zly2006/lvc/project/LvcProjectSelectionStorage.java": {
+    "mtime": 1783492977.3747747,
+    "ast_hash": "f4369c17131c5facee96350de44e79b0",
+    "semantic_hash": "f4369c17131c5facee96350de44e79b0"
+  },
+  "src/main/java/me/zly2006/lvc/semantic/LvcCapturePublishCommitFlow.java": {
+    "mtime": 1783492977.375788,
+    "ast_hash": "4fe54564fee742cdd9a998e5e306e955",
+    "semantic_hash": "4fe54564fee742cdd9a998e5e306e955"
+  },
+  "src/main/java/me/zly2006/lvc/semantic/LvcSemanticProjectEditor.java": {
+    "mtime": 1783492977.3769097,
+    "ast_hash": "3cba305e3715db45cdf7b0782c01fb88",
+    "semantic_hash": "3cba305e3715db45cdf7b0782c01fb88"
+  },
+  "src/main/java/me/zly2006/lvc/semantic/LvcSemanticProjectOperations.java": {
+    "mtime": 1783492977.3781562,
+    "ast_hash": "229e9f073e4583353fac85eb296b7bca",
+    "semantic_hash": "229e9f073e4583353fac85eb296b7bca"
+  },
+  "src/main/java/me/zly2006/lvc/semantic/LvcSemanticSchematicBuilder.java": {
+    "mtime": 1783492977.3781562,
+    "ast_hash": "169f5d51e509a3815a3742ec9f8209d3",
+    "semantic_hash": "169f5d51e509a3815a3742ec9f8209d3"
+  },
+  "src/main/java/me/zly2006/lvc/semantic/LvcSemanticWorldApplier.java": {
+    "mtime": 1783836089.6669445,
+    "ast_hash": "587f4ee4c399e60011a3b66b359cbf16",
+    "semantic_hash": "587f4ee4c399e60011a3b66b359cbf16"
+  },
+  "src/main/java/me/zly2006/lvc/semantic/LvcTrackedBlockCursor.java": {
+    "mtime": 1783492977.3803515,
+    "ast_hash": "ffd9efdb659ab8ba3510e13365c178a8",
+    "semantic_hash": "ffd9efdb659ab8ba3510e13365c178a8"
+  },
+  "src/main/java/me/zly2006/lvc/storage/LvcCanonicalNbt.java": {
+    "mtime": 1783492977.3813913,
+    "ast_hash": "e7c13edde8599679b4d193dc925949bb",
+    "semantic_hash": "e7c13edde8599679b4d193dc925949bb"
+  },
+  "src/main/java/me/zly2006/lvc/storage/LvcChunkCodec.java": {
+    "mtime": 1783492977.3813913,
+    "ast_hash": "49499343a18d08c16f77272004e1e8b1",
+    "semantic_hash": "49499343a18d08c16f77272004e1e8b1"
+  },
+  "src/main/java/me/zly2006/lvc/storage/LvcChunkStagingStore.java": {
+    "mtime": 1783492977.3823924,
+    "ast_hash": "8428282dc389cb76bd33ca381c0cc14a",
+    "semantic_hash": "8428282dc389cb76bd33ca381c0cc14a"
+  },
+  "src/main/java/me/zly2006/lvc/storage/LvcChunkStore.java": {
+    "mtime": 1783492977.3823924,
+    "ast_hash": "a4e698114078807a34e76d8cad5c1ffc",
+    "semantic_hash": "a4e698114078807a34e76d8cad5c1ffc"
+  },
+  "src/main/java/me/zly2006/lvc/storage/LvcHashIndexCodec.java": {
+    "mtime": 1783492977.3838954,
+    "ast_hash": "7ffdfd628db4213a65c05307321bbd0c",
+    "semantic_hash": "7ffdfd628db4213a65c05307321bbd0c"
+  },
+  "src/main/java/me/zly2006/lvc/storage/LvcRepository.java": {
+    "mtime": 1783492977.3844934,
+    "ast_hash": "4e919905aca3b965c8c3381c49d15b33",
+    "semantic_hash": "4e919905aca3b965c8c3381c49d15b33"
+  },
+  "src/main/java/me/zly2006/lvc/storage/LvcSemanticObjectPruner.java": {
+    "mtime": 1783492977.3844934,
+    "ast_hash": "7ac3953bc8b97b0cfc48d6cffc46e952",
+    "semantic_hash": "7ac3953bc8b97b0cfc48d6cffc46e952"
+  },
+  "src/main/java/me/zly2006/lvc/storage/LvcSemanticRepository.java": {
+    "mtime": 1783494106.601997,
+    "ast_hash": "67ffa059159e8c377cf3a7ca73b405a9",
+    "semantic_hash": "67ffa059159e8c377cf3a7ca73b405a9"
+  },
+  "src/main/java/me/zly2006/lvc/task/LvcAuthoritativeClientSyncTask.java": {
+    "mtime": 1783492977.3865173,
+    "ast_hash": "eef2f2b385a4bdddc7edb9a5ad1fe591",
+    "semantic_hash": "eef2f2b385a4bdddc7edb9a5ad1fe591"
+  },
+  "src/main/java/me/zly2006/lvc/task/LvcAuthoritativeScanSync.java": {
+    "mtime": 1783492977.3865173,
+    "ast_hash": "eaabb6fae56dfd55fa1dee5183816b67",
+    "semantic_hash": "eaabb6fae56dfd55fa1dee5183816b67"
+  },
+  "src/main/java/me/zly2006/lvc/task/LvcChunkedTaskBase.java": {
+    "mtime": 1783492977.388038,
+    "ast_hash": "a61ae153c184c699aa11a654b41de40a",
+    "semantic_hash": "a61ae153c184c699aa11a654b41de40a"
+  },
+  "src/main/java/me/zly2006/lvc/task/LvcClientServerStaleScanTask.java": {
+    "mtime": 1783492977.388038,
+    "ast_hash": "51c458edbdabed05c3634dba5fa267f6",
+    "semantic_hash": "51c458edbdabed05c3634dba5fa267f6"
+  },
+  "src/main/java/me/zly2006/lvc/task/LvcCommitChunkCache.java": {
+    "mtime": 1783492977.388038,
+    "ast_hash": "e340783be49f00064fcc1342d80e19c8",
+    "semantic_hash": "e340783be49f00064fcc1342d80e19c8"
+  },
+  "src/main/java/me/zly2006/lvc/task/LvcOperationHandle.java": {
+    "mtime": 1783492977.389246,
+    "ast_hash": "04f0281b71617ce2d88d71f9cfe66d23",
+    "semantic_hash": "04f0281b71617ce2d88d71f9cfe66d23"
+  },
+  "src/main/java/me/zly2006/lvc/task/LvcOperationJournal.java": {
+    "mtime": 1783492977.389246,
+    "ast_hash": "aef1db2e7c997f5dc3d79cbeb1b88f48",
+    "semantic_hash": "aef1db2e7c997f5dc3d79cbeb1b88f48"
+  },
+  "src/main/java/me/zly2006/lvc/task/LvcRefreshMarker.java": {
+    "mtime": 1783492977.389246,
+    "ast_hash": "4c6eeffe758b7cf5c9f52c47a3d045eb",
+    "semantic_hash": "4c6eeffe758b7cf5c9f52c47a3d045eb"
+  },
+  "src/main/java/me/zly2006/lvc/task/LvcRemoteServerApplyTask.java": {
+    "mtime": 1783492977.3902588,
+    "ast_hash": "88cd0857c9b067a59dfd24269bfa17ba",
+    "semantic_hash": "88cd0857c9b067a59dfd24269bfa17ba"
+  },
+  "src/main/java/me/zly2006/lvc/task/LvcSemanticCheckoutTask.java": {
+    "mtime": 1783492977.391268,
+    "ast_hash": "04eb5ae961892a94284a06ee1eb08ff9",
+    "semantic_hash": "04eb5ae961892a94284a06ee1eb08ff9"
+  },
+  "src/main/java/me/zly2006/lvc/task/LvcSemanticClearTask.java": {
+    "mtime": 1783492977.391268,
+    "ast_hash": "9bf33b7d0528e08c1e6ba851158c66ac",
+    "semantic_hash": "9bf33b7d0528e08c1e6ba851158c66ac"
+  },
+  "src/main/java/me/zly2006/lvc/task/LvcSemanticCommitTask.java": {
+    "mtime": 1783492977.39229,
+    "ast_hash": "50af74f31f7698bbfa6d2cf587981099",
+    "semantic_hash": "50af74f31f7698bbfa6d2cf587981099"
+  },
+  "src/main/java/me/zly2006/lvc/task/LvcSemanticDiscardTask.java": {
+    "mtime": 1783492977.39229,
+    "ast_hash": "83b59ee1040ed7095412eac7ea2af662",
+    "semantic_hash": "83b59ee1040ed7095412eac7ea2af662"
+  },
+  "src/main/java/me/zly2006/lvc/task/LvcSemanticExportTask.java": {
+    "mtime": 1783492977.3933022,
+    "ast_hash": "e0e10f8dd310bc55b8ad372a3c542bd8",
+    "semantic_hash": "e0e10f8dd310bc55b8ad372a3c542bd8"
+  },
+  "src/main/java/me/zly2006/lvc/task/LvcSemanticInitProjectTask.java": {
+    "mtime": 1783492977.394304,
+    "ast_hash": "09704352ffe31f2d56fd33ab0a1e01d8",
+    "semantic_hash": "09704352ffe31f2d56fd33ab0a1e01d8"
+  },
+  "src/main/java/me/zly2006/lvc/task/LvcSemanticOverlayTask.java": {
+    "mtime": 1783492977.394304,
+    "ast_hash": "aeb2b78d853b6974074501640046117b",
+    "semantic_hash": "aeb2b78d853b6974074501640046117b"
+  },
+  "src/main/java/me/zly2006/lvc/task/LvcSemanticRestoreEngine.java": {
+    "mtime": 1783836089.6679509,
+    "ast_hash": "16f3b52ee3a33fb0bc6714f6d34e8251",
+    "semantic_hash": "16f3b52ee3a33fb0bc6714f6d34e8251"
+  },
+  "src/main/java/me/zly2006/lvc/task/LvcSemanticScanMismatchSampler.java": {
+    "mtime": 1783492977.3959744,
+    "ast_hash": "2d090a4d248a7ca881f46d9f4fb5a21d",
+    "semantic_hash": "2d090a4d248a7ca881f46d9f4fb5a21d"
+  },
+  "src/main/java/me/zly2006/lvc/task/LvcSemanticScanTask.java": {
+    "mtime": 1783492977.3959744,
+    "ast_hash": "d49e14f2d8d570406d4780aaa443a4db",
+    "semantic_hash": "d49e14f2d8d570406d4780aaa443a4db"
+  },
+  "src/main/java/me/zly2006/lvc/task/LvcSemanticTaskContext.java": {
+    "mtime": 1783492977.3970027,
+    "ast_hash": "5a2e08600bd60c313bd836623cc755f0",
+    "semantic_hash": "5a2e08600bd60c313bd836623cc755f0"
+  },
+  "src/main/java/me/zly2006/lvc/task/LvcServerClientSyncPlanTask.java": {
+    "mtime": 1783492977.3970027,
+    "ast_hash": "e84b90c95933d37936df76b95822602f",
+    "semantic_hash": "e84b90c95933d37936df76b95822602f"
+  },
+  "src/main/java/me/zly2006/lvc/task/LvcServuxBulkRequestPlanner.java": {
+    "mtime": 1783492977.3970027,
+    "ast_hash": "f49381e22f8dd63cfb4370c584c46ca9",
+    "semantic_hash": "f49381e22f8dd63cfb4370c584c46ca9"
+  },
+  "src/main/java/me/zly2006/lvc/task/LvcTaskBase.java": {
+    "mtime": 1783492977.398393,
+    "ast_hash": "d5f42212add4db315b6171d9c2edcf47",
+    "semantic_hash": "d5f42212add4db315b6171d9c2edcf47"
+  },
+  "src/main/java/me/zly2006/lvc/task/LvcTaskCallbacks.java": {
+    "mtime": 1783492977.398393,
+    "ast_hash": "a3ee269a1aeeca8423e712df2d827133",
+    "semantic_hash": "a3ee269a1aeeca8423e712df2d827133"
+  },
+  "src/main/java/me/zly2006/lvc/task/LvcTaskRegistry.java": {
+    "mtime": 1783492977.39941,
+    "ast_hash": "842812f465457a8391727a90fcb1bc92",
+    "semantic_hash": "842812f465457a8391727a90fcb1bc92"
+  },
+  "src/main/java/me/zly2006/lvc/task/LvcTaskScheduling.java": {
+    "mtime": 1783492977.39941,
+    "ast_hash": "5d5bc2c4521a41c10f017399ea8b8df3",
+    "semantic_hash": "5d5bc2c4521a41c10f017399ea8b8df3"
+  },
+  "src/main/java/me/zly2006/lvc/util/LvcEntityNbt.java": {
+    "mtime": 1783492977.4009156,
+    "ast_hash": "35cad77619d0fa7e59edf775be00034b",
+    "semantic_hash": "35cad77619d0fa7e59edf775be00034b"
+  },
+  "src/main/java/me/zly2006/lvc/util/LvcGuiTextFields.java": {
+    "mtime": 1783492977.4009156,
+    "ast_hash": "a3c1623814d8ffc5efde0d7abc54742c",
+    "semantic_hash": "a3c1623814d8ffc5efde0d7abc54742c"
+  },
+  "src/main/java/me/zly2006/lvc/util/LvcLitematicExportFiles.java": {
+    "mtime": 1783492977.4019203,
+    "ast_hash": "11f95e2072b0804b51d673a4ba5b9529",
+    "semantic_hash": "11f95e2072b0804b51d673a4ba5b9529"
+  },
+  "src/main/java/me/zly2006/lvc/util/LvcLootTablePreview.java": {
+    "mtime": 1783492977.4019203,
+    "ast_hash": "0e6cbf13f4d62eed7e45c1e71b3214ed",
+    "semantic_hash": "0e6cbf13f4d62eed7e45c1e71b3214ed"
+  },
+  "src/main/java/me/zly2006/lvc/world/LvcWorldAccess.java": {
+    "mtime": 1783492977.403399,
+    "ast_hash": "69b28118a6e41c1817d433bf9fe84f4d",
+    "semantic_hash": "69b28118a6e41c1817d433bf9fe84f4d"
+  },
+  "src/main/java/me/zly2006/lvc/world/LvcWorldBackend.java": {
+    "mtime": 1783492977.4044018,
+    "ast_hash": "78c448e5ca68fba89389bb62b1da3b45",
+    "semantic_hash": "78c448e5ca68fba89389bb62b1da3b45"
+  },
+  "src/main/resources/assets/litematica/blockstates/black_glass_fallback.json": {
+    "mtime": 1783492977.4059167,
+    "ast_hash": "8ed3f01d73b0f6f4348d001a4e7f09ba",
+    "semantic_hash": "8ed3f01d73b0f6f4348d001a4e7f09ba"
+  },
+  "src/main/resources/assets/litematica/blockstates/black_glass_pane_fallback.json": {
+    "mtime": 1783492977.4059167,
+    "ast_hash": "0522902cfe4d85f27096addf728adf3a",
+    "semantic_hash": "0522902cfe4d85f27096addf728adf3a"
+  },
+  "src/main/resources/assets/litematica/blockstates/blue_glass_fallback.json": {
+    "mtime": 1783492977.4069185,
+    "ast_hash": "2933b3cd3a86f03e1f387f28f84c0e6b",
+    "semantic_hash": "2933b3cd3a86f03e1f387f28f84c0e6b"
+  },
+  "src/main/resources/assets/litematica/blockstates/blue_glass_pane_fallback.json": {
+    "mtime": 1783492977.4076862,
+    "ast_hash": "f9250aec8f890756d30e4a9f95d117b0",
+    "semantic_hash": "f9250aec8f890756d30e4a9f95d117b0"
+  },
+  "src/main/resources/assets/litematica/blockstates/brown_glass_fallback.json": {
+    "mtime": 1783492977.4076862,
+    "ast_hash": "f4445f5406dc458dadf7e2f0794cbdb7",
+    "semantic_hash": "f4445f5406dc458dadf7e2f0794cbdb7"
+  },
+  "src/main/resources/assets/litematica/blockstates/brown_glass_pane_fallback.json": {
+    "mtime": 1783492977.4076862,
+    "ast_hash": "9457bd29da9a814c4889d24d669b29ea",
+    "semantic_hash": "9457bd29da9a814c4889d24d669b29ea"
+  },
+  "src/main/resources/assets/litematica/blockstates/cyan_glass_fallback.json": {
+    "mtime": 1783492977.4089615,
+    "ast_hash": "655ae3d130e4ede2aecf364e2ae8f390",
+    "semantic_hash": "655ae3d130e4ede2aecf364e2ae8f390"
+  },
+  "src/main/resources/assets/litematica/blockstates/cyan_glass_pane_fallback.json": {
+    "mtime": 1783492977.4089615,
+    "ast_hash": "31af848a003dcb9e22b8bb022a4c223e",
+    "semantic_hash": "31af848a003dcb9e22b8bb022a4c223e"
+  },
+  "src/main/resources/assets/litematica/blockstates/glass_fallback.json": {
+    "mtime": 1783492977.4089615,
+    "ast_hash": "6e5313fb990bc952a7527c5d2835a63f",
+    "semantic_hash": "6e5313fb990bc952a7527c5d2835a63f"
+  },
+  "src/main/resources/assets/litematica/blockstates/glass_pane_fallback.json": {
+    "mtime": 1783492977.410098,
+    "ast_hash": "1142937f84a6c0f6426c48164968c077",
+    "semantic_hash": "1142937f84a6c0f6426c48164968c077"
+  },
+  "src/main/resources/assets/litematica/blockstates/gray_glass_fallback.json": {
+    "mtime": 1783492977.410098,
+    "ast_hash": "de45e42244ce4b6d09ce85ad4de01d28",
+    "semantic_hash": "de45e42244ce4b6d09ce85ad4de01d28"
+  },
+  "src/main/resources/assets/litematica/blockstates/gray_glass_pane_fallback.json": {
+    "mtime": 1783492977.411097,
+    "ast_hash": "49c951978cef875dc2f56041aaf9efab",
+    "semantic_hash": "49c951978cef875dc2f56041aaf9efab"
+  },
+  "src/main/resources/assets/litematica/blockstates/green_glass_fallback.json": {
+    "mtime": 1783492977.411097,
+    "ast_hash": "7c342bd329d70ce307d64fd90e08a2f3",
+    "semantic_hash": "7c342bd329d70ce307d64fd90e08a2f3"
+  },
+  "src/main/resources/assets/litematica/blockstates/green_glass_pane_fallback.json": {
+    "mtime": 1783492977.4121823,
+    "ast_hash": "48a25a43f302355e9183a1d484db5b1c",
+    "semantic_hash": "48a25a43f302355e9183a1d484db5b1c"
+  },
+  "src/main/resources/assets/litematica/blockstates/lime_glass_fallback.json": {
+    "mtime": 1783492977.4121823,
+    "ast_hash": "bea3110586ccababfa33a113489087f2",
+    "semantic_hash": "bea3110586ccababfa33a113489087f2"
+  },
+  "src/main/resources/assets/litematica/blockstates/lime_glass_pane_fallback.json": {
+    "mtime": 1783492977.4131851,
+    "ast_hash": "65788eedfd294848d426ce83dc23379e",
+    "semantic_hash": "65788eedfd294848d426ce83dc23379e"
+  },
+  "src/main/resources/assets/litematica/blockstates/lt_blue_glass_fallback.json": {
+    "mtime": 1783492977.4136891,
+    "ast_hash": "0668e4a78c3bb2de0044d560ca677da4",
+    "semantic_hash": "0668e4a78c3bb2de0044d560ca677da4"
+  },
+  "src/main/resources/assets/litematica/blockstates/lt_blue_glass_pane_fallback.json": {
+    "mtime": 1783492977.4136891,
+    "ast_hash": "17116bd831601f3abf0a7a134785753e",
+    "semantic_hash": "17116bd831601f3abf0a7a134785753e"
+  },
+  "src/main/resources/assets/litematica/blockstates/lt_gray_glass_fallback.json": {
+    "mtime": 1783492977.414694,
+    "ast_hash": "9f61487554ecb94bb8e8dcf5d4cc1b91",
+    "semantic_hash": "9f61487554ecb94bb8e8dcf5d4cc1b91"
+  },
+  "src/main/resources/assets/litematica/blockstates/lt_gray_glass_pane_fallback.json": {
+    "mtime": 1783492977.414694,
+    "ast_hash": "baa7d3fee48d52f77b80cc1c8d4d4288",
+    "semantic_hash": "baa7d3fee48d52f77b80cc1c8d4d4288"
+  },
+  "src/main/resources/assets/litematica/blockstates/magenta_glass_fallback.json": {
+    "mtime": 1783492977.4157755,
+    "ast_hash": "89234cdc0616c841cb447a7bc5f2fee7",
+    "semantic_hash": "89234cdc0616c841cb447a7bc5f2fee7"
+  },
+  "src/main/resources/assets/litematica/blockstates/magenta_glass_pane_fallback.json": {
+    "mtime": 1783492977.4157755,
+    "ast_hash": "3733932d679fc80abbe4921341ef3cd9",
+    "semantic_hash": "3733932d679fc80abbe4921341ef3cd9"
+  },
+  "src/main/resources/assets/litematica/blockstates/orange_glass_fallback.json": {
+    "mtime": 1783492977.4157755,
+    "ast_hash": "564b3f6fa48793376d3f5c5309740251",
+    "semantic_hash": "564b3f6fa48793376d3f5c5309740251"
+  },
+  "src/main/resources/assets/litematica/blockstates/orange_glass_pane_fallback.json": {
+    "mtime": 1783492977.4172776,
+    "ast_hash": "7e6d1c60c8bd3d9e04ae65d14c0cba2d",
+    "semantic_hash": "7e6d1c60c8bd3d9e04ae65d14c0cba2d"
+  },
+  "src/main/resources/assets/litematica/blockstates/pink_glass_fallback.json": {
+    "mtime": 1783492977.4172776,
+    "ast_hash": "73a720f61bec66429c42915b5afbf63c",
+    "semantic_hash": "73a720f61bec66429c42915b5afbf63c"
+  },
+  "src/main/resources/assets/litematica/blockstates/pink_glass_pane_fallback.json": {
+    "mtime": 1783492977.4182796,
+    "ast_hash": "5e0eb83706239cde9e5865476bbc22c8",
+    "semantic_hash": "5e0eb83706239cde9e5865476bbc22c8"
+  },
+  "src/main/resources/assets/litematica/blockstates/purple_glass_fallback.json": {
+    "mtime": 1783492977.418783,
+    "ast_hash": "2caf37e3b845daeb3d8cbd75b36498be",
+    "semantic_hash": "2caf37e3b845daeb3d8cbd75b36498be"
+  },
+  "src/main/resources/assets/litematica/blockstates/purple_glass_pane_fallback.json": {
+    "mtime": 1783492977.418783,
+    "ast_hash": "1f837b32529fa894ad25d25d542e8232",
+    "semantic_hash": "1f837b32529fa894ad25d25d542e8232"
+  },
+  "src/main/resources/assets/litematica/blockstates/red_glass_fallback.json": {
+    "mtime": 1783492977.419795,
+    "ast_hash": "d775c62293ada5b05ec830aecdb54b5e",
+    "semantic_hash": "d775c62293ada5b05ec830aecdb54b5e"
+  },
+  "src/main/resources/assets/litematica/blockstates/red_glass_pane_fallback.json": {
+    "mtime": 1783492977.419795,
+    "ast_hash": "63682091fd185bdbaf3be7838a0bb57a",
+    "semantic_hash": "63682091fd185bdbaf3be7838a0bb57a"
+  },
+  "src/main/resources/assets/litematica/blockstates/tinted_glass_fallback.json": {
+    "mtime": 1783492977.4208095,
+    "ast_hash": "06973f001c37ae889fb3ae61e11a3d63",
+    "semantic_hash": "06973f001c37ae889fb3ae61e11a3d63"
+  },
+  "src/main/resources/assets/litematica/blockstates/white_glass_fallback.json": {
+    "mtime": 1783492977.4208095,
+    "ast_hash": "865897f1a92440efc6d56196d2593401",
+    "semantic_hash": "865897f1a92440efc6d56196d2593401"
+  },
+  "src/main/resources/assets/litematica/blockstates/white_glass_pane_fallback.json": {
+    "mtime": 1783492977.4218345,
+    "ast_hash": "f302067812806763d42b1fb5f7691ac9",
+    "semantic_hash": "f302067812806763d42b1fb5f7691ac9"
+  },
+  "src/main/resources/assets/litematica/blockstates/yellow_glass_fallback.json": {
+    "mtime": 1783492977.4218345,
+    "ast_hash": "e0b5f70c6d57bcc6fc2214ef8900b828",
+    "semantic_hash": "e0b5f70c6d57bcc6fc2214ef8900b828"
+  },
+  "src/main/resources/assets/litematica/blockstates/yellow_glass_pane_fallback.json": {
+    "mtime": 1783492977.4218345,
+    "ast_hash": "3086ed6d155377b573490e74f17c8b1d",
+    "semantic_hash": "3086ed6d155377b573490e74f17c8b1d"
+  },
+  "src/main/resources/assets/litematica/lang/en_us.json": {
+    "mtime": 1783840066.0791035,
+    "ast_hash": "2f16713b60454fbdf657fd053aa9a2c0",
+    "semantic_hash": "2f16713b60454fbdf657fd053aa9a2c0"
+  },
+  "src/main/resources/assets/litematica/lang/es_es.json": {
+    "mtime": 1783836089.6699514,
+    "ast_hash": "37288a7252c0ffd9903b2d2ede49c72d",
+    "semantic_hash": "37288a7252c0ffd9903b2d2ede49c72d"
+  },
+  "src/main/resources/assets/litematica/lang/fr_fr.json": {
+    "mtime": 1783836089.6714528,
+    "ast_hash": "4af6baf72d0570c21bcf0a71e3b021cc",
+    "semantic_hash": "4af6baf72d0570c21bcf0a71e3b021cc"
+  },
+  "src/main/resources/assets/litematica/lang/it_it.json": {
+    "mtime": 1783836089.6724577,
+    "ast_hash": "1986ab010d5b4a7fa7d48e9a043ef60b",
+    "semantic_hash": "1986ab010d5b4a7fa7d48e9a043ef60b"
+  },
+  "src/main/resources/assets/litematica/lang/ja_jp.json": {
+    "mtime": 1783836089.6724577,
+    "ast_hash": "ccaa2d34f8956dd9ac95c580b88a3962",
+    "semantic_hash": "ccaa2d34f8956dd9ac95c580b88a3962"
+  },
+  "src/main/resources/assets/litematica/lang/ko_kr.json": {
+    "mtime": 1783836089.674967,
+    "ast_hash": "0b21daa9966c92116c416a7f3fc51b33",
+    "semantic_hash": "0b21daa9966c92116c416a7f3fc51b33"
+  },
+  "src/main/resources/assets/litematica/lang/lzh.json": {
+    "mtime": 1783836089.674967,
+    "ast_hash": "04f10dcdcda618ebc8c22fdb994181dd",
+    "semantic_hash": "04f10dcdcda618ebc8c22fdb994181dd"
+  },
+  "src/main/resources/assets/litematica/lang/ru_ru.json": {
+    "mtime": 1783836089.676967,
+    "ast_hash": "4191a045770c4c659633d3378c831b92",
+    "semantic_hash": "4191a045770c4c659633d3378c831b92"
+  },
+  "src/main/resources/assets/litematica/lang/sv_se.json": {
+    "mtime": 1783836089.6779659,
+    "ast_hash": "2bb429d1eca86e1899d33aaa670322ff",
+    "semantic_hash": "2bb429d1eca86e1899d33aaa670322ff"
+  },
+  "src/main/resources/assets/litematica/lang/tr_tr.json": {
+    "mtime": 1783836089.678967,
+    "ast_hash": "114b170715a78eeb38043e2c92eb93be",
+    "semantic_hash": "114b170715a78eeb38043e2c92eb93be"
+  },
+  "src/main/resources/assets/litematica/lang/uk_ua.json": {
+    "mtime": 1783836089.6799667,
+    "ast_hash": "67997eb9f21834c3372e0134a7d7bcac",
+    "semantic_hash": "67997eb9f21834c3372e0134a7d7bcac"
+  },
+  "src/main/resources/assets/litematica/lang/zh_cn.json": {
+    "mtime": 1783840085.055285,
+    "ast_hash": "b0392269b2e96ded851497bf6b2e436e",
+    "semantic_hash": "b0392269b2e96ded851497bf6b2e436e"
+  },
+  "src/main/resources/assets/litematica/lang/zh_tw.json": {
+    "mtime": 1783836089.68197,
+    "ast_hash": "e974f8475c43663710a3c97aae521b14",
+    "semantic_hash": "e974f8475c43663710a3c97aae521b14"
+  },
+  "src/main/resources/assets/litematica/models/block/black_glass_fallback.json": {
+    "mtime": 1783492977.44126,
+    "ast_hash": "f77c825f77bf40ded38f0555aeb607be",
+    "semantic_hash": "f77c825f77bf40ded38f0555aeb607be"
+  },
+  "src/main/resources/assets/litematica/models/block/black_glass_pane_fallback_noside.json": {
+    "mtime": 1783492977.44126,
+    "ast_hash": "1e72881669563f501cf3bac9c55b9487",
+    "semantic_hash": "1e72881669563f501cf3bac9c55b9487"
+  },
+  "src/main/resources/assets/litematica/models/block/black_glass_pane_fallback_noside_alt.json": {
+    "mtime": 1783492977.4422698,
+    "ast_hash": "4bad97d663cfeab11906108e506b8c04",
+    "semantic_hash": "4bad97d663cfeab11906108e506b8c04"
+  },
+  "src/main/resources/assets/litematica/models/block/black_glass_pane_fallback_post.json": {
+    "mtime": 1783492977.4422698,
+    "ast_hash": "8a7bf02ce6449c76f818aea98cfb4d23",
+    "semantic_hash": "8a7bf02ce6449c76f818aea98cfb4d23"
+  },
+  "src/main/resources/assets/litematica/models/block/black_glass_pane_fallback_side.json": {
+    "mtime": 1783492977.4422698,
+    "ast_hash": "85f7088cbfde5719db3a728e3602905f",
+    "semantic_hash": "85f7088cbfde5719db3a728e3602905f"
+  },
+  "src/main/resources/assets/litematica/models/block/black_glass_pane_fallback_side_alt.json": {
+    "mtime": 1783492977.4433317,
+    "ast_hash": "28efd630f0e32d3942511cbe96285655",
+    "semantic_hash": "28efd630f0e32d3942511cbe96285655"
+  },
+  "src/main/resources/assets/litematica/models/block/blue_glass_fallback.json": {
+    "mtime": 1783492977.4433317,
+    "ast_hash": "102cbe805c80285bdd06f30212212925",
+    "semantic_hash": "102cbe805c80285bdd06f30212212925"
+  },
+  "src/main/resources/assets/litematica/models/block/blue_glass_pane_fallback_noside.json": {
+    "mtime": 1783492977.4433317,
+    "ast_hash": "746fbda82acb495daa0b9247764ad7d9",
+    "semantic_hash": "746fbda82acb495daa0b9247764ad7d9"
+  },
+  "src/main/resources/assets/litematica/models/block/blue_glass_pane_fallback_noside_alt.json": {
+    "mtime": 1783492977.4443338,
+    "ast_hash": "9cb17b5bf99325145b9b2e57c38ae177",
+    "semantic_hash": "9cb17b5bf99325145b9b2e57c38ae177"
+  },
+  "src/main/resources/assets/litematica/models/block/blue_glass_pane_fallback_post.json": {
+    "mtime": 1783492977.4443338,
+    "ast_hash": "bdfabb25782552789475204f214af2e1",
+    "semantic_hash": "bdfabb25782552789475204f214af2e1"
+  },
+  "src/main/resources/assets/litematica/models/block/blue_glass_pane_fallback_side.json": {
+    "mtime": 1783492977.4443338,
+    "ast_hash": "cac4f57404240ded4e562693270bef07",
+    "semantic_hash": "cac4f57404240ded4e562693270bef07"
+  },
+  "src/main/resources/assets/litematica/models/block/blue_glass_pane_fallback_side_alt.json": {
+    "mtime": 1783492977.4443338,
+    "ast_hash": "465d300edf4b99c3c221064d95111c3e",
+    "semantic_hash": "465d300edf4b99c3c221064d95111c3e"
+  },
+  "src/main/resources/assets/litematica/models/block/brown_glass_fallback.json": {
+    "mtime": 1783492977.4443338,
+    "ast_hash": "63877f9c93887ff4ac44fa7b95188a01",
+    "semantic_hash": "63877f9c93887ff4ac44fa7b95188a01"
+  },
+  "src/main/resources/assets/litematica/models/block/brown_glass_pane_fallback_noside.json": {
+    "mtime": 1783492977.4459426,
+    "ast_hash": "61368a5d0d2a26178e76287c85b86ed4",
+    "semantic_hash": "61368a5d0d2a26178e76287c85b86ed4"
+  },
+  "src/main/resources/assets/litematica/models/block/brown_glass_pane_fallback_noside_alt.json": {
+    "mtime": 1783492977.4459426,
+    "ast_hash": "8e142d5f6abb571293fff1ca7e711907",
+    "semantic_hash": "8e142d5f6abb571293fff1ca7e711907"
+  },
+  "src/main/resources/assets/litematica/models/block/brown_glass_pane_fallback_post.json": {
+    "mtime": 1783492977.4471047,
+    "ast_hash": "f056e7ab9fc0e68578b112e48e60387a",
+    "semantic_hash": "f056e7ab9fc0e68578b112e48e60387a"
+  },
+  "src/main/resources/assets/litematica/models/block/brown_glass_pane_fallback_side.json": {
+    "mtime": 1783492977.4471047,
+    "ast_hash": "9618a71a5c841ae018b8d87395d5e550",
+    "semantic_hash": "9618a71a5c841ae018b8d87395d5e550"
+  },
+  "src/main/resources/assets/litematica/models/block/brown_glass_pane_fallback_side_alt.json": {
+    "mtime": 1783492977.4471047,
+    "ast_hash": "7a263f9ba54cddb3baa455a144187304",
+    "semantic_hash": "7a263f9ba54cddb3baa455a144187304"
+  },
+  "src/main/resources/assets/litematica/models/block/cyan_glass_fallback.json": {
+    "mtime": 1783492977.4483666,
+    "ast_hash": "d45d18a0ad14a4f238379dd45f6cc5ba",
+    "semantic_hash": "d45d18a0ad14a4f238379dd45f6cc5ba"
+  },
+  "src/main/resources/assets/litematica/models/block/cyan_glass_pane_fallback_noside.json": {
+    "mtime": 1783492977.4483666,
+    "ast_hash": "97f3ec64d4b3ae16a550cef4cbc0d126",
+    "semantic_hash": "97f3ec64d4b3ae16a550cef4cbc0d126"
+  },
+  "src/main/resources/assets/litematica/models/block/cyan_glass_pane_fallback_noside_alt.json": {
+    "mtime": 1783492977.4493685,
+    "ast_hash": "9d040874d41cf223cebccd69879e474b",
+    "semantic_hash": "9d040874d41cf223cebccd69879e474b"
+  },
+  "src/main/resources/assets/litematica/models/block/cyan_glass_pane_fallback_post.json": {
+    "mtime": 1783492977.4493685,
+    "ast_hash": "d4d8b3e32750af341ac665906cba1dda",
+    "semantic_hash": "d4d8b3e32750af341ac665906cba1dda"
+  },
+  "src/main/resources/assets/litematica/models/block/cyan_glass_pane_fallback_side.json": {
+    "mtime": 1783492977.4504921,
+    "ast_hash": "8c47898421959ad2652a5dc0e7b6bf9f",
+    "semantic_hash": "8c47898421959ad2652a5dc0e7b6bf9f"
+  },
+  "src/main/resources/assets/litematica/models/block/cyan_glass_pane_fallback_side_alt.json": {
+    "mtime": 1783492977.4515407,
+    "ast_hash": "3f75518fc7123d769d04de4c00cd3386",
+    "semantic_hash": "3f75518fc7123d769d04de4c00cd3386"
+  },
+  "src/main/resources/assets/litematica/models/block/glass_fallback.json": {
+    "mtime": 1783492977.4515407,
+    "ast_hash": "7fcd71c2723bfc518f720b9b80d1b4ca",
+    "semantic_hash": "7fcd71c2723bfc518f720b9b80d1b4ca"
+  },
+  "src/main/resources/assets/litematica/models/block/glass_pane_fallback_noside.json": {
+    "mtime": 1783492977.4525585,
+    "ast_hash": "d355cd9dbab7f776f5ed2cdcbc027758",
+    "semantic_hash": "d355cd9dbab7f776f5ed2cdcbc027758"
+  },
+  "src/main/resources/assets/litematica/models/block/glass_pane_fallback_noside_alt.json": {
+    "mtime": 1783492977.4525585,
+    "ast_hash": "ff17d74616f1fc3deb767bcfcd2f8fae",
+    "semantic_hash": "ff17d74616f1fc3deb767bcfcd2f8fae"
+  },
+  "src/main/resources/assets/litematica/models/block/glass_pane_fallback_post.json": {
+    "mtime": 1783492977.4525585,
+    "ast_hash": "680511922a04df69d4f28c31ff91af0e",
+    "semantic_hash": "680511922a04df69d4f28c31ff91af0e"
+  },
+  "src/main/resources/assets/litematica/models/block/glass_pane_fallback_side.json": {
+    "mtime": 1783492977.453987,
+    "ast_hash": "a9fe0b3ec069dc2b60194c2a45f9e95d",
+    "semantic_hash": "a9fe0b3ec069dc2b60194c2a45f9e95d"
+  },
+  "src/main/resources/assets/litematica/models/block/glass_pane_fallback_side_alt.json": {
+    "mtime": 1783492977.4544904,
+    "ast_hash": "2f99ec1eeac4138f78107f69045a9f63",
+    "semantic_hash": "2f99ec1eeac4138f78107f69045a9f63"
+  },
+  "src/main/resources/assets/litematica/models/block/gray_glass_fallback.json": {
+    "mtime": 1783492977.4544904,
+    "ast_hash": "6357ae7523ec7d5d2f461050d9f49711",
+    "semantic_hash": "6357ae7523ec7d5d2f461050d9f49711"
+  },
+  "src/main/resources/assets/litematica/models/block/gray_glass_pane_fallback_noside.json": {
+    "mtime": 1783492977.455578,
+    "ast_hash": "4229915c59d7ec2e1f2358f49e69dee1",
+    "semantic_hash": "4229915c59d7ec2e1f2358f49e69dee1"
+  },
+  "src/main/resources/assets/litematica/models/block/gray_glass_pane_fallback_noside_alt.json": {
+    "mtime": 1783492977.455578,
+    "ast_hash": "b88cdf493afc4734537227885d39cdf2",
+    "semantic_hash": "b88cdf493afc4734537227885d39cdf2"
+  },
+  "src/main/resources/assets/litematica/models/block/gray_glass_pane_fallback_post.json": {
+    "mtime": 1783492977.455578,
+    "ast_hash": "606f2388e654024c1af6c1cac3492eb2",
+    "semantic_hash": "606f2388e654024c1af6c1cac3492eb2"
+  },
+  "src/main/resources/assets/litematica/models/block/gray_glass_pane_fallback_side.json": {
+    "mtime": 1783492977.455578,
+    "ast_hash": "a62cb1b3ef47afc2753bbfd0aeea9a7c",
+    "semantic_hash": "a62cb1b3ef47afc2753bbfd0aeea9a7c"
+  },
+  "src/main/resources/assets/litematica/models/block/gray_glass_pane_fallback_side_alt.json": {
+    "mtime": 1783492977.456975,
+    "ast_hash": "d322db4937bcc6c5d3926fae579aa6da",
+    "semantic_hash": "d322db4937bcc6c5d3926fae579aa6da"
+  },
+  "src/main/resources/assets/litematica/models/block/green_glass_fallback.json": {
+    "mtime": 1783492977.456975,
+    "ast_hash": "57bb39814c60a8539a10418d6de863e4",
+    "semantic_hash": "57bb39814c60a8539a10418d6de863e4"
+  },
+  "src/main/resources/assets/litematica/models/block/green_glass_pane_fallback_noside.json": {
+    "mtime": 1783492977.456975,
+    "ast_hash": "510f85e97861b0d8baf21ee9c0595377",
+    "semantic_hash": "510f85e97861b0d8baf21ee9c0595377"
+  },
+  "src/main/resources/assets/litematica/models/block/green_glass_pane_fallback_noside_alt.json": {
+    "mtime": 1783492977.4579852,
+    "ast_hash": "0647c0d85e2dea1637afbf769878dca7",
+    "semantic_hash": "0647c0d85e2dea1637afbf769878dca7"
+  },
+  "src/main/resources/assets/litematica/models/block/green_glass_pane_fallback_post.json": {
+    "mtime": 1783492977.4579852,
+    "ast_hash": "9a13e753295fb0145dbb95288d41c4af",
+    "semantic_hash": "9a13e753295fb0145dbb95288d41c4af"
+  },
+  "src/main/resources/assets/litematica/models/block/green_glass_pane_fallback_side.json": {
+    "mtime": 1783492977.4589934,
+    "ast_hash": "6901552eafdd97b74ecfab52f8899d91",
+    "semantic_hash": "6901552eafdd97b74ecfab52f8899d91"
+  },
+  "src/main/resources/assets/litematica/models/block/green_glass_pane_fallback_side_alt.json": {
+    "mtime": 1783492977.4589934,
+    "ast_hash": "3183fca3af69df883d0e938d95d554ea",
+    "semantic_hash": "3183fca3af69df883d0e938d95d554ea"
+  },
+  "src/main/resources/assets/litematica/models/block/lime_glass_fallback.json": {
+    "mtime": 1783492977.4589934,
+    "ast_hash": "2f2890d4e9f35527b8fe800aa2837e1d",
+    "semantic_hash": "2f2890d4e9f35527b8fe800aa2837e1d"
+  },
+  "src/main/resources/assets/litematica/models/block/lime_glass_pane_fallback_noside.json": {
+    "mtime": 1783492977.4589934,
+    "ast_hash": "dd7d165acaf9f820e2937f4f0b779f98",
+    "semantic_hash": "dd7d165acaf9f820e2937f4f0b779f98"
+  },
+  "src/main/resources/assets/litematica/models/block/lime_glass_pane_fallback_noside_alt.json": {
+    "mtime": 1783492977.460498,
+    "ast_hash": "1e917ca772bb8cc75d872464ed260bd8",
+    "semantic_hash": "1e917ca772bb8cc75d872464ed260bd8"
+  },
+  "src/main/resources/assets/litematica/models/block/lime_glass_pane_fallback_post.json": {
+    "mtime": 1783492977.460498,
+    "ast_hash": "449de1ae6745290d32d6b1b99e7dc235",
+    "semantic_hash": "449de1ae6745290d32d6b1b99e7dc235"
+  },
+  "src/main/resources/assets/litematica/models/block/lime_glass_pane_fallback_side.json": {
+    "mtime": 1783492977.460498,
+    "ast_hash": "ed8110db89f68c4fcc7405be98876461",
+    "semantic_hash": "ed8110db89f68c4fcc7405be98876461"
+  },
+  "src/main/resources/assets/litematica/models/block/lime_glass_pane_fallback_side_alt.json": {
+    "mtime": 1783492977.4615364,
+    "ast_hash": "329eae67177ce6164d43c1543cdf519d",
+    "semantic_hash": "329eae67177ce6164d43c1543cdf519d"
+  },
+  "src/main/resources/assets/litematica/models/block/lt_blue_glass_fallback.json": {
+    "mtime": 1783492977.4615364,
+    "ast_hash": "1a5de730c84a8a8356bd411a6ef1d395",
+    "semantic_hash": "1a5de730c84a8a8356bd411a6ef1d395"
+  },
+  "src/main/resources/assets/litematica/models/block/lt_blue_glass_pane_fallback_noside.json": {
+    "mtime": 1783492977.4615364,
+    "ast_hash": "89966aabbf18f0ec255e995c232138f3",
+    "semantic_hash": "89966aabbf18f0ec255e995c232138f3"
+  },
+  "src/main/resources/assets/litematica/models/block/lt_blue_glass_pane_fallback_noside_alt.json": {
+    "mtime": 1783492977.4625373,
+    "ast_hash": "52c4884c8af41cf45ed3c2a75b82483b",
+    "semantic_hash": "52c4884c8af41cf45ed3c2a75b82483b"
+  },
+  "src/main/resources/assets/litematica/models/block/lt_blue_glass_pane_fallback_post.json": {
+    "mtime": 1783492977.4625373,
+    "ast_hash": "ba4b10041b83628321b1a075ad678590",
+    "semantic_hash": "ba4b10041b83628321b1a075ad678590"
+  },
+  "src/main/resources/assets/litematica/models/block/lt_blue_glass_pane_fallback_side.json": {
+    "mtime": 1783492977.4637213,
+    "ast_hash": "4a611221b32aef866f689715c5803761",
+    "semantic_hash": "4a611221b32aef866f689715c5803761"
+  },
+  "src/main/resources/assets/litematica/models/block/lt_blue_glass_pane_fallback_side_alt.json": {
+    "mtime": 1783492977.4647222,
+    "ast_hash": "12cb35d147946d8095dae51ef5acef1f",
+    "semantic_hash": "12cb35d147946d8095dae51ef5acef1f"
+  },
+  "src/main/resources/assets/litematica/models/block/lt_gray_glass_fallback.json": {
+    "mtime": 1783492977.4659104,
+    "ast_hash": "f41bb02a8c2034856b5161cafbf6e99a",
+    "semantic_hash": "f41bb02a8c2034856b5161cafbf6e99a"
+  },
+  "src/main/resources/assets/litematica/models/block/lt_gray_glass_pane_fallback_noside.json": {
+    "mtime": 1783492977.4664135,
+    "ast_hash": "5e19744ae856d622da1242d931389f9e",
+    "semantic_hash": "5e19744ae856d622da1242d931389f9e"
+  },
+  "src/main/resources/assets/litematica/models/block/lt_gray_glass_pane_fallback_noside_alt.json": {
+    "mtime": 1783492977.466925,
+    "ast_hash": "90c993f14a6298bb73908643c472ceb1",
+    "semantic_hash": "90c993f14a6298bb73908643c472ceb1"
+  },
+  "src/main/resources/assets/litematica/models/block/lt_gray_glass_pane_fallback_post.json": {
+    "mtime": 1783492977.468441,
+    "ast_hash": "a35fda0b2c284eb6be7a88f8e84fedef",
+    "semantic_hash": "a35fda0b2c284eb6be7a88f8e84fedef"
+  },
+  "src/main/resources/assets/litematica/models/block/lt_gray_glass_pane_fallback_side.json": {
+    "mtime": 1783492977.468441,
+    "ast_hash": "4fe1fedeae765aea8d3274b83fc2f39a",
+    "semantic_hash": "4fe1fedeae765aea8d3274b83fc2f39a"
+  },
+  "src/main/resources/assets/litematica/models/block/lt_gray_glass_pane_fallback_side_alt.json": {
+    "mtime": 1783492977.469452,
+    "ast_hash": "9858effdee84ec7fd73cddfc7b99b6c9",
+    "semantic_hash": "9858effdee84ec7fd73cddfc7b99b6c9"
+  },
+  "src/main/resources/assets/litematica/models/block/magenta_glass_fallback.json": {
+    "mtime": 1783492977.469452,
+    "ast_hash": "a0bcaa2ccef7a8a3f6ca2c1350a4f0f7",
+    "semantic_hash": "a0bcaa2ccef7a8a3f6ca2c1350a4f0f7"
+  },
+  "src/main/resources/assets/litematica/models/block/magenta_glass_pane_fallback_noside.json": {
+    "mtime": 1783492977.470474,
+    "ast_hash": "0962eed783b539432ba039d090e7ee13",
+    "semantic_hash": "0962eed783b539432ba039d090e7ee13"
+  },
+  "src/main/resources/assets/litematica/models/block/magenta_glass_pane_fallback_noside_alt.json": {
+    "mtime": 1783492977.4715037,
+    "ast_hash": "f2f8a028ee73ce9665dd1ab16e4fd851",
+    "semantic_hash": "f2f8a028ee73ce9665dd1ab16e4fd851"
+  },
+  "src/main/resources/assets/litematica/models/block/magenta_glass_pane_fallback_post.json": {
+    "mtime": 1783492977.4715037,
+    "ast_hash": "206b2faf8234177efcc5abe320b908c8",
+    "semantic_hash": "206b2faf8234177efcc5abe320b908c8"
+  },
+  "src/main/resources/assets/litematica/models/block/magenta_glass_pane_fallback_side.json": {
+    "mtime": 1783492977.4725256,
+    "ast_hash": "664ad0bb7e38834ee6f1f5c4ebe5bf18",
+    "semantic_hash": "664ad0bb7e38834ee6f1f5c4ebe5bf18"
+  },
+  "src/main/resources/assets/litematica/models/block/magenta_glass_pane_fallback_side_alt.json": {
+    "mtime": 1783492977.4725256,
+    "ast_hash": "29b95213afb0e9060cadb0df75f792f2",
+    "semantic_hash": "29b95213afb0e9060cadb0df75f792f2"
+  },
+  "src/main/resources/assets/litematica/models/block/orange_glass_fallback.json": {
+    "mtime": 1783492977.4725256,
+    "ast_hash": "acfaa0c97a3daef25adf55ae2de5404e",
+    "semantic_hash": "acfaa0c97a3daef25adf55ae2de5404e"
+  },
+  "src/main/resources/assets/litematica/models/block/orange_glass_pane_fallback_noside.json": {
+    "mtime": 1783492977.4735267,
+    "ast_hash": "f409829bdc6ce869d145b0946fdbbf9e",
+    "semantic_hash": "f409829bdc6ce869d145b0946fdbbf9e"
+  },
+  "src/main/resources/assets/litematica/models/block/orange_glass_pane_fallback_noside_alt.json": {
+    "mtime": 1783492977.4735267,
+    "ast_hash": "465e22a68b13467ff0113f6a7e72952a",
+    "semantic_hash": "465e22a68b13467ff0113f6a7e72952a"
+  },
+  "src/main/resources/assets/litematica/models/block/orange_glass_pane_fallback_post.json": {
+    "mtime": 1783492977.4746175,
+    "ast_hash": "3a75fbaa8e0803ecf0472e9f6011fe2e",
+    "semantic_hash": "3a75fbaa8e0803ecf0472e9f6011fe2e"
+  },
+  "src/main/resources/assets/litematica/models/block/orange_glass_pane_fallback_side.json": {
+    "mtime": 1783492977.4746175,
+    "ast_hash": "e4befe8ed38825f24883b408c3eb5e31",
+    "semantic_hash": "e4befe8ed38825f24883b408c3eb5e31"
+  },
+  "src/main/resources/assets/litematica/models/block/orange_glass_pane_fallback_side_alt.json": {
+    "mtime": 1783492977.4746175,
+    "ast_hash": "b29216b4603c9a663321f5b86b0dac0e",
+    "semantic_hash": "b29216b4603c9a663321f5b86b0dac0e"
+  },
+  "src/main/resources/assets/litematica/models/block/pink_glass_fallback.json": {
+    "mtime": 1783492977.4756403,
+    "ast_hash": "03e4fc32dbeac737e1329d8a6d210810",
+    "semantic_hash": "03e4fc32dbeac737e1329d8a6d210810"
+  },
+  "src/main/resources/assets/litematica/models/block/pink_glass_pane_fallback_noside.json": {
+    "mtime": 1783492977.4756403,
+    "ast_hash": "2c564519064aaba5f92c4cf81bba475f",
+    "semantic_hash": "2c564519064aaba5f92c4cf81bba475f"
+  },
+  "src/main/resources/assets/litematica/models/block/pink_glass_pane_fallback_noside_alt.json": {
+    "mtime": 1783492977.4756403,
+    "ast_hash": "5854adf080ba3d5165acb85cc6dab75c",
+    "semantic_hash": "5854adf080ba3d5165acb85cc6dab75c"
+  },
+  "src/main/resources/assets/litematica/models/block/pink_glass_pane_fallback_post.json": {
+    "mtime": 1783492977.4766872,
+    "ast_hash": "c5b3160d974e4edd9d6378be0d2f3150",
+    "semantic_hash": "c5b3160d974e4edd9d6378be0d2f3150"
+  },
+  "src/main/resources/assets/litematica/models/block/pink_glass_pane_fallback_side.json": {
+    "mtime": 1783492977.4766872,
+    "ast_hash": "b1f74f43f7b798e6fd95eac7666cbf93",
+    "semantic_hash": "b1f74f43f7b798e6fd95eac7666cbf93"
+  },
+  "src/main/resources/assets/litematica/models/block/pink_glass_pane_fallback_side_alt.json": {
+    "mtime": 1783492977.4777725,
+    "ast_hash": "d353c23f51638e8c83ead3beb80a7970",
+    "semantic_hash": "d353c23f51638e8c83ead3beb80a7970"
+  },
+  "src/main/resources/assets/litematica/models/block/purple_glass_fallback.json": {
+    "mtime": 1783492977.4777725,
+    "ast_hash": "fe3998d4320051d2a1b8282ada728e9c",
+    "semantic_hash": "fe3998d4320051d2a1b8282ada728e9c"
+  },
+  "src/main/resources/assets/litematica/models/block/purple_glass_pane_fallback_noside.json": {
+    "mtime": 1783492977.4777725,
+    "ast_hash": "60d59bcbfa4f0bb88894c98385491a69",
+    "semantic_hash": "60d59bcbfa4f0bb88894c98385491a69"
+  },
+  "src/main/resources/assets/litematica/models/block/purple_glass_pane_fallback_noside_alt.json": {
+    "mtime": 1783492977.4787822,
+    "ast_hash": "61a0e5f9f3cc2d2a788f0901098593ff",
+    "semantic_hash": "61a0e5f9f3cc2d2a788f0901098593ff"
+  },
+  "src/main/resources/assets/litematica/models/block/purple_glass_pane_fallback_post.json": {
+    "mtime": 1783492977.4787822,
+    "ast_hash": "abbfe3dd1dde9aa3b053b99920d4cf7c",
+    "semantic_hash": "abbfe3dd1dde9aa3b053b99920d4cf7c"
+  },
+  "src/main/resources/assets/litematica/models/block/purple_glass_pane_fallback_side.json": {
+    "mtime": 1783492977.4797828,
+    "ast_hash": "50e7d82edfe44f97f034f2503fdd91fe",
+    "semantic_hash": "50e7d82edfe44f97f034f2503fdd91fe"
+  },
+  "src/main/resources/assets/litematica/models/block/purple_glass_pane_fallback_side_alt.json": {
+    "mtime": 1783492977.4802868,
+    "ast_hash": "1abb681650eb7dcc75ce05ed1dbefc54",
+    "semantic_hash": "1abb681650eb7dcc75ce05ed1dbefc54"
+  },
+  "src/main/resources/assets/litematica/models/block/red_glass_fallback.json": {
+    "mtime": 1783492977.4802868,
+    "ast_hash": "20fe28bcac723d13acbf3e3b602d1806",
+    "semantic_hash": "20fe28bcac723d13acbf3e3b602d1806"
+  },
+  "src/main/resources/assets/litematica/models/block/red_glass_pane_fallback_noside.json": {
+    "mtime": 1783492977.4802868,
+    "ast_hash": "d7afe12e04b91a1b24b547c5baceed55",
+    "semantic_hash": "d7afe12e04b91a1b24b547c5baceed55"
+  },
+  "src/main/resources/assets/litematica/models/block/red_glass_pane_fallback_noside_alt.json": {
+    "mtime": 1783492977.4813027,
+    "ast_hash": "e6dca939487a9b798298a8b49bfe2a99",
+    "semantic_hash": "e6dca939487a9b798298a8b49bfe2a99"
+  },
+  "src/main/resources/assets/litematica/models/block/red_glass_pane_fallback_post.json": {
+    "mtime": 1783492977.4813027,
+    "ast_hash": "f7bfb0e135bc897c36417f873f5655f6",
+    "semantic_hash": "f7bfb0e135bc897c36417f873f5655f6"
+  },
+  "src/main/resources/assets/litematica/models/block/red_glass_pane_fallback_side.json": {
+    "mtime": 1783492977.4813027,
+    "ast_hash": "304fd18a0ad65bf5852c03060eed9e9b",
+    "semantic_hash": "304fd18a0ad65bf5852c03060eed9e9b"
+  },
+  "src/main/resources/assets/litematica/models/block/red_glass_pane_fallback_side_alt.json": {
+    "mtime": 1783492977.4813027,
+    "ast_hash": "796a504ccc449997bca6e6989adefc2c",
+    "semantic_hash": "796a504ccc449997bca6e6989adefc2c"
+  },
+  "src/main/resources/assets/litematica/models/block/template_glass_pane_fallback_noside.json": {
+    "mtime": 1783492977.4813027,
+    "ast_hash": "31408351e7d0cfc7a61cae8023fe53cb",
+    "semantic_hash": "31408351e7d0cfc7a61cae8023fe53cb"
+  },
+  "src/main/resources/assets/litematica/models/block/template_glass_pane_fallback_noside_alt.json": {
+    "mtime": 1783492977.4813027,
+    "ast_hash": "e6730f24b76ae47dbabfcc0d53da3b40",
+    "semantic_hash": "e6730f24b76ae47dbabfcc0d53da3b40"
+  },
+  "src/main/resources/assets/litematica/models/block/template_glass_pane_fallback_post.json": {
+    "mtime": 1783492977.4832146,
+    "ast_hash": "dade5b521e32c83c4b756e4e2a330c4a",
+    "semantic_hash": "dade5b521e32c83c4b756e4e2a330c4a"
+  },
+  "src/main/resources/assets/litematica/models/block/template_glass_pane_fallback_side.json": {
+    "mtime": 1783492977.4832146,
+    "ast_hash": "5b505056ca3db463f5658c3df1e5ea12",
+    "semantic_hash": "5b505056ca3db463f5658c3df1e5ea12"
+  },
+  "src/main/resources/assets/litematica/models/block/template_glass_pane_fallback_side_alt.json": {
+    "mtime": 1783492977.4832146,
+    "ast_hash": "9e204d769ad675761888feb8fce278c9",
+    "semantic_hash": "9e204d769ad675761888feb8fce278c9"
+  },
+  "src/main/resources/assets/litematica/models/block/tinted_glass_fallback.json": {
+    "mtime": 1783492977.4847353,
+    "ast_hash": "0b6361c5473f1baf1f6910ccbe64bab2",
+    "semantic_hash": "0b6361c5473f1baf1f6910ccbe64bab2"
+  },
+  "src/main/resources/assets/litematica/models/block/white_glass_fallback.json": {
+    "mtime": 1783492977.4847353,
+    "ast_hash": "16814c14126be4c224825619a1eecd69",
+    "semantic_hash": "16814c14126be4c224825619a1eecd69"
+  },
+  "src/main/resources/assets/litematica/models/block/white_glass_pane_fallback_noside.json": {
+    "mtime": 1783492977.485778,
+    "ast_hash": "ae274f1f3282c4baa669a0fd644554ee",
+    "semantic_hash": "ae274f1f3282c4baa669a0fd644554ee"
+  },
+  "src/main/resources/assets/litematica/models/block/white_glass_pane_fallback_noside_alt.json": {
+    "mtime": 1783492977.485778,
+    "ast_hash": "de9c3acedcb0915cd7c347e34a09dfcc",
+    "semantic_hash": "de9c3acedcb0915cd7c347e34a09dfcc"
+  },
+  "src/main/resources/assets/litematica/models/block/white_glass_pane_fallback_post.json": {
+    "mtime": 1783492977.485778,
+    "ast_hash": "dfb930d2070d84c61ab4fc4e8cb18647",
+    "semantic_hash": "dfb930d2070d84c61ab4fc4e8cb18647"
+  },
+  "src/main/resources/assets/litematica/models/block/white_glass_pane_fallback_side.json": {
+    "mtime": 1783492977.485778,
+    "ast_hash": "1f29885503fab2990fa9263442792029",
+    "semantic_hash": "1f29885503fab2990fa9263442792029"
+  },
+  "src/main/resources/assets/litematica/models/block/white_glass_pane_fallback_side_alt.json": {
+    "mtime": 1783492977.4872823,
+    "ast_hash": "27dd47fd3f4c0548fcf62c5456de15f8",
+    "semantic_hash": "27dd47fd3f4c0548fcf62c5456de15f8"
+  },
+  "src/main/resources/assets/litematica/models/block/yellow_glass_fallback.json": {
+    "mtime": 1783492977.4872823,
+    "ast_hash": "95022e84304c7c434d8c95da50823c3c",
+    "semantic_hash": "95022e84304c7c434d8c95da50823c3c"
+  },
+  "src/main/resources/assets/litematica/models/block/yellow_glass_pane_fallback_noside.json": {
+    "mtime": 1783492977.488398,
+    "ast_hash": "5b4adf266e9af7134087cbd8905f4b0f",
+    "semantic_hash": "5b4adf266e9af7134087cbd8905f4b0f"
+  },
+  "src/main/resources/assets/litematica/models/block/yellow_glass_pane_fallback_noside_alt.json": {
+    "mtime": 1783492977.488398,
+    "ast_hash": "71608fc0b54635f108c8488bc1660c2f",
+    "semantic_hash": "71608fc0b54635f108c8488bc1660c2f"
+  },
+  "src/main/resources/assets/litematica/models/block/yellow_glass_pane_fallback_post.json": {
+    "mtime": 1783492977.488398,
+    "ast_hash": "32d09a94735870f37b6be6d367274537",
+    "semantic_hash": "32d09a94735870f37b6be6d367274537"
+  },
+  "src/main/resources/assets/litematica/models/block/yellow_glass_pane_fallback_side.json": {
+    "mtime": 1783492977.489399,
+    "ast_hash": "7945b5154cfa47a6d7fd0459d5abc912",
+    "semantic_hash": "7945b5154cfa47a6d7fd0459d5abc912"
+  },
+  "src/main/resources/assets/litematica/models/block/yellow_glass_pane_fallback_side_alt.json": {
+    "mtime": 1783492977.4899037,
+    "ast_hash": "d955d74d4aafc028bc470da5ccbc4a42",
+    "semantic_hash": "d955d74d4aafc028bc470da5ccbc4a42"
+  },
+  "src/main/resources/fabric.mod.json": {
+    "mtime": 1783492977.5104592,
+    "ast_hash": "ba7754f3ffae530290cab2b54c0f66e9",
+    "semantic_hash": "ba7754f3ffae530290cab2b54c0f66e9"
+  },
+  "src/main/resources/mixins.litematica.json": {
+    "mtime": 1783492977.5104592,
+    "ast_hash": "88acbc748a85a1c3d979e44ae9f59155",
+    "semantic_hash": "88acbc748a85a1c3d979e44ae9f59155"
+  }
+}

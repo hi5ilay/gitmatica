@@ -26,6 +26,44 @@ public final class LvcCreateProjectAction
     {
     }
 
+    public static void createFromAreaEditor(net.minecraft.client.gui.screens.Screen parent)
+    {
+        GuiLvcTextInputDialog inputGui = new GuiLvcTextInputDialog(
+                512,
+                "litematica.gui.title.lvc_project_manager.create_project",
+                "",
+                parent,
+                value -> null,
+                name ->
+                {
+                    if (name == null || name.isBlank()) return false;
+                    Minecraft mc = Minecraft.getInstance();
+                    if (mc.player == null || mc.level == null) return false;
+                    AreaSelection selection = DataManager.getSelectionManager().getCurrentSelection();
+                    if (selection == null || selection.getAllSubRegionBoxes().isEmpty()) return false;
+                    try
+                    {
+                        LvcPlayerIdentity identity = new LvcPlayerIdentity(mc.player.getName().getString(), mc.player.getUUID());
+                        Optional<LvcOperationHandle> handle = LvcTaskRegistry.tryAcquire("LVC Create Project", mc.gameDirectory.toPath());
+                        if (handle.isEmpty()) return false;
+                        var captureWorld = LvcWorldAccess.resolveSemanticCaptureWorld(mc.level);
+                        LvcSemanticInitProjectTask task = new LvcSemanticInitProjectTask(
+                                handle.get(), mc.gameDirectory.toPath(), name.trim(), identity, captureWorld, selection,
+                                LvcTaskCallbacks.of(
+                                        result -> GuiBase.openGui(new GuiLvcProjectManager(result.repositoryDirectory(), result.repositoryDirectory().getFileName().toString())),
+                                        e -> LvcGuiMessages.show(fi.dy.masa.malilib.gui.Message.MessageType.ERROR, "litematica.error.lvc_project.create_failed", e.getMessage()),
+                                        () -> { }
+                                )
+                        );
+                        LvcTaskScheduling.scheduleForWorld(captureWorld, task);
+                        return true;
+                    }
+                    catch (Exception e) { return false; }
+                }
+        );
+        GuiBase.openGui(inputGui);
+    }
+
     public static void createFromSaveGui(GuiSchematicSaveBase gui, @Nullable String repositoryName)
     {
         Minecraft minecraft = Minecraft.getInstance();

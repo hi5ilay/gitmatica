@@ -207,6 +207,7 @@ public final class LvcSemanticRestoreEngine
         if (this.rewriteIndex == 0)
         {
             this.clearLiveEntities("initial rewrite");
+            this.clearStaleScheduledTicks();
         }
 
         if (this.rewriteIndex < this.pendingRewriteRealChunkKeys.size())
@@ -463,6 +464,15 @@ public final class LvcSemanticRestoreEngine
         return new RewriteTarget(block.coordinate(), block.maskIndex(), block.trackedOrdinal(), block.projectPos(),
                 block.blockPos(), blockState, block.blockEntityBytes(),
                 LvcSemanticWorldApplier.parseRestoreBlockState(blockState));
+    }
+
+    private void clearStaleScheduledTicks()
+    {
+        if (this.pendingRewriteRealChunkKeys.isEmpty()) return;
+        it.unimi.dsi.fastutil.longs.LongOpenHashSet chunkKeys = new it.unimi.dsi.fastutil.longs.LongOpenHashSet(this.pendingRewriteRealChunkKeys);
+        int cleared = me.niicide.lvc.semantic.LvcSemanticWorldApplier.clearScheduledTicksInTrackedChunks(this.world, chunkKeys);
+        LvcDiagnostics.debug("semantic {} cleared stale scheduled ticks before rewrite commit={} realChunks={} clearedContainers={}",
+                this.operationName, this.commitId, chunkKeys.size(), cleared);
     }
 
     private int clearLiveEntities(String reason) throws IOException

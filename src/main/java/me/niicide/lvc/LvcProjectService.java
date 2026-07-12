@@ -362,6 +362,11 @@ public final class LvcProjectService
         return LvcGitRemoteOps.pull(repositoryDirectory);
     }
 
+    public static LvcGitRemoteOps.PullOutcome pullWithOutcome(Path repositoryDirectory) throws GitAPIException, IOException
+    {
+        return LvcGitRemoteOps.pullWithOutcome(repositoryDirectory);
+    }
+
     public static String describeRemoteFailure(Throwable throwable)
     {
         return LvcGitRemoteOps.describeRemoteFailure(throwable);

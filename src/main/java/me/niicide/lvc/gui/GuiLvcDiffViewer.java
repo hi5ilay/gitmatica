@@ -1,11 +1,16 @@
 package me.niicide.lvc.gui;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import javax.annotation.Nullable;
+import org.apache.commons.lang3.tuple.Pair;
+import me.niicide.lvc.LvcProjectService;
+import me.niicide.lvc.overlay.LvcTrackingOverlayService;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
@@ -58,10 +63,11 @@ public class GuiLvcDiffViewer extends GuiListBase<GuiLvcDiffViewer.DiffEntry, Wi
     private final EnumMap<DiffKind, Boolean> kindExpanded = new EnumMap<>(DiffKind.class);
     private boolean kindDefaultsInitialized;
     @Nullable private BlockMismatch inventoryPreviewMismatch;
+    DiffFilter activeFilter = DiffFilter.ALL;
 
     public GuiLvcDiffViewer(SchematicPlacement placement)
     {
-        super(10, 60);
+        super(10, 68);
         this.title = StringUtils.translate("litematica.gui.title.lvc_diff_viewer", placement.getName());
         this.placement = placement;
         this.verifier = placement.getSchematicVerifier();
@@ -69,6 +75,7 @@ public class GuiLvcDiffViewer extends GuiListBase<GuiLvcDiffViewer.DiffEntry, Wi
         this.sectionExpanded.put(DiffSection.INVENTORIES, this.verifier.getWrongInventories() > 0);
         this.sectionExpanded.put(DiffSection.BLOCKS, true);
         this.sectionExpanded.put(DiffSection.ENTITIES, false);
+        this.sectionExpanded.put(DiffSection.UNTRACKED, false);
 
         if (this.verifier != verifierLast)
         {
@@ -86,7 +93,7 @@ public class GuiLvcDiffViewer extends GuiListBase<GuiLvcDiffViewer.DiffEntry, Wi
     @Override
     public int getBrowserHeight()
     {
-        return this.getScreenHeight() - 94;
+        return this.getScreenHeight() - 102;
     }
 
     @Override
@@ -97,22 +104,61 @@ public class GuiLvcDiffViewer extends GuiListBase<GuiLvcDiffViewer.DiffEntry, Wi
         int x = 12;
         int y = 20;
 
+        x += this.createButton(x, y, -1, ButtonListener.Type.TOGGLE_VIEW_PARENT) + 4;
         x += this.createButton(x, y, -1, ButtonListener.Type.START) + 4;
         x += this.createButton(x, y, -1, ButtonListener.Type.STOP) + 4;
-        x += this.createButton(x, y, -1, ButtonListener.Type.RESET_VERIFIER) + 4;
         x += this.createButton(x, y, -1, ButtonListener.Type.SET_LIST_TYPE) + 4;
         x += this.createButton(x, y, -1, ButtonListener.Type.RESET_IGNORED) + 4;
         this.createButton(x, y, -1, ButtonListener.Type.TOGGLE_INFO_HUD);
 
-        y = this.getScreenHeight() - 36;
+        y = 44;
+        x = 12;
+        for (DiffFilter filter : DiffFilter.values())
+        {
+            String filterLabel = StringUtils.translate(filter.translationKey);
+            int w = this.getStringWidth(filterLabel) + 10;
+            ButtonGeneric filterButton = new ButtonGeneric(x, y, w, 20, filterLabel);
+            filterButton.setEnabled(this.activeFilter != filter);
+            this.addButton(filterButton, new FilterButtonListener(filter, this));
+            x += w + 4;
+        }
+
+        y = this.getScreenHeight() - 46;
         this.addStatusLabels(y);
 
-        ButtonListenerChangeMenu.ButtonType type = ButtonListenerChangeMenu.ButtonType.MAIN_MENU;
-        String label = StringUtils.translate(type.getLabelKey());
-        int buttonWidth = this.getStringWidth(label) + 20;
-        x = this.getScreenWidth() - buttonWidth - 10;
-        ButtonGeneric button = new ButtonGeneric(x, y, buttonWidth, 20, label);
-        this.addButton(button, new ButtonListenerChangeMenu(type, this.getParent()));
+        y = this.getScreenHeight() - 24;
+        ButtonListenerChangeMenu.ButtonType mainMenuType = ButtonListenerChangeMenu.ButtonType.MAIN_MENU;
+        String mainMenuLabel = StringUtils.translate(mainMenuType.getLabelKey());
+        int mainMenuWidth = this.getStringWidth(mainMenuLabel) + 20;
+        x = this.getScreenWidth() - mainMenuWidth - 10;
+        this.addButton(new ButtonGeneric(x, y, mainMenuWidth, 20, mainMenuLabel),
+                new ButtonListenerChangeMenu(mainMenuType, this.getParent()));
+
+        String pmLabel = StringUtils.translate("litematica.gui.button.lvc_project.back_to_manager");
+        int pmWidth = this.getStringWidth(pmLabel) + 20;
+        x -= pmWidth + 4;
+        Path repoDir = LvcTrackingOverlayService.semanticTrackingRepositoryDirectory(this.placement.getSchematicFile());
+        if (repoDir != null)
+        {
+            final Path finalRepoDir = repoDir;
+            ButtonGeneric pmButton = new ButtonGeneric(x, y, pmWidth, 20, pmLabel);
+            this.addButton(pmButton, (btn, mb) ->
+            {
+                try
+                {
+                    String projectName = finalRepoDir.getFileName().toString();
+                    GuiBase.openGui(new GuiLvcProjectManager(finalRepoDir, projectName));
+                }
+                catch (Exception ignored) { }
+            });
+
+            // 3D View button â€” shows HEAD vs parent diff
+            String view3dLabel = "3D View";
+            int view3dWidth = this.getStringWidth(view3dLabel) + 20;
+            x -= view3dWidth + 4;
+            ButtonGeneric view3dBtn = new ButtonGeneric(x, y, view3dWidth, 20, view3dLabel);
+            this.addButton(view3dBtn, (btn, mb) -> this.open3DView(finalRepoDir));
+        }
     }
 
     private void addStatusLabels(int y)
@@ -128,12 +174,18 @@ public class GuiLvcDiffViewer extends GuiListBase<GuiLvcDiffViewer.DiffEntry, Wi
         if (this.verifier.isFinished())
         {
             DiffCounts counts = this.diffCounts();
-            String str = StringUtils.translate("litematica.gui.label.lvc_diff_viewer.status.blocks",
-                    counts.added(), counts.removed(), counts.changedStates(), counts.changedBlocks());
-            this.addLabel(12, y, 100, 12, 0xFFF0F0F0, str);
-            str = StringUtils.translate("litematica.gui.label.schematic_verifier.status.done_correct_total",
-                    this.verifier.getCorrectStatesCount(), this.verifier.getSchematicTotalBlocks());
-            this.addLabel(12, y + 14, 100, 12, 0xFFF0F0F0, str);
+            String g = GuiBase.TXT_GREEN, r = GuiBase.TXT_RED, y2 = GuiBase.TXT_YELLOW, rst = GuiBase.TXT_RST;
+            int invChanged = this.verifier.getWrongInventories();
+
+            String blocksLine = StringUtils.translate("litematica.gui.label.lvc_diff_viewer.status.blocks_detailed",
+                    y2 + counts.changedBlocks() + rst, g + counts.added() + rst, r + counts.removed() + rst);
+            String invLine = StringUtils.translate("litematica.gui.label.lvc_diff_viewer.status.inventories_detailed",
+                    y2 + invChanged + rst);
+            String entitiesLine = StringUtils.translate("litematica.gui.label.lvc_diff_viewer.status.entities_detailed");
+
+            this.addLabel(12, y, 100, 12, 0xFFF0F0F0, blocksLine);
+            this.addLabel(12, y + 11, 100, 12, 0xFFF0F0F0, invLine);
+            this.addLabel(12, y + 22, 100, 12, 0xFFF0F0F0, entitiesLine);
         }
     }
 
@@ -145,6 +197,9 @@ public class GuiLvcDiffViewer extends GuiListBase<GuiLvcDiffViewer.DiffEntry, Wi
 
         switch (type)
         {
+            case TOGGLE_VIEW_PARENT:
+                label = StringUtils.translate("litematica.gui.button.lvc_diff_viewer.view_parent");
+                break;
             case START:
                 if (this.verifier.isPaused())
                 {
@@ -152,12 +207,12 @@ public class GuiLvcDiffViewer extends GuiListBase<GuiLvcDiffViewer.DiffEntry, Wi
                 }
                 else
                 {
-                    label = StringUtils.translate("litematica.gui.button.schematic_verifier.start");
+                    label = StringUtils.translate("litematica.gui.button.lvc_diff_viewer.start_scan");
                     enabled = !this.verifier.isActive();
                 }
                 break;
             case STOP:
-                label = StringUtils.translate("litematica.gui.button.schematic_verifier.stop");
+                label = StringUtils.translate("litematica.gui.button.lvc_diff_viewer.stop_scan");
                 enabled = this.verifier.isActive();
                 break;
             case RESET_VERIFIER:
@@ -165,7 +220,7 @@ public class GuiLvcDiffViewer extends GuiListBase<GuiLvcDiffViewer.DiffEntry, Wi
                 enabled = this.verifier.isActive() || this.verifier.isPaused() || this.verifier.isFinished();
                 break;
             case SET_LIST_TYPE:
-                label = StringUtils.translate("litematica.gui.button.schematic_verifier.range_type",
+                label = StringUtils.translate("litematica.gui.button.lvc_diff_viewer.range",
                         this.placement.getSchematicVerifierType().getDisplayName());
                 break;
             case RESET_IGNORED:
@@ -174,8 +229,8 @@ public class GuiLvcDiffViewer extends GuiListBase<GuiLvcDiffViewer.DiffEntry, Wi
                 break;
             case TOGGLE_INFO_HUD:
                 boolean val = InfoHud.getInstance().isEnabled() && this.verifier.getShouldRenderText(RenderPhase.POST);
-                String str = (val ? TXT_GREEN : TXT_RED) + StringUtils.translate("litematica.message.value." + (val ? "on" : "off")) + TXT_RST;
-                label = StringUtils.translate("litematica.gui.button.schematic_verifier.toggle_info_hud", str);
+                String onOff = (val ? TXT_GREEN : TXT_RED) + StringUtils.translate("litematica.message.value." + (val ? "on" : "off")) + TXT_RST;
+                label = StringUtils.translate("litematica.gui.button.lvc_diff_viewer.info_hud", onOff);
                 break;
         }
 
@@ -188,6 +243,50 @@ public class GuiLvcDiffViewer extends GuiListBase<GuiLvcDiffViewer.DiffEntry, Wi
         button.setEnabled(enabled);
         this.addButton(button, listener);
         return width;
+    }
+
+    private void open3DView(Path repoDir)
+    {
+        try
+        {
+            org.eclipse.jgit.lib.ObjectId head = me.niicide.lvc.storage.LvcRepository.resolveHead(repoDir);
+
+            if (head == null)
+            {
+                LvcGuiMessages.show(fi.dy.masa.malilib.gui.Message.MessageType.ERROR,
+                        "litematica.error.lvc_project.friendly_missing_head");
+                return;
+            }
+
+            try (org.eclipse.jgit.api.Git git = org.eclipse.jgit.api.Git.open(repoDir.toFile());
+                 org.eclipse.jgit.revwalk.RevWalk revWalk = new org.eclipse.jgit.revwalk.RevWalk(git.getRepository()))
+            {
+                org.eclipse.jgit.revwalk.RevCommit headCommit = revWalk.parseCommit(head);
+
+                if (headCommit.getParentCount() == 0)
+                {
+                    LvcGuiMessages.show(fi.dy.masa.malilib.gui.Message.MessageType.ERROR,
+                            "litematica.error.lvc_project.friendly_missing_head");
+                    return;
+                }
+
+                org.eclipse.jgit.revwalk.RevCommit parent = revWalk.parseCommit(headCommit.getParent(0));
+                String headLabel = headCommit.getName().substring(0, 7);
+                String parentLabel = parent.getName().substring(0, 7);
+
+                GuiBase.openGui(new GuiLvcDiff3DViewer(
+                        repoDir,
+                        parent.getName(), parentLabel,
+                        headCommit.getName(), headLabel,
+                        this
+                ));
+            }
+        }
+        catch (Exception e)
+        {
+            LvcGuiMessages.show(fi.dy.masa.malilib.gui.Message.MessageType.ERROR,
+                    "litematica.error.lvc_project.friendly_unexpected", "3D View");
+        }
     }
 
     public SchematicPlacement getPlacement()
@@ -388,7 +487,8 @@ public class GuiLvcDiffViewer extends GuiListBase<GuiLvcDiffViewer.DiffEntry, Wi
     {
         INVENTORIES("litematica.gui.label.lvc_diff_viewer.inventories"),
         BLOCKS("litematica.gui.label.lvc_diff_viewer.blocks"),
-        ENTITIES("litematica.gui.label.lvc_diff_viewer.entities");
+        ENTITIES("litematica.gui.label.lvc_diff_viewer.entities"),
+        UNTRACKED("litematica.gui.label.lvc_diff_viewer.untracked");
 
         private final String translationKey;
 
@@ -403,20 +503,38 @@ public class GuiLvcDiffViewer extends GuiListBase<GuiLvcDiffViewer.DiffEntry, Wi
         }
     }
 
+    public enum DiffFilter
+    {
+        ALL("litematica.gui.button.lvc_diff_viewer.filter.all"),
+        ENTITIES("litematica.gui.button.lvc_diff_viewer.filter.entities"),
+        BLOCKS("litematica.gui.button.lvc_diff_viewer.filter.blocks"),
+        INVENTORIES("litematica.gui.button.lvc_diff_viewer.filter.inventories"),
+        METADATA("litematica.gui.button.lvc_diff_viewer.filter.metadata");
+
+        final String translationKey;
+
+        DiffFilter(String translationKey)
+        {
+            this.translationKey = translationKey;
+        }
+    }
+
     public enum DiffKind
     {
-        ADDED("litematica.gui.label.lvc_diff_viewer.added", GuiBase.TXT_GREEN),
-        REMOVED("litematica.gui.label.lvc_diff_viewer.removed", GuiBase.TXT_RED),
-        CHANGED_STATES("litematica.gui.label.lvc_diff_viewer.changed_states", GuiBase.TXT_YELLOW),
-        CHANGED_BLOCKS("litematica.gui.label.lvc_diff_viewer.changed_blocks", GuiBase.TXT_GOLD);
+        ADDED("litematica.gui.label.lvc_diff_viewer.added", GuiBase.TXT_GREEN, "[+]"),
+        REMOVED("litematica.gui.label.lvc_diff_viewer.removed", GuiBase.TXT_RED, "[-]"),
+        CHANGED_STATES("litematica.gui.label.lvc_diff_viewer.changed_states", GuiBase.TXT_YELLOW, "[*]"),
+        CHANGED_BLOCKS("litematica.gui.label.lvc_diff_viewer.changed_blocks", GuiBase.TXT_GOLD, "[*]");
 
         private final String translationKey;
         private final String colorCode;
+        private final String prefix;
 
-        DiffKind(String translationKey, String colorCode)
+        DiffKind(String translationKey, String colorCode, String prefix)
         {
             this.translationKey = translationKey;
             this.colorCode = colorCode;
+            this.prefix = prefix;
         }
 
         public String displayName()
@@ -426,7 +544,7 @@ public class GuiLvcDiffViewer extends GuiListBase<GuiLvcDiffViewer.DiffEntry, Wi
 
         public String formattedDisplayName()
         {
-            return this.colorCode + this.displayName() + GuiBase.TXT_RST;
+            return this.prefix + " " + this.colorCode + this.displayName() + GuiBase.TXT_RST;
         }
     }
 
@@ -507,6 +625,9 @@ public class GuiLvcDiffViewer extends GuiListBase<GuiLvcDiffViewer.DiffEntry, Wi
                     BlockInfoListType type = this.parent.placement.getSchematicVerifierType();
                     this.parent.placement.setSchematicVerifierType((BlockInfoListType) type.cycle(mouseButton == 0));
                     break;
+                case TOGGLE_VIEW_PARENT:
+                    // view parent toggle - UI placeholder for future parent-overlay comparison
+                    break;
                 case RESET_IGNORED:
                     this.parent.verifier.resetIgnoredStateMismatches();
                     break;
@@ -535,7 +656,18 @@ public class GuiLvcDiffViewer extends GuiListBase<GuiLvcDiffViewer.DiffEntry, Wi
             RESET_VERIFIER,
             SET_LIST_TYPE,
             RESET_IGNORED,
-            TOGGLE_INFO_HUD
+            TOGGLE_INFO_HUD,
+            TOGGLE_VIEW_PARENT
+        }
+    }
+
+    private record FilterButtonListener(DiffFilter filter, GuiLvcDiffViewer parent) implements IButtonActionListener
+    {
+        @Override
+        public void actionPerformedWithButton(ButtonBase button, int mouseButton)
+        {
+            this.parent.activeFilter = this.filter;
+            this.parent.initGui();
         }
     }
 }
@@ -613,9 +745,16 @@ class WidgetListLvcDiffViewerEntries extends WidgetListBase<GuiLvcDiffViewer.Dif
 
         this.parent.initializeKindDefaults(counts);
         WidgetLvcDiffViewerEntry.setMaxNameLengths(allMismatches);
-        this.addInventorySection(inventoryDiffs, inventoryCount);
-        this.addBlockSection(diffs, counts);
-        this.addSection(GuiLvcDiffViewer.DiffSection.ENTITIES, 0);
+
+        GuiLvcDiffViewer.DiffFilter filter = this.parent.activeFilter;
+        boolean showInventories = filter == GuiLvcDiffViewer.DiffFilter.ALL || filter == GuiLvcDiffViewer.DiffFilter.INVENTORIES;
+        boolean showBlocks = filter == GuiLvcDiffViewer.DiffFilter.ALL || filter == GuiLvcDiffViewer.DiffFilter.BLOCKS;
+        boolean showEntities = filter == GuiLvcDiffViewer.DiffFilter.ALL || filter == GuiLvcDiffViewer.DiffFilter.ENTITIES;
+
+        if (showInventories) this.addInventorySection(inventoryDiffs, inventoryCount);
+        if (showBlocks) this.addBlockSection(diffs, counts);
+        if (showEntities) this.addSection(GuiLvcDiffViewer.DiffSection.ENTITIES, 0);
+        if (filter == GuiLvcDiffViewer.DiffFilter.ALL) this.addUntrackedSection();
         this.reCreateListEntryWidgets();
 
         if (!this.scrollbarRestored && lastScrollbarPosition <= this.scrollBar.getMaxValue())
@@ -695,6 +834,30 @@ class WidgetListLvcDiffViewerEntries extends WidgetListBase<GuiLvcDiffViewer.Dif
                     }
                 }
             }
+        }
+    }
+
+    private void addUntrackedSection()
+    {
+        Set<Pair<net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.block.state.BlockState>> ignored =
+                this.parent.getPlacement().getSchematicVerifier().getIgnoredMismatches();
+        this.listContents.add(GuiLvcDiffViewer.DiffEntry.section(GuiLvcDiffViewer.DiffSection.UNTRACKED, ignored.size()));
+
+        if (!this.parent.isSectionExpanded(GuiLvcDiffViewer.DiffSection.UNTRACKED))
+        {
+            return;
+        }
+
+        if (ignored.isEmpty())
+        {
+            this.listContents.add(GuiLvcDiffViewer.DiffEntry.empty(StringUtils.translate("litematica.gui.label.lvc_diff_viewer.empty_category")));
+            return;
+        }
+
+        for (Pair<net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.block.state.BlockState> pair : ignored)
+        {
+            BlockMismatch mismatch = new BlockMismatch(SchematicVerifier.MismatchType.WRONG_STATE, pair.getLeft(), pair.getRight(), 1);
+            this.listContents.add(GuiLvcDiffViewer.DiffEntry.inventory(mismatch));
         }
     }
 
